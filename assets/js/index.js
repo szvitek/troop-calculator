@@ -1,12 +1,17 @@
 // THEME TOGGLE
+
+// Define valid themes
+const validThemes = ["light", "dark", "auto"];
+
 // Check for saved preference; if none, default to 'auto'
 const getStoredTheme = () => localStorage.getItem("theme");
 const setStoredTheme = (theme) => localStorage.setItem("theme", theme);
 
-const getPreferredTheme = () => {
-  const storedTheme = getStoredTheme();
-  // Default to 'auto' if the user hasn't picked anything yet
-  return storedTheme ? storedTheme : "auto";
+// The Normalization Logic
+const getNormalizedTheme = () => {
+  const stored = getStoredTheme();
+  // If it's valid, use it. If not (null or "bad"), return "auto".
+  return validThemes.includes(stored) ? stored : "auto";
 };
 
 const setTheme = (theme) => {
@@ -59,7 +64,7 @@ const showActiveTheme = (theme) => {
 };
 
 // Initial Setup
-const initialTheme = getPreferredTheme();
+const initialTheme = getNormalizedTheme();
 setTheme(initialTheme);
 
 window.addEventListener("DOMContentLoaded", () => {
