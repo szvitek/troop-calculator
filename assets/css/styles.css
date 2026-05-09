@@ -87,22 +87,6 @@
   color: #adb5bd;
 }
 
-/* Specific override for readability in dark mode */
-[data-bs-theme="dark"] .unit-count-output[readonly] {
-  background-color: #f8f9fa !important; /* Light background for clear text */
-  color: #212529 !important; /* Dark text */
-  opacity: 1; /* Prevents Bootstrap from fading it */
-}
-
-/* If you prefer a dark-on-dark look, use this instead: */
-/*
-[data-bs-theme="dark"] .unit-count-output[readonly] {
-    background-color: #1a1d20 !important;
-    color: #00ffcc !important;
-    opacity: 1;
-}
-*/
-
 /* Styling the span to look like a clean, readable input */
 .unit-count-output {
   background-color: #ffffff;
