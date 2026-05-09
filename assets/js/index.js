@@ -225,7 +225,20 @@ function attachGlobalEvents() {
   ];
   statsInputs.forEach((id) => {
     const el = document.getElementById(id);
-    if (el) el.addEventListener("input", calculateTroops);
+    if (!el) return;
+
+    // Use 'input' so the numbers update in real-time as they type
+    el.addEventListener("input", (e) => {
+      let val = parseFloat(e.target.value);
+
+      // 1. Instant Clamp: If they type a negative, force it to 0 immediately
+      if (val < 0) {
+        e.target.value = 0;
+      }
+
+      // 2. Always Calculate: This runs for any value >= 0
+      calculateTroops();
+    });
   });
 }
 
