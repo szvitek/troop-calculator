@@ -24,23 +24,38 @@ const setTheme = (theme) => {
 
 const showActiveTheme = (theme) => {
   const activeThemeIcon = document.querySelector(".theme-icon-active");
-  const btnToActivate = document.querySelector(
+  // 1. Try to find the button
+  let btnToActivate = document.querySelector(
     `[data-bs-theme-value="${theme}"]`,
   );
 
-  // Remove active class and checkmarks from all
+  // 2. Defensive Fallback: If theme is invalid/missing, default to 'auto'
+  if (!btnToActivate) {
+    console.warn(`Theme "${theme}" not found, falling back to auto.`);
+    btnToActivate = document.querySelector('[data-bs-theme-value="auto"]');
+  }
+
+  // 3. Absolute Safety: Exit if even the fallback isn't found
+  if (!btnToActivate || !activeThemeIcon) return;
+
+  // 4. Reset all buttons (Remove active class and hide checkmarks)
   document.querySelectorAll("[data-bs-theme-value]").forEach((element) => {
     element.classList.remove("active");
-    element.querySelector(".bi-check2").classList.add("d-none");
+    const checkIcon = element.querySelector(".bi-check2");
+    if (checkIcon) checkIcon.classList.add("d-none");
   });
 
-  // Add active class and checkmark to selected
+  // 5. Activate the selected button
   btnToActivate.classList.add("active");
-  btnToActivate.querySelector(".bi-check2").classList.remove("d-none");
+  const activeCheck = btnToActivate.querySelector(".bi-check2");
+  if (activeCheck) activeCheck.classList.remove("d-none");
 
-  // Update the main navbar icon to match selection
-  const iconClass = btnToActivate.querySelector("i").classList[1];
-  activeThemeIcon.className = `bi ${iconClass} me-2 theme-icon-active`;
+  // 6. Update the main navbar icon (Class-based logic)
+  const iconInBtn = btnToActivate.querySelector("i");
+  if (iconInBtn) {
+    const iconClass = iconInBtn.classList[1]; // Grabs the second class, e.g., 'bi-moon-stars-fill'
+    activeThemeIcon.className = `bi ${iconClass} me-2 theme-icon-active`;
+  }
 };
 
 // Initial Setup
