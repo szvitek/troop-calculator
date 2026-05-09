@@ -161,5 +161,27 @@
         </div>
       </div>
     </template>
+
+    <template id="unit-item-template">
+      <div class="unit-item d-flex flex-column">
+        <div class="input-group input-group-sm">
+          <div class="input-group-text">
+            <input class="form-check-input unit-check" type="checkbox" />
+          </div>
+          <span class="input-group-text flex-grow-1 unit-name-label"></span>
+          <span
+            class="form-control text-end fw-bold unit-count-output d-flex align-items-center justify-content-end"
+            style="max-width: 75px; min-height: 31px"
+            >0</span
+          >
+        </div>
+        <div
+          class="d-flex justify-content-between align-items-center px-1 mt-1"
+        >
+          <span class="dmg-label">TOTAL DMG</span>
+          <span class="fw-bold unit-dmg-output">0</span>
+        </div>
+      </div>
+    </template>
   </body>
 </html>

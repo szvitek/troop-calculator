@@ -109,34 +109,36 @@ function renderGuardsmen(data, colorMap) {
 
     const container = clone.querySelector(".unit-slot-container");
 
-    tier.units.forEach((unit) => {
-      const unitDiv = document.createElement("div");
-      unitDiv.className = "unit-item d-flex flex-column";
-      const safeId = unit.name.replace(/\s+/g, "-").toLowerCase();
+    const unitTemplate = document.getElementById("unit-item-template");
 
-      unitDiv.innerHTML = `
-            <div class="input-group input-group-sm">
-                <div class="input-group-text">
-                    <input class="form-check-input unit-check" type="checkbox" 
-                        data-tier="${tier.tierId}" 
-                        data-dmg="${unit.dmg}" 
-                        data-leadership="${unit.leadership}"
-                        id="check-${safeId}">
-                </div>
-                <span class="input-group-text flex-grow-1 unit-name-label">${unit.name}</span>
-                
-                <!-- Changed from <input> to <span> for better styling control -->
-                <span class="form-control text-end fw-bold unit-count-output d-flex align-items-center justify-content-end" 
-                    id="count-${safeId}" 
-                    style="max-width: 75px; border-color: ${tierColor}66; min-height: 31px;">0</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center px-1 mt-1">
-                <span class="dmg-label">TOTAL DMG</span>
-                <span class="fw-bold unit-dmg-output" id="dmg-${safeId}" 
-                    style="color: ${tierColor}; background: ${tierColor}20;">0</span>
-            </div>
-        `;
-      container.appendChild(unitDiv);
+    tier.units.forEach((unit) => {
+      const unitClone = unitTemplate.content.cloneNode(true);
+      const safeId = unit.name.replace(/\s+/g, "-").toLowerCase();
+      const tierColor = colorMap[String(tier.tierId)] || "#dc3545";
+
+      // 1. Setup Checkbox
+      const check = unitClone.querySelector(".unit-check");
+      check.id = `check-${safeId}`;
+      check.dataset.tier = tier.tierId;
+      check.dataset.dmg = unit.dmg;
+      check.dataset.leadership = unit.leadership;
+
+      // 2. Setup Name Label
+      const nameLabel = unitClone.querySelector(".unit-name-label");
+      nameLabel.textContent = unit.name;
+
+      // 3. Setup Count Output (the Span)
+      const countSpan = unitClone.querySelector(".unit-count-output");
+      countSpan.id = `count-${safeId}`;
+      countSpan.style.borderColor = `${tierColor}66`;
+
+      // 4. Setup Damage Output
+      const dmgSpan = unitClone.querySelector(".unit-dmg-output");
+      dmgSpan.id = `dmg-${safeId}`;
+      dmgSpan.style.color = tierColor;
+      dmgSpan.style.background = `${tierColor}20`;
+
+      container.appendChild(unitClone);
     });
 
     root.appendChild(clone);
