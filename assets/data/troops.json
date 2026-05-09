@@ -1,0 +1,128 @@
+[
+  {
+    "category": "guardsmen",
+    "tierId": 1,
+    "units": [
+      { "name": "Archer I", "dmg": 50, "hp": 150, "leadership": 1 },
+      { "name": "Spearman I", "dmg": 50, "hp": 150, "leadership": 1 },
+      { "name": "Rider I", "dmg": 100, "hp": 300, "leadership": 2 }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 2,
+    "units": [
+      { "name": "Archer II", "dmg": 90, "hp": 270, "leadership": 1 },
+      { "name": "Spearman II", "dmg": 90, "hp": 270, "leadership": 1 },
+      { "name": "Rider II", "dmg": 180, "hp": 540, "leadership": 2 }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 3,
+    "units": [
+      { "name": "Archer III", "dmg": 160, "hp": 480, "leadership": 1 },
+      { "name": "Spearman III", "dmg": 160, "hp": 480, "leadership": 1 },
+      { "name": "Rider III", "dmg": 320, "hp": 960, "leadership": 2 }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 4,
+    "units": [
+      { "name": "Archer IV", "dmg": 290, "hp": 870, "leadership": 1 },
+      { "name": "Spearman IV", "dmg": 290, "hp": 870, "leadership": 1 },
+      { "name": "Rider IV", "dmg": 580, "hp": 1740, "leadership": 2 }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 5,
+    "units": [
+      { "name": "Archer V", "dmg": 520, "hp": 1560, "leadership": 1 },
+      { "name": "Spearman V", "dmg": 520, "hp": 1560, "leadership": 1 },
+      { "name": "Rider V", "dmg": 1050, "hp": 3150, "leadership": 2 },
+      {
+        "name": "Battle Griffin V",
+        "dmg": 10000,
+        "hp": 30000,
+        "leadership": 20
+      }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 6,
+    "units": [
+      {
+        "name": "Heavy Arbalester VI",
+        "dmg": 940,
+        "hp": 2820,
+        "leadership": 1
+      },
+      {
+        "name": "Heavy Halberdier VI",
+        "dmg": 940,
+        "hp": 2820,
+        "leadership": 1
+      },
+      { "name": "Mounted Knight VI", "dmg": 1900, "hp": 5700, "leadership": 2 },
+      {
+        "name": "Battle Griffin VI",
+        "dmg": 19000,
+        "hp": 57000,
+        "leadership": 20
+      }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 7,
+    "units": [
+      {
+        "name": "Heavy Arbalester VII",
+        "dmg": 1700,
+        "hp": 5100,
+        "leadership": 1
+      },
+      {
+        "name": "Heavy Halberdier VII",
+        "dmg": 1700,
+        "hp": 5100,
+        "leadership": 1
+      },
+      {
+        "name": "Mounted Knight VII",
+        "dmg": 3400,
+        "hp": 10200,
+        "leadership": 2
+      },
+      {
+        "name": "Battle Griffin VII",
+        "dmg": 34000,
+        "hp": 102000,
+        "leadership": 20
+      }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 8,
+    "units": [
+      { "name": "Purifier I", "dmg": 3060, "hp": 9180, "leadership": 1 },
+      { "name": "Punisher I", "dmg": 3060, "hp": 9180, "leadership": 1 },
+      { "name": "Smiter I", "dmg": 6120, "hp": 18360, "leadership": 2 },
+      { "name": "Corax I", "dmg": 183600, "hp": 550800, "leadership": 20 }
+    ]
+  },
+  {
+    "category": "guardsmen",
+    "tierId": 9,
+    "units": [
+      { "name": "Purifier II", "dmg": 5510, "hp": 16530, "leadership": 1 },
+      { "name": "Punisher II", "dmg": 5510, "hp": 16530, "leadership": 1 },
+      { "name": "Smiter II", "dmg": 11020, "hp": 33060, "leadership": 2 },
+      { "name": "Corax II", "dmg": 110200, "hp": 330600, "leadership": 20 }
+    ]
+  }
+]

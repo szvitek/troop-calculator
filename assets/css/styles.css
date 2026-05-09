@@ -1,0 +1,125 @@
+/* The Grid System for Units */
+.unit-slot-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 12px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .unit-slot-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .unit-slot-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Alignment Fixes */
+.unit-item .input-group-text {
+  background-color: #ffffff;
+}
+
+.unit-name-label {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* DMG Readout Styling */
+.unit-dmg-output {
+  font-family: monospace;
+  font-size: 0.85rem;
+  padding: 2px 5px;
+  background: #fff5f5;
+  border-radius: 4px;
+}
+
+.dmg-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #888;
+}
+
+.tier-card {
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+/* Subtle highlight when a unit is checked */
+.tier-card:has(.unit-check:checked) {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.unit-dmg-output {
+  /* The 10 at the end of background in JS provides 10% opacity */
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Dark Mode Specific Adjustments */
+[data-bs-theme="dark"] .unit-name-label {
+  background-color: #2b3035 !important;
+  color: #dee2e6 !important;
+  border-color: #495057;
+}
+
+[data-bs-theme="dark"] .unit-count-output {
+  background-color: #1a1d20 !important;
+  color: #ffffff !important; /* Forces the number to be bright white */
+  border-color: #495057;
+}
+
+[data-bs-theme="dark"] .input-group-text {
+  background-color: #2b3035;
+  color: #dee2e6;
+  border-color: #495057;
+}
+
+/* Ensure the 'TOTAL DMG' text remains visible */
+[data-bs-theme="dark"] .dmg-label {
+  color: #adb5bd;
+}
+
+/* Specific override for readability in dark mode */
+[data-bs-theme="dark"] .unit-count-output[readonly] {
+  background-color: #f8f9fa !important; /* Light background for clear text */
+  color: #212529 !important; /* Dark text */
+  opacity: 1; /* Prevents Bootstrap from fading it */
+}
+
+/* If you prefer a dark-on-dark look, use this instead: */
+/*
+[data-bs-theme="dark"] .unit-count-output[readonly] {
+    background-color: #1a1d20 !important;
+    color: #00ffcc !important;
+    opacity: 1;
+}
+*/
+
+/* Styling the span to look like a clean, readable input */
+.unit-count-output {
+  background-color: #ffffff;
+  color: #212529 !important;
+  font-size: 0.9rem;
+  padding-right: 8px;
+}
+
+/* Dark Mode: High Contrast */
+[data-bs-theme="dark"] .unit-count-output {
+  background-color: #1a1d20 !important;
+  color: #ffffff !important; /* Pure white text */
+  border: 1px solid #495057;
+}
+
+/* Keep the unit name label consistent */
+[data-bs-theme="dark"] .unit-name-label {
+  background-color: #2b3035;
+  color: #dee2e6;
+}

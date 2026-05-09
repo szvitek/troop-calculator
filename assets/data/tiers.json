@@ -1,0 +1,11 @@
+[
+  { "id": 1, "code": "I", "color": "gray", "hex": "#6c757d" },
+  { "id": 2, "code": "II", "color": "green", "hex": "#198754" },
+  { "id": 3, "code": "III", "color": "blue", "hex": "#0d6efd" },
+  { "id": 4, "code": "IV", "color": "purple", "hex": "#6f42c1" },
+  { "id": 5, "code": "V", "color": "gold", "hex": "#ffc107" },
+  { "id": 6, "code": "VI", "color": "red", "hex": "#dc3545" },
+  { "id": 7, "code": "VII", "color": "dark-gold", "hex": "#b8860b" },
+  { "id": 8, "code": "VIII", "color": "gray-pro", "hex": "#495057" },
+  { "id": 9, "code": "IX", "color": "green-pro", "hex": "#0f5132" }
+]
