@@ -98,9 +98,6 @@ async function initApp() {
       colorMap[t.id] = t.hex;
     });
 
-    console.log("tiersData", tiersData);
-    console.log("colorMap", colorMap);
-
     renderGuardsmen(troopsData, colorMap);
   } catch (err) {
     console.error("Failed to load configuration:", err);
