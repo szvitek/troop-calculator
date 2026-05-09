@@ -199,7 +199,7 @@ function calculateTroops() {
 // GLOBAL EVENT LISTENERS
 function attachGlobalEvents() {
   document.addEventListener("change", (e) => {
-    // 1. If we clicked a Master Check, toggle the children first
+    // 1. MASTER -> CHILDREN (Existing)
     if (e.target.classList.contains("tier-master-check")) {
       const tierId = e.target.dataset.tier;
       const checks = document.querySelectorAll(
@@ -208,7 +208,33 @@ function attachGlobalEvents() {
       checks.forEach((c) => (c.checked = e.target.checked));
     }
 
-    // 2. Now that the UI state is updated, calculate for either case
+    // 2. CHILDREN -> MASTER (The Fix)
+    if (e.target.classList.contains("unit-check")) {
+      const tierId = e.target.dataset.tier;
+      // Find the master checkbox for this specific tier
+      const master = document.querySelector(
+        `.tier-master-check[data-tier="${tierId}"]`,
+      );
+
+      if (master) {
+        const allInTier = document.querySelectorAll(
+          `.unit-check[data-tier="${tierId}"]`,
+        );
+        const checkedInTier = document.querySelectorAll(
+          `.unit-check[data-tier="${tierId}"]:checked`,
+        );
+
+        // If all are checked, master is checked.
+        // If even one is missing, master is unchecked.
+        master.checked = allInTier.length === checkedInTier.length;
+
+        // Optional: Add "indeterminate" state (the horizontal dash)
+        master.indeterminate =
+          checkedInTier.length > 0 && checkedInTier.length < allInTier.length;
+      }
+    }
+
+    // 3. ALWAYS CALCULATE
     if (
       e.target.classList.contains("tier-master-check") ||
       e.target.classList.contains("unit-check")
