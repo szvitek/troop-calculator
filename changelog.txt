@@ -1,0 +1,15 @@
+v0.2.1 - 2026-05-09
+-------------------
+- Added changelog
+
+v0.2.0 — 2026-05-09
+-------------------
+- Refactored unit rendering using HTML templates.
+- Added two-way sync for tier/unit checkboxes.
+- Fixed theme engine crash on invalid localStorage values.
+- Enhanced dark mode contrast for troop counts.
+
+v0.1.0 — 2026-05-09
+-------------------
+- Initial prototype with Guardsmen calculation logic.
+- Added theme switcher and stat persistence.

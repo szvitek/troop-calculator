@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A2R Troops Stack Calculator</title>
+    <title>A2R Troops Stacking Calculator</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <!-- Bootstrap Icons CDN -->
     <link
@@ -17,9 +17,19 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="#">
-          A2R Troops Stack Calculator
-        </a>
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand fw-bold me-2" href="#">
+            A2R Troops Stacking Calculator
+          </a>
+          <a
+            href="#accordionExample"
+            class="badge rounded-pill bg-secondary text-decoration-none"
+            id="versionLink"
+            style="cursor: pointer"
+          >
+            v0.2.1
+          </a>
+        </div>
 
         <div class="nav-item dropdown">
           <button
@@ -76,7 +86,7 @@
     </nav>
     <main class="container">
       <div>
-        <h1 class="text-center my-4">A2R Troops Stack Calculator</h1>
+        <h1 class="text-center my-4">A2R Troops Stacking Calculator</h1>
       </div>
 
       <!-- Stats Input Row -->
@@ -135,6 +145,44 @@
 
       <!-- Container where rows will be injected -->
       <div id="guardsmen-root" class="mt-3"></div>
+
+      <div class="accordion mb-4" id="accordionExample">
+        <div class="accordion-item bg-transparent">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button collapsed bg-transparent text-secondary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="false"
+              aria-controls="collapseOne"
+            >
+              <small
+                ><i class="bi bi-clock-history me-2"></i> Version History &
+                Changelog</small
+              >
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div
+              class="accordion-body"
+              id="changelogContent"
+              style="
+                white-space: pre-wrap;
+                font-family: monospace;
+                font-size: 0.85rem;
+              "
+            >
+              Loading changelog...
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- The Blueprint -->

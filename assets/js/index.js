@@ -287,5 +287,45 @@ function attachGlobalEvents() {
   });
 }
 
+document
+  .getElementById("collapseOne")
+  .addEventListener("show.bs.collapse", function () {
+    const contentDiv = document.getElementById("changelogContent");
+
+    // Only fetch if it hasn't been loaded yet
+    if (contentDiv.innerText.includes("Loading changelog...")) {
+      fetch("changelog.txt")
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.text();
+        })
+        .then((text) => {
+          contentDiv.innerText = text;
+        })
+        .catch((err) => {
+          contentDiv.innerText =
+            "Error loading changelog. Please try again later.";
+          console.error("Fetch error:", err);
+        });
+    }
+  });
+
+document.getElementById("versionLink").addEventListener("click", function (e) {
+  e.preventDefault(); // Prevent the default jump
+
+  const changelogCollapse = document.getElementById("collapseOne");
+  const bsCollapse = new bootstrap.Collapse(changelogCollapse, {
+    toggle: false,
+  });
+
+  // 1. Open the accordion
+  bsCollapse.show();
+
+  // 2. Smoothly scroll to the accordion
+  document.getElementById("accordionExample").scrollIntoView({
+    behavior: "smooth",
+  });
+});
+
 // Start
 initApp();
