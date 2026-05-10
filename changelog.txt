@@ -1,3 +1,8 @@
+v0.3.0 - 2026-05-10
+-------------------
+[NEW] Added "How to Stack" Guide: A floating help button now provides a detailed breakdown of stacking strategy and combat mechanics.
+[PERF] Dynamic Versioning: The header badge now automatically syncs with the latest changelog entry.
+
 v0.2.2 - 2026-05-10
 -------------------
 [FIX] Improved header responsiveness: Theme selector is now pinned to the right.

@@ -310,7 +310,7 @@ document
     }
   });
 
-document.getElementById("versionLink").addEventListener("click", function (e) {
+document.getElementById("versionBadge").addEventListener("click", function (e) {
   e.preventDefault(); // Prevent the default jump
 
   const changelogCollapse = document.getElementById("collapseOne");
@@ -326,6 +326,27 @@ document.getElementById("versionLink").addEventListener("click", function (e) {
     behavior: "smooth",
   });
 });
+
+async function updateVersionFromChangelog() {
+  try {
+    const response = await fetch("changelog.txt");
+    const text = await response.text();
+
+    // This regex looks for "v" followed by numbers and dots at the start of a line
+    const versionMatch = text.match(/^v\d+\.\d+\.\d+/m);
+
+    if (versionMatch) {
+      const latestVersion = versionMatch[0];
+      document.getElementById("versionBadge").textContent = latestVersion;
+      console.log(`Version updated to: ${latestVersion}`);
+    }
+  } catch (error) {
+    console.error("Could not sync version number:", error);
+  }
+}
+
+// Call this when the page loads
+document.addEventListener("DOMContentLoaded", updateVersionFromChangelog);
 
 // Start
 initApp();
