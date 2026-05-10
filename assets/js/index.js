@@ -322,7 +322,7 @@ document.getElementById("versionLink").addEventListener("click", function (e) {
   bsCollapse.show();
 
   // 2. Smoothly scroll to the accordion
-  document.getElementById("accordionExample").scrollIntoView({
+  document.getElementById("changelog").scrollIntoView({
     behavior: "smooth",
   });
 });
