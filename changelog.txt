@@ -1,15 +1,22 @@
+v0.2.2 - 2026-05-10
+-------------------
+[FIX] Improved header responsiveness: Theme selector is now pinned to the right.
+[FIX] Brand title now truncates on small screens to prevent layout breaking.
+
 v0.2.1 - 2026-05-10
 -------------------
-- Added changelog
+[NEW] Integrated external changelog.txt loading via Fetch API.
+[NEW] Added collapsible Version History section at the bottom of the page.
+[NEW] Added smooth-scroll jump from version tag to changelog.
 
-v0.2.0 — 2026-05-09
+v0.2.0 - 2026-05-09
 -------------------
-- Refactored unit rendering using HTML templates.
-- Added two-way sync for tier/unit checkboxes.
-- Fixed theme engine crash on invalid localStorage values.
-- Enhanced dark mode contrast for troop counts.
+[PERF] Refactored unit rendering using HTML templates.
+[NEW] Added two-way sync for tier/unit checkboxes.
+[FIX] Fixed theme engine crash on invalid localStorage values.
+[STYLE] Enhanced dark mode contrast for troop counts.
 
-v0.1.0 — 2026-05-09
+v0.1.0 - 2026-05-09
 -------------------
-- Initial prototype with Guardsmen calculation logic.
-- Added theme switcher and stat persistence.
+[NEW] Initial prototype with Guardsmen calculation logic.
+[NEW] Added theme switcher and stat persistence.

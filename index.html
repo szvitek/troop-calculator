@@ -15,72 +15,72 @@
     <script src="assets/js/index.js" defer></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-      <div class="container">
-        <div class="d-flex align-items-center">
-          <a class="navbar-brand fw-bold me-2" href="#">
+    <nav class="navbar navbar-dark bg-primary shadow-sm">
+      <div
+        class="container d-flex justify-content-between align-items-center flex-nowrap"
+      >
+        <div class="d-flex align-items-center overflow-hidden me-2">
+          <a
+            class="navbar-brand fw-bold text-truncate mb-0"
+            href="#"
+            style="font-size: 1rem"
+          >
             A2R Troops Stacking Calculator
           </a>
           <a
             href="#changelog"
-            class="badge rounded-pill bg-secondary text-decoration-none"
+            class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0 ms-2"
             id="versionLink"
-            style="cursor: pointer"
           >
-            v0.2.1
+            v0.2.2
           </a>
         </div>
 
-        <div class="nav-item dropdown">
-          <button
-            class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
-            id="bd-theme"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <!-- This icon will change dynamically based on the active theme -->
-            <i class="bi bi-circle-half me-2 theme-icon-active"></i>
-            <span class="d-none d-lg-inline">Theme</span>
-          </button>
-          <ul
-            class="dropdown-menu dropdown-menu-end shadow"
-            aria-labelledby="bd-theme"
-          >
-            <li>
-              <button
-                type="button"
-                class="dropdown-item d-flex align-items-center active"
-                data-bs-theme-value="light"
-              >
-                <i class="bi bi-sun-fill me-2 opacity-50"></i>
-                Light
-                <i class="bi bi-check2 ms-auto d-none"></i>
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                class="dropdown-item d-flex align-items-center"
-                data-bs-theme-value="dark"
-              >
-                <i class="bi bi-moon-stars-fill me-2 opacity-50"></i>
-                Dark
-                <i class="bi bi-check2 ms-auto d-none"></i>
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                class="dropdown-item d-flex align-items-center"
-                data-bs-theme-value="auto"
-              >
-                <i class="bi bi-circle-half me-2 opacity-50"></i>
-                Auto
-                <i class="bi bi-check2 ms-auto d-none"></i>
-              </button>
-            </li>
-          </ul>
+        <div class="flex-shrink-0">
+          <div class="nav-item dropdown">
+            <button
+              class="btn btn-link nav-link dropdown-toggle d-flex align-items-center text-white border-0"
+              id="bd-theme"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-circle-half theme-icon-active"></i>
+              <span class="d-none d-sm-inline ms-2">Theme</span>
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-end shadow"
+              aria-labelledby="bd-theme"
+            >
+              <li>
+                <button
+                  type="button"
+                  class="dropdown-item d-flex align-items-center active"
+                  data-bs-theme-value="light"
+                >
+                  <i class="bi bi-sun-fill me-2"></i> Light
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="dropdown-item d-flex align-items-center"
+                  data-bs-theme-value="dark"
+                >
+                  <i class="bi bi-moon-stars-fill me-2"></i> Dark
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="dropdown-item d-flex align-items-center"
+                  data-bs-theme-value="auto"
+                >
+                  <i class="bi bi-circle-half me-2"></i> Auto
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
