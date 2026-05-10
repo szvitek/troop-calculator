@@ -98,58 +98,64 @@ async function initApp() {
       colorMap[t.id] = t.hex;
     });
 
-    renderGuardsmen(troopsData, colorMap);
+    const categoryConfigs = [
+      { name: "guardsmen", rootId: "guardsmen-container", prefix: "G" },
+      { name: "specialists", rootId: "specialists-container", prefix: "S" },
+    ];
+
+    // Render each category generically
+    categoryConfigs.forEach((config) => {
+      renderTroops(troopsData, colorMap, config);
+    });
   } catch (err) {
     console.error("Failed to load configuration:", err);
   }
 }
 
-function renderGuardsmen(data, colorMap) {
-  const root = document.getElementById("guardsmen-root");
-  const template = document.getElementById("tier-row-template");
-  const guardsmen = data.filter((item) => item.category === "guardsmen");
+function renderTroops(data, colorMap, config) {
+  const root = document.getElementById(config.rootId);
+  if (!root) return; // Skip if tab doesn't exist in HTML yet
 
-  guardsmen.forEach((tier) => {
+  const template = document.getElementById("tier-row-template");
+  const unitTemplate = document.getElementById("unit-item-template");
+
+  // Filter by the specific category (guardsmen, specialists, etc.)
+  const filteredTiers = data.filter((item) => item.category === config.name);
+
+  filteredTiers.forEach((tier) => {
     const clone = template.content.cloneNode(true);
 
     const masterCheck = clone.querySelector(".tier-master-check");
     masterCheck.dataset.tier = tier.tierId;
+    masterCheck.dataset.category = config.name; // Tag for event bubbling
 
-    // Pull the color from our new colorMap using the tierId
     const tierColor = colorMap[tier.tierId] || "#dc3545";
-    const card = clone.querySelector(".tier-card");
-    card.style.borderColor = tierColor;
+    clone.querySelector(".tier-card").style.borderColor = tierColor;
 
     const labelText = clone.querySelector(".tier-label-text");
     labelText.style.color = tierColor;
-    labelText.textContent = `G${tier.tierId}`;
+    // Dynamic label: G1, S5, etc.
+    labelText.textContent = `${config.prefix}${tier.tierId}`;
 
     const container = clone.querySelector(".unit-slot-container");
-
-    const unitTemplate = document.getElementById("unit-item-template");
 
     tier.units.forEach((unit) => {
       const unitClone = unitTemplate.content.cloneNode(true);
       const safeId = unit.name.replace(/\s+/g, "-").toLowerCase();
-      const tierColor = colorMap[String(tier.tierId)] || "#dc3545";
 
-      // 1. Setup Checkbox
       const check = unitClone.querySelector(".unit-check");
       check.id = `check-${safeId}`;
       check.dataset.tier = tier.tierId;
+      check.dataset.category = config.name; // Keep context
       check.dataset.dmg = unit.dmg;
       check.dataset.leadership = unit.leadership;
 
-      // 2. Setup Name Label
-      const nameLabel = unitClone.querySelector(".unit-name-label");
-      nameLabel.textContent = unit.name;
+      unitClone.querySelector(".unit-name-label").textContent = unit.name;
 
-      // 3. Setup Count Output (the Span)
       const countSpan = unitClone.querySelector(".unit-count-output");
       countSpan.id = `count-${safeId}`;
       countSpan.style.borderColor = `${tierColor}66`;
 
-      // 4. Setup Damage Output
       const dmgSpan = unitClone.querySelector(".unit-dmg-output");
       dmgSpan.id = `dmg-${safeId}`;
       dmgSpan.style.color = tierColor;
@@ -221,33 +227,36 @@ function attachGlobalEvents() {
     // 1. MASTER -> CHILDREN (Existing)
     if (e.target.classList.contains("tier-master-check")) {
       const tierId = e.target.dataset.tier;
+      const category = e.target.dataset.category;
+      // Only select checkboxes that match BOTH the tier AND the category
       const checks = document.querySelectorAll(
-        `.unit-check[data-tier="${tierId}"]`,
+        `.unit-check[data-tier="${tierId}"][data-category="${category}"]`,
       );
       checks.forEach((c) => (c.checked = e.target.checked));
     }
 
-    // 2. CHILDREN -> MASTER (The Fix)
+    // 2. CHILDREN -> MASTER (Scoped by Category)
     if (e.target.classList.contains("unit-check")) {
       const tierId = e.target.dataset.tier;
-      // Find the master checkbox for this specific tier
+      const category = e.target.dataset.category; // Grab the category
+
+      // Find the master check that matches BOTH tier and category
       const master = document.querySelector(
-        `.tier-master-check[data-tier="${tierId}"]`,
+        `.tier-master-check[data-tier="${tierId}"][data-category="${category}"]`,
       );
 
       if (master) {
         const allInTier = document.querySelectorAll(
-          `.unit-check[data-tier="${tierId}"]`,
+          `.unit-check[data-tier="${tierId}"][data-category="${category}"]`,
         );
         const checkedInTier = document.querySelectorAll(
-          `.unit-check[data-tier="${tierId}"]:checked`,
+          `.unit-check[data-tier="${tierId}"][data-category="${category}"]:checked`,
         );
 
-        // If all are checked, master is checked.
-        // If even one is missing, master is unchecked.
+        // Sync master state
         master.checked = allInTier.length === checkedInTier.length;
 
-        // Optional: Add "indeterminate" state (the horizontal dash)
+        // "Indeterminate" state logic
         master.indeterminate =
           checkedInTier.length > 0 && checkedInTier.length < allInTier.length;
       }

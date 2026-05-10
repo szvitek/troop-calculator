@@ -124,5 +124,79 @@
       { "name": "Smiter II", "dmg": 11020, "hp": 33060, "leadership": 2 },
       { "name": "Corax II", "dmg": 110200, "hp": 330600, "leadership": 20 }
     ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 1,
+    "units": [{ "name": "Swordsman I", "dmg": 50, "hp": 150, "leadership": 1 }]
+  },
+  {
+    "category": "specialists",
+    "tierId": 2,
+    "units": [{ "name": "Swordsman II", "dmg": 90, "hp": 270, "leadership": 1 }]
+  },
+  {
+    "category": "specialists",
+    "tierId": 3,
+    "units": [
+      { "name": "Swordsman III", "dmg": 160, "hp": 480, "leadership": 1 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 4,
+    "units": [
+      { "name": "Swordsman IV", "dmg": 290, "hp": 870, "leadership": 1 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 5,
+    "units": [
+      { "name": "Swordsman V", "dmg": 520, "hp": 1560, "leadership": 1 },
+      { "name": "Deadshot V", "dmg": 520, "hp": 1560, "leadership": 1 },
+      { "name": "Lion Rider V", "dmg": 1050, "hp": 3150, "leadership": 2 },
+      { "name": "Vulture V", "dmg": 520, "hp": 1560, "leadership": 1 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 6,
+    "units": [
+      { "name": "Heavy Knight VI", "dmg": 940, "hp": 2820, "leadership": 1 },
+      { "name": "Deadshot VI", "dmg": 940, "hp": 2820, "leadership": 1 },
+      { "name": "Lion Rider VI", "dmg": 1900, "hp": 5700, "leadership": 2 },
+      { "name": "Vulture VI", "dmg": 940, "hp": 2820, "leadership": 1 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 7,
+    "units": [
+      { "name": "Heavy Knight VII", "dmg": 1700, "hp": 5100, "leadership": 1 },
+      { "name": "Deadshot VII", "dmg": 1700, "hp": 5100, "leadership": 1 },
+      { "name": "Lion Rider VII", "dmg": 3400, "hp": 10200, "leadership": 2 },
+      { "name": "Vulture VII", "dmg": 1700, "hp": 5100, "leadership": 1 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 8,
+    "units": [
+      { "name": "Legitimist I", "dmg": 3060, "hp": 9180, "leadership": 1 },
+      { "name": "Duelist I", "dmg": 3060, "hp": 9180, "leadership": 1 },
+      { "name": "Whitemane I", "dmg": 6120, "hp": 18360, "leadership": 2 },
+      { "name": "Royal Lion I", "dmg": 61200, "hp": 183600, "leadership": 20 }
+    ]
+  },
+  {
+    "category": "specialists",
+    "tierId": 9,
+    "units": [
+      { "name": "Legitimist II", "dmg": 5510, "hp": 16530, "leadership": 1 },
+      { "name": "Duelist II", "dmg": 5510, "hp": 16530, "leadership": 1 },
+      { "name": "Whitemane II", "dmg": 11020, "hp": 33060, "leadership": 2 },
+      { "name": "Royal Lion II", "dmg": 110200, "hp": 330600, "leadership": 20 }
+    ]
   }
 ]

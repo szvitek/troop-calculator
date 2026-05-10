@@ -143,8 +143,122 @@
         </div>
       </div>
 
-      <!-- Container where rows will be injected -->
-      <div id="guardsmen-root" class="mt-3"></div>
+      <ul
+        class="nav nav-pills nav-fill mb-3 gap-2"
+        id="unitTabs"
+        role="tablist"
+      >
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active shadow-sm border"
+            id="guards-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#guards-content"
+            type="button"
+            role="tab"
+          >
+            <i class="bi bi-shield-shaded"></i> Guards
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link shadow-sm border"
+            id="specs-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#specs-content"
+            type="button"
+            role="tab"
+          >
+            <i class="bi bi-star-fill"></i> Specs
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link shadow-sm border"
+            id="siege-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#siege-content"
+            type="button"
+            role="tab"
+            disabled
+          >
+            <i class="bi bi-tools"></i> Siege
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link shadow-sm border"
+            id="monster-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#monster-content"
+            type="button"
+            role="tab"
+            disabled
+          >
+            <i class="bi bi-bug-fill"></i> Monsters
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link shadow-sm border"
+            id="mercenaries-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#mercenaries-content"
+            type="button"
+            role="tab"
+            disabled
+          >
+            <i class="bi bi-coin"></i> Mercs
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="unitTabsContent">
+        <div
+          class="tab-pane fade show active"
+          id="guards-content"
+          role="tabpanel"
+          aria-labelledby="guards-tab"
+        >
+          <div id="guardsmen-container" class="row g-2"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="specs-content"
+          role="tabpanel"
+          aria-labelledby="specs-tab"
+        >
+          <div id="specialists-container" class="row g-2"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="siege-content"
+          role="tabpanel"
+          aria-labelledby="siege-tab"
+        >
+          <div id="siege-container" class="row g-2"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="monster-content"
+          role="tabpanel"
+          aria-labelledby="monster-tab"
+        >
+          <div id="monster-container" class="row g-2"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="mercenaries-content"
+          role="tabpanel"
+          aria-labelledby="mercenaries-tab"
+        >
+          <div id="mercenaries-container" class="row g-2"></div>
+        </div>
+      </div>
 
       <button
         type="button"
@@ -260,11 +374,11 @@
                     <div class="alert alert-warning py-2 shadow-sm">
                       <small>
                         <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                        <strong>Note on Damage:</strong> Adding more tiers
-                        lowers the total damage of each individual slot. The
-                        goal is for <strong>every tier</strong> to secure kills.
-                        Check your in-game journal; if a tier shows 0 kills, try
-                        selecting fewer tiers.
+                        <strong>Note on Damage:</strong> Adding more type of
+                        troops lowers the total damage of each individual slot.
+                        The goal is for <strong>every type of unit</strong> to
+                        secure kills. Check your in-game journal; if a tier
+                        shows 0 kills, try selecting fewer types or tiers.
                       </small>
                     </div>
                   </li>

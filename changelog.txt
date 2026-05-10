@@ -1,3 +1,10 @@
+v0.4.0 - 2026-05-10
+-------------------
+[NEW] Specialists Support: Added full support for Specialist units (S1-S9), including high-leadership units like Royal Lions.
+[NEW] Tabbed Interface: Refactored the UI into a tabbed layout (Guards, Specialists, Monsters, Mercs) for better mobile navigation.
+[PERF] Generic Render Engine: Refactored JavaScript to use a category-agnostic rendering system, allowing for easier future troop additions.
+[FIX] Scoped Selection: Fixed an issue where "Select All" would toggle units across different categories; selections are now scoped to their specific tab.
+
 v0.3.0 - 2026-05-10
 -------------------
 [NEW] Added "How to Stack" Guide: A floating help button now provides a detailed breakdown of stacking strategy and combat mechanics.
