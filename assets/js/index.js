@@ -294,7 +294,7 @@ document
 
     // Only fetch if it hasn't been loaded yet
     if (contentDiv.innerText.includes("Loading changelog...")) {
-      fetch("changelog.txt")
+      fetch("./changelog.txt")
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
           return response.text();
