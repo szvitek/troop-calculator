@@ -101,6 +101,7 @@ async function initApp() {
     const categoryConfigs = [
       { name: "guardsmen", rootId: "guardsmen-container", prefix: "G" },
       { name: "specialists", rootId: "specialists-container", prefix: "S" },
+      { name: "catapults", rootId: "catapults-container", prefix: "E" },
     ];
 
     // Render each category generically

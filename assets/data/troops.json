@@ -198,5 +198,78 @@
       { "name": "Whitemane II", "dmg": 11020, "hp": 33060, "leadership": 2 },
       { "name": "Royal Lion II", "dmg": 110200, "hp": 330600, "leadership": 20 }
     ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 1,
+    "units": [
+      { "name": "Catapult I", "dmg": 250, "hp": 1500, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 2,
+    "units": [
+      { "name": "Catapult II", "dmg": 450, "hp": 2700, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 3,
+    "units": [
+      { "name": "Catapult III", "dmg": 810, "hp": 4860, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 4,
+    "units": [
+      { "name": "Catapult IV", "dmg": 1460, "hp": 8750, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 5,
+    "units": [
+      { "name": "Catapult V", "dmg": 2630, "hp": 15800, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 6,
+    "units": [
+      {
+        "name": "Siege Ballistae VI",
+        "dmg": 4730,
+        "hp": 28400,
+        "leadership": 10
+      }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 7,
+    "units": [
+      {
+        "name": "Siege Ballistae VII",
+        "dmg": 8500,
+        "hp": 51000,
+        "leadership": 10
+      }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 8,
+    "units": [
+      { "name": "Josephine I", "dmg": 15310, "hp": 91800, "leadership": 10 }
+    ]
+  },
+  {
+    "category": "catapults",
+    "tierId": 9,
+    "units": [
+      { "name": "Josephine II", "dmg": 27550, "hp": 165300, "leadership": 10 }
+    ]
   }
 ]

@@ -1,3 +1,7 @@
+v0.5.0 - 2026-05-10
+-------------------
+[NEW] Engineer Corps (Catapults): Integrated full data for T1-T9 Siege units
+
 v0.4.0 - 2026-05-10
 -------------------
 [NEW] Specialists Support: Added full support for Specialist units (S1-S9), including high-leadership units like Royal Lions.
