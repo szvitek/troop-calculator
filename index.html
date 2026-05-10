@@ -32,7 +32,7 @@
             class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0 ms-2"
             id="versionLink"
           >
-            v0.2.2
+            v0.0.0
           </a>
         </div>
 
@@ -145,6 +145,140 @@
 
       <!-- Container where rows will be injected -->
       <div id="guardsmen-root" class="mt-3"></div>
+
+      <button
+        type="button"
+        class="btn btn-primary rounded-circle shadow-lg"
+        data-bs-toggle="modal"
+        data-bs-target="#helpModal"
+        style="
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          z-index: 1050;
+        "
+      >
+        <i class="bi bi-question-lg"></i>
+      </button>
+
+      <div
+        class="modal fade"
+        id="helpModal"
+        tabindex="-1"
+        aria-labelledby="helpModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="helpModalLabel">
+                Guide: Troop Stacking
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h6 class="fw-bold">What is Stacking?</h6>
+              <p>
+                Troop stacking is a technique in Total Battle where you send
+                multiple tiers of troops together to maximize damage while
+                minimizing losses. By using lower-tier troops to fill your
+                capacity, retraining becomes significantly cheaper.
+              </p>
+
+              <p>
+                <strong>
+                  The goal is to outnumber the layers of the Epic monster to
+                  secure more guaranteed hits. Use stacking for repeated Epic
+                  attacks to ensure consistent results and stable rewards.
+                </strong>
+              </p>
+
+              <p>
+                If you go "all-in" with only your strongest tier, you might
+                occasionally see higher rewards, but it isn't guaranteed because
+                of how the
+                <a
+                  href="https://www.youtube.com/watch?v=8rdVjHNRXn0"
+                  target="_blank"
+                  class="text-info text-decoration-none fw-bold"
+                >
+                  <i class="bi bi-youtube"></i> combat system
+                </a>
+                works. You will also lose more units, and retraining best-tier
+                units requires more silver.
+                <strong>
+                  Stacking is a sustainable approach that saves resources and
+                  ensures you get consistent rewards.
+                </strong>
+              </p>
+
+              <h6 class="fw-bold">How the calculator works</h6>
+              <ul class="border-start border-2">
+                <li>
+                  <strong>Leadership:</strong> Enter your total troop capacity
+                  for the march.
+                </li>
+                <li>
+                  <strong>Selection:</strong> Pick the troops to include. The
+                  calculator automatically balances the stack for you.
+                </li>
+                <li>
+                  <strong>Logic:</strong> It uses the base damage of each unit
+                  and attempts to distribute the total damage equally across
+                  your selected tiers.
+                </li>
+                <li>
+                  <strong>Buffs:</strong> It doesn't account for hero talents,
+                  research, or equipment. Damage numbers are for relative
+                  comparison; if you upgrade your tiers equally, the proportions
+                  remain accurate.
+                </li>
+              </ul>
+
+              <h6 class="fw-bold mt-3">Pro-Tips</h6>
+              <div class="p-3 rounded border shadow-sm">
+                <ul class="ps-3 mb-0">
+                  <li>
+                    <strong>Below G3?</strong> Just send your best troops and
+                    mercenaries; don't worry about stacking yet.
+                  </li>
+                  <li>
+                    <strong>Optimal Stack:</strong> Select your 2–3 best
+                    Guardsman tiers. Adding specialists or monsters from the
+                    same tiers is optional.
+                  </li>
+                  <li>
+                    <div class="alert alert-warning py-2 shadow-sm">
+                      <small>
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                        <strong>Note on Damage:</strong> Adding more tiers
+                        lowers the total damage of each individual slot. The
+                        goal is for <strong>every tier</strong> to secure kills.
+                        Check your in-game journal; if a tier shows 0 kills, try
+                        selecting fewer tiers.
+                      </small>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Mercenaries:</strong> You can add more than the
+                    recommended amount. If you're lucky, they can secure extra
+                    kills, but it is not guaranteed.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="accordion mb-4" id="changelog">
         <div class="accordion-item bg-transparent">
