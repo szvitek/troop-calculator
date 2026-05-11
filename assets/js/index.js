@@ -99,9 +99,30 @@ async function initApp() {
     });
 
     const categoryConfigs = [
-      { name: "guardsmen", rootId: "guardsmen-container", prefix: "G" },
-      { name: "specialists", rootId: "specialists-container", prefix: "S" },
-      { name: "catapults", rootId: "catapults-container", prefix: "E" },
+      {
+        name: "guardsmen",
+        rootId: "guardsmen-container",
+        prefix: "G",
+        resource: "leadership",
+      },
+      {
+        name: "specialists",
+        rootId: "specialists-container",
+        prefix: "S",
+        resource: "leadership",
+      },
+      {
+        name: "catapults",
+        rootId: "catapults-container",
+        prefix: "E",
+        resource: "leadership",
+      },
+      {
+        name: "monsters",
+        rootId: "monsters-container",
+        prefix: "M",
+        resource: "dominance",
+      },
     ];
 
     // Render each category generically
@@ -149,7 +170,8 @@ function renderTroops(data, colorMap, config) {
       check.dataset.tier = tier.tierId;
       check.dataset.category = config.name; // Keep context
       check.dataset.dmg = unit.dmg;
-      check.dataset.leadership = unit.leadership;
+      check.dataset.resource = config.resource;
+      check.dataset.unitWeight = unit.unitWeight;
 
       unitClone.querySelector(".unit-name-label").textContent = unit.name;
 
@@ -173,53 +195,117 @@ function renderTroops(data, colorMap, config) {
 
 // CALCULATOR LOGIC
 function calculateTroops() {
-  const totalLeadership =
+  // 1. INPUT GATHERING
+  const totalLead =
     parseFloat(document.getElementById("input-leadership").value) || 0;
+  const totalDom =
+    parseFloat(document.getElementById("input-dominance").value) || 0;
   const allUnitChecks = document.querySelectorAll(".unit-check");
-  const checkedUnits = Array.from(allUnitChecks).filter(
-    (checkbox) => checkbox.checked,
+  const checkedUnits = Array.from(allUnitChecks).filter((cb) => cb.checked);
+
+  // 2. THE DEEP CLEAN (Reset UI immediately)
+  allUnitChecks.forEach((u) => {
+    const id = u.id.replace("check-", "");
+    const row = u.closest(".unit-item");
+    const countEl = document.getElementById(`count-${id}`);
+    const dmgEl = document.getElementById(`dmg-${id}`);
+    const warningIcon = row ? row.querySelector(".warning-icon") : null;
+    const tt = bootstrap.Tooltip.getInstance(warningIcon);
+
+    if (countEl) {
+      countEl.textContent = "0";
+      countEl.classList.remove("text-danger", "fw-bold");
+    }
+    if (dmgEl) dmgEl.textContent = "0";
+    if (warningIcon) warningIcon.classList.add("d-none");
+    if (tt) tt.hide();
+  });
+
+  if (checkedUnits.length === 0) return;
+
+  // 3. PRE-CALCULATE RATIOS
+  const leadUnits = checkedUnits.filter(
+    (u) => u.dataset.resource === "leadership",
+  );
+  const domUnits = checkedUnits.filter(
+    (u) => u.dataset.resource === "dominance",
   );
 
-  // Reset everything first
-  allUnitChecks.forEach((checkbox) => {
-    const safeId = checkbox.id.replace("check-", "");
-    const countEl = document.getElementById(`count-${safeId}`);
-    const dmgEl = document.getElementById(`dmg-${safeId}`);
+  let totalLeadRatio = 0;
+  leadUnits.forEach(
+    (u) =>
+      (totalLeadRatio +=
+        parseFloat(u.dataset.unitWeight) / parseFloat(u.dataset.dmg)),
+  );
 
-    if (countEl) countEl.textContent = "0"; // Updated to textContent
-    if (dmgEl) dmgEl.textContent = "0";
+  let totalDomRatio = 0;
+  domUnits.forEach(
+    (u) =>
+      (totalDomRatio +=
+        parseFloat(u.dataset.unitWeight) / parseFloat(u.dataset.dmg)),
+  );
+
+  // 4. CALCULATE THE DAMAGE GOAL
+  // Goal comes from Leadership. If no Leadership units/input, goal is 0.
+  const dmgGoal =
+    totalLead > 0 && totalLeadRatio > 0 ? totalLead / totalLeadRatio : 0;
+
+  // 5. THE MAIN LOOP (Flat Logic)
+  checkedUnits.forEach((u) => {
+    const id = u.id.replace("check-", "");
+    const weight = parseFloat(u.dataset.unitWeight);
+    const baseDmg = parseFloat(u.dataset.dmg);
+    const type = u.dataset.resource;
+    const row = u.closest(".unit-item");
+    const warningIcon = row ? row.querySelector(".warning-icon") : null;
+
+    let finalCount = 0;
+
+    // --- LOGIC FOR LEADERSHIP UNITS ---
+    if (type === "leadership") {
+      if (dmgGoal > 0) {
+        finalCount = Math.floor(dmgGoal / baseDmg);
+      }
+    }
+
+    // --- LOGIC FOR DOMINANCE UNITS ---
+    else if (type === "dominance") {
+      if (dmgGoal > 0) {
+        // SCENARIO A: MIRROR MODE (Match the Guards)
+        finalCount = Math.ceil(dmgGoal / baseDmg);
+
+        // Show Warning if it exceeds Dominance
+        if (totalDom > 0 && totalDomRatio > 0) {
+          const maxAllowed = Math.floor(
+            (totalDom * (weight / baseDmg / totalDomRatio)) / weight,
+          );
+          if (finalCount > maxAllowed && warningIcon) {
+            showWarning(warningIcon, maxAllowed);
+          }
+        }
+      } else if (totalDom > 0 && totalDomRatio > 0) {
+        // SCENARIO B: MAX MODE (No Guards, just fill dominance)
+        finalCount = Math.floor(totalDom / totalDomRatio / baseDmg);
+      }
+    }
+
+    // UPDATE UI
+    document.getElementById(`count-${id}`).textContent =
+      finalCount.toLocaleString();
+    document.getElementById(`dmg-${id}`).textContent = Math.floor(
+      finalCount * baseDmg,
+    ).toLocaleString();
   });
+}
 
-  if (checkedUnits.length === 0 || totalLeadership === 0) return;
-
-  // 1. Calculate the sum of (LeadershipCost / BaseDmg) for all selected units
-  // This represents the total leadership cost to deal 1 unit of damage from every selected source simultaneously
-  let totalCostToDealEqualDmg = 0;
-  checkedUnits.forEach((checkbox) => {
-    const leadershipCost = parseFloat(checkbox.dataset.leadership);
-    const baseDmg = parseFloat(checkbox.dataset.dmg);
-    totalCostToDealEqualDmg += leadershipCost / baseDmg;
-  });
-
-  // 2. The Dmg Target is how much damage each unit type is allowed to deal
-  const dmgTargetPerType = totalLeadership / totalCostToDealEqualDmg;
-
-  // 3. Update the UI
-  checkedUnits.forEach((checkbox) => {
-    const leadershipCost = parseFloat(checkbox.dataset.leadership);
-    const baseDmg = parseFloat(checkbox.dataset.dmg);
-    const safeId = checkbox.id.replace("check-", "");
-
-    // How many units of this type do we need to hit that dmg target?
-    const count = Math.floor(dmgTargetPerType / baseDmg);
-    const actualTotalDmgForThisUnit = count * baseDmg;
-
-    const countEl = document.getElementById(`count-${safeId}`);
-    const dmgEl = document.getElementById(`dmg-${safeId}`);
-
-    if (countEl) countEl.textContent = count.toLocaleString();
-    if (dmgEl) dmgEl.textContent = actualTotalDmgForThisUnit.toLocaleString();
-  });
+// Helper to keep the main loop clean
+function showWarning(icon, max) {
+  icon.classList.remove("d-none");
+  const msg = `Your current Dominance only allows ${max.toLocaleString()} units to maintain balance`;
+  icon.setAttribute("data-bs-title", msg);
+  icon.setAttribute("title", msg);
+  const tt = bootstrap.Tooltip.getInstance(icon);
+  if (tt) tt.setContent({ ".tooltip-inner": msg });
 }
 
 // GLOBAL EVENT LISTENERS
@@ -284,16 +370,28 @@ function attachGlobalEvents() {
 
     // Use 'input' so the numbers update in real-time as they type
     el.addEventListener("input", (e) => {
+      // If empty, treat as 0
+      if (e.target.value === "") {
+        calculateTroops();
+        return;
+      }
+
       let val = parseFloat(e.target.value);
 
-      // 1. Instant Clamp: If they type a negative, force it to 0 immediately
-      if (val < 0) {
+      if (val < 0 || isNaN(val)) {
         e.target.value = 0;
       }
 
-      // 2. Always Calculate: This runs for any value >= 0
       calculateTroops();
     });
+  });
+
+  // Initialize all tooltips on the page
+  const tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+  );
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
   });
 }
 

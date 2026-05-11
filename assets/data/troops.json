@@ -3,50 +3,50 @@
     "category": "guardsmen",
     "tierId": 1,
     "units": [
-      { "name": "Archer I", "dmg": 50, "hp": 150, "leadership": 1 },
-      { "name": "Spearman I", "dmg": 50, "hp": 150, "leadership": 1 },
-      { "name": "Rider I", "dmg": 100, "hp": 300, "leadership": 2 }
+      { "name": "Archer I", "dmg": 50, "hp": 150, "unitWeight": 1 },
+      { "name": "Spearman I", "dmg": 50, "hp": 150, "unitWeight": 1 },
+      { "name": "Rider I", "dmg": 100, "hp": 300, "unitWeight": 2 }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 2,
     "units": [
-      { "name": "Archer II", "dmg": 90, "hp": 270, "leadership": 1 },
-      { "name": "Spearman II", "dmg": 90, "hp": 270, "leadership": 1 },
-      { "name": "Rider II", "dmg": 180, "hp": 540, "leadership": 2 }
+      { "name": "Archer II", "dmg": 90, "hp": 270, "unitWeight": 1 },
+      { "name": "Spearman II", "dmg": 90, "hp": 270, "unitWeight": 1 },
+      { "name": "Rider II", "dmg": 180, "hp": 540, "unitWeight": 2 }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 3,
     "units": [
-      { "name": "Archer III", "dmg": 160, "hp": 480, "leadership": 1 },
-      { "name": "Spearman III", "dmg": 160, "hp": 480, "leadership": 1 },
-      { "name": "Rider III", "dmg": 320, "hp": 960, "leadership": 2 }
+      { "name": "Archer III", "dmg": 160, "hp": 480, "unitWeight": 1 },
+      { "name": "Spearman III", "dmg": 160, "hp": 480, "unitWeight": 1 },
+      { "name": "Rider III", "dmg": 320, "hp": 960, "unitWeight": 2 }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 4,
     "units": [
-      { "name": "Archer IV", "dmg": 290, "hp": 870, "leadership": 1 },
-      { "name": "Spearman IV", "dmg": 290, "hp": 870, "leadership": 1 },
-      { "name": "Rider IV", "dmg": 580, "hp": 1740, "leadership": 2 }
+      { "name": "Archer IV", "dmg": 290, "hp": 870, "unitWeight": 1 },
+      { "name": "Spearman IV", "dmg": 290, "hp": 870, "unitWeight": 1 },
+      { "name": "Rider IV", "dmg": 580, "hp": 1740, "unitWeight": 2 }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 5,
     "units": [
-      { "name": "Archer V", "dmg": 520, "hp": 1560, "leadership": 1 },
-      { "name": "Spearman V", "dmg": 520, "hp": 1560, "leadership": 1 },
-      { "name": "Rider V", "dmg": 1050, "hp": 3150, "leadership": 2 },
+      { "name": "Archer V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
+      { "name": "Spearman V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
+      { "name": "Rider V", "dmg": 1050, "hp": 3150, "unitWeight": 2 },
       {
         "name": "Battle Griffin V",
         "dmg": 10000,
         "hp": 30000,
-        "leadership": 20
+        "unitWeight": 20
       }
     ]
   },
@@ -58,20 +58,20 @@
         "name": "Heavy Arbalester VI",
         "dmg": 940,
         "hp": 2820,
-        "leadership": 1
+        "unitWeight": 1
       },
       {
         "name": "Heavy Halberdier VI",
         "dmg": 940,
         "hp": 2820,
-        "leadership": 1
+        "unitWeight": 1
       },
-      { "name": "Mounted Knight VI", "dmg": 1900, "hp": 5700, "leadership": 2 },
+      { "name": "Mounted Knight VI", "dmg": 1900, "hp": 5700, "unitWeight": 2 },
       {
         "name": "Battle Griffin VI",
         "dmg": 19000,
         "hp": 57000,
-        "leadership": 20
+        "unitWeight": 20
       }
     ]
   },
@@ -83,25 +83,25 @@
         "name": "Heavy Arbalester VII",
         "dmg": 1700,
         "hp": 5100,
-        "leadership": 1
+        "unitWeight": 1
       },
       {
         "name": "Heavy Halberdier VII",
         "dmg": 1700,
         "hp": 5100,
-        "leadership": 1
+        "unitWeight": 1
       },
       {
         "name": "Mounted Knight VII",
         "dmg": 3400,
         "hp": 10200,
-        "leadership": 2
+        "unitWeight": 2
       },
       {
         "name": "Battle Griffin VII",
         "dmg": 34000,
         "hp": 102000,
-        "leadership": 20
+        "unitWeight": 20
       }
     ]
   },
@@ -109,129 +109,129 @@
     "category": "guardsmen",
     "tierId": 8,
     "units": [
-      { "name": "Purifier I", "dmg": 3060, "hp": 9180, "leadership": 1 },
-      { "name": "Punisher I", "dmg": 3060, "hp": 9180, "leadership": 1 },
-      { "name": "Smiter I", "dmg": 6120, "hp": 18360, "leadership": 2 },
-      { "name": "Corax I", "dmg": 183600, "hp": 550800, "leadership": 20 }
+      { "name": "Purifier I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
+      { "name": "Punisher I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
+      { "name": "Smiter I", "dmg": 6120, "hp": 18360, "unitWeight": 2 },
+      { "name": "Corax I", "dmg": 183600, "hp": 550800, "unitWeight": 20 }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 9,
     "units": [
-      { "name": "Purifier II", "dmg": 5510, "hp": 16530, "leadership": 1 },
-      { "name": "Punisher II", "dmg": 5510, "hp": 16530, "leadership": 1 },
-      { "name": "Smiter II", "dmg": 11020, "hp": 33060, "leadership": 2 },
-      { "name": "Corax II", "dmg": 110200, "hp": 330600, "leadership": 20 }
+      { "name": "Purifier II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
+      { "name": "Punisher II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
+      { "name": "Smiter II", "dmg": 11020, "hp": 33060, "unitWeight": 2 },
+      { "name": "Corax II", "dmg": 110200, "hp": 330600, "unitWeight": 20 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 1,
-    "units": [{ "name": "Swordsman I", "dmg": 50, "hp": 150, "leadership": 1 }]
+    "units": [{ "name": "Swordsman I", "dmg": 50, "hp": 150, "unitWeight": 1 }]
   },
   {
     "category": "specialists",
     "tierId": 2,
-    "units": [{ "name": "Swordsman II", "dmg": 90, "hp": 270, "leadership": 1 }]
+    "units": [{ "name": "Swordsman II", "dmg": 90, "hp": 270, "unitWeight": 1 }]
   },
   {
     "category": "specialists",
     "tierId": 3,
     "units": [
-      { "name": "Swordsman III", "dmg": 160, "hp": 480, "leadership": 1 }
+      { "name": "Swordsman III", "dmg": 160, "hp": 480, "unitWeight": 1 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 4,
     "units": [
-      { "name": "Swordsman IV", "dmg": 290, "hp": 870, "leadership": 1 }
+      { "name": "Swordsman IV", "dmg": 290, "hp": 870, "unitWeight": 1 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 5,
     "units": [
-      { "name": "Swordsman V", "dmg": 520, "hp": 1560, "leadership": 1 },
-      { "name": "Deadshot V", "dmg": 520, "hp": 1560, "leadership": 1 },
-      { "name": "Lion Rider V", "dmg": 1050, "hp": 3150, "leadership": 2 },
-      { "name": "Vulture V", "dmg": 520, "hp": 1560, "leadership": 1 }
+      { "name": "Swordsman V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
+      { "name": "Deadshot V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
+      { "name": "Lion Rider V", "dmg": 1050, "hp": 3150, "unitWeight": 2 },
+      { "name": "Vulture V", "dmg": 520, "hp": 1560, "unitWeight": 1 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 6,
     "units": [
-      { "name": "Heavy Knight VI", "dmg": 940, "hp": 2820, "leadership": 1 },
-      { "name": "Deadshot VI", "dmg": 940, "hp": 2820, "leadership": 1 },
-      { "name": "Lion Rider VI", "dmg": 1900, "hp": 5700, "leadership": 2 },
-      { "name": "Vulture VI", "dmg": 940, "hp": 2820, "leadership": 1 }
+      { "name": "Heavy Knight VI", "dmg": 940, "hp": 2820, "unitWeight": 1 },
+      { "name": "Deadshot VI", "dmg": 940, "hp": 2820, "unitWeight": 1 },
+      { "name": "Lion Rider VI", "dmg": 1900, "hp": 5700, "unitWeight": 2 },
+      { "name": "Vulture VI", "dmg": 940, "hp": 2820, "unitWeight": 1 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 7,
     "units": [
-      { "name": "Heavy Knight VII", "dmg": 1700, "hp": 5100, "leadership": 1 },
-      { "name": "Deadshot VII", "dmg": 1700, "hp": 5100, "leadership": 1 },
-      { "name": "Lion Rider VII", "dmg": 3400, "hp": 10200, "leadership": 2 },
-      { "name": "Vulture VII", "dmg": 1700, "hp": 5100, "leadership": 1 }
+      { "name": "Heavy Knight VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 },
+      { "name": "Deadshot VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 },
+      { "name": "Lion Rider VII", "dmg": 3400, "hp": 10200, "unitWeight": 2 },
+      { "name": "Vulture VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 8,
     "units": [
-      { "name": "Legitimist I", "dmg": 3060, "hp": 9180, "leadership": 1 },
-      { "name": "Duelist I", "dmg": 3060, "hp": 9180, "leadership": 1 },
-      { "name": "Whitemane I", "dmg": 6120, "hp": 18360, "leadership": 2 },
-      { "name": "Royal Lion I", "dmg": 61200, "hp": 183600, "leadership": 20 }
+      { "name": "Legitimist I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
+      { "name": "Duelist I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
+      { "name": "Whitemane I", "dmg": 6120, "hp": 18360, "unitWeight": 2 },
+      { "name": "Royal Lion I", "dmg": 61200, "hp": 183600, "unitWeight": 20 }
     ]
   },
   {
     "category": "specialists",
     "tierId": 9,
     "units": [
-      { "name": "Legitimist II", "dmg": 5510, "hp": 16530, "leadership": 1 },
-      { "name": "Duelist II", "dmg": 5510, "hp": 16530, "leadership": 1 },
-      { "name": "Whitemane II", "dmg": 11020, "hp": 33060, "leadership": 2 },
-      { "name": "Royal Lion II", "dmg": 110200, "hp": 330600, "leadership": 20 }
+      { "name": "Legitimist II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
+      { "name": "Duelist II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
+      { "name": "Whitemane II", "dmg": 11020, "hp": 33060, "unitWeight": 2 },
+      { "name": "Royal Lion II", "dmg": 110200, "hp": 330600, "unitWeight": 20 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 1,
     "units": [
-      { "name": "Catapult I", "dmg": 250, "hp": 1500, "leadership": 10 }
+      { "name": "Catapult I", "dmg": 250, "hp": 1500, "unitWeight": 10 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 2,
     "units": [
-      { "name": "Catapult II", "dmg": 450, "hp": 2700, "leadership": 10 }
+      { "name": "Catapult II", "dmg": 450, "hp": 2700, "unitWeight": 10 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 3,
     "units": [
-      { "name": "Catapult III", "dmg": 810, "hp": 4860, "leadership": 10 }
+      { "name": "Catapult III", "dmg": 810, "hp": 4860, "unitWeight": 10 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 4,
     "units": [
-      { "name": "Catapult IV", "dmg": 1460, "hp": 8750, "leadership": 10 }
+      { "name": "Catapult IV", "dmg": 1460, "hp": 8750, "unitWeight": 10 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 5,
     "units": [
-      { "name": "Catapult V", "dmg": 2630, "hp": 15800, "leadership": 10 }
+      { "name": "Catapult V", "dmg": 2630, "hp": 15800, "unitWeight": 10 }
     ]
   },
   {
@@ -242,7 +242,7 @@
         "name": "Siege Ballistae VI",
         "dmg": 4730,
         "hp": 28400,
-        "leadership": 10
+        "unitWeight": 10
       }
     ]
   },
@@ -254,7 +254,7 @@
         "name": "Siege Ballistae VII",
         "dmg": 8500,
         "hp": 51000,
-        "leadership": 10
+        "unitWeight": 10
       }
     ]
   },
@@ -262,14 +262,149 @@
     "category": "catapults",
     "tierId": 8,
     "units": [
-      { "name": "Josephine I", "dmg": 15310, "hp": 91800, "leadership": 10 }
+      { "name": "Josephine I", "dmg": 15310, "hp": 91800, "unitWeight": 10 }
     ]
   },
   {
     "category": "catapults",
     "tierId": 9,
     "units": [
-      { "name": "Josephine II", "dmg": 27550, "hp": 165300, "leadership": 10 }
+      { "name": "Josephine II", "dmg": 27550, "hp": 165300, "unitWeight": 10 }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 3,
+    "units": [
+      { "name": "Emerald Dragon", "dmg": 4500, "hp": 13500, "unitWeight": 7 },
+      { "name": "Water Elemental", "dmg": 1900, "hp": 5700, "unitWeight": 3 },
+      { "name": "Stone Gargoyle", "dmg": 5200, "hp": 15600, "unitWeight": 8 },
+      { "name": "Battle Boar", "dmg": 3900, "hp": 11700, "unitWeight": 6 }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 4,
+    "units": [
+      { "name": "Magic Dragon", "dmg": 15000, "hp": 45000, "unitWeight": 13 },
+      { "name": "Ice Phoenix", "dmg": 17000, "hp": 51000, "unitWeight": 15 },
+      {
+        "name": "Many-Armed Guardian",
+        "dmg": 13000,
+        "hp": 39000,
+        "unitWeight": 11
+      },
+      { "name": "Gorgon Medusa", "dmg": 12000, "hp": 36000, "unitWeight": 10 }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 5,
+    "units": [
+      {
+        "name": "Desert Vanquisher",
+        "dmg": 42000,
+        "hp": 126000,
+        "unitWeight": 20
+      },
+      {
+        "name": "Flaming Centaur",
+        "dmg": 44000,
+        "hp": 132000,
+        "unitWeight": 21
+      },
+      { "name": "Ettin", "dmg": 48000, "hp": 144000, "unitWeight": 23 },
+      {
+        "name": "Fearsome Manticore",
+        "dmg": 46000,
+        "hp": 138000,
+        "unitWeight": 22
+      }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 6,
+    "units": [
+      {
+        "name": "Crystal Dragon",
+        "dmg": 120000,
+        "hp": 360000,
+        "unitWeight": 33
+      },
+      { "name": "Ruby Golem", "dmg": 130000, "hp": 390000, "unitWeight": 35 },
+      { "name": "Troll Rider", "dmg": 110000, "hp": 330000, "unitWeight": 30 },
+      {
+        "name": "Jungle Destroyer",
+        "dmg": 130000,
+        "hp": 390000,
+        "unitWeight": 34
+      }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 7,
+    "units": [
+      { "name": "Black Dragon", "dmg": 300000, "hp": 900000, "unitWeight": 44 },
+      { "name": "Wind Lord", "dmg": 310000, "hp": 930000, "unitWeight": 45 },
+      {
+        "name": "Destructive Colossus",
+        "dmg": 290000,
+        "hp": 870000,
+        "unitWeight": 43
+      },
+      {
+        "name": "Ancient Terror",
+        "dmg": 280000,
+        "hp": 840000,
+        "unitWeight": 41
+      }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 8,
+    "units": [
+      {
+        "name": "Devastator I",
+        "dmg": 650000,
+        "hp": 1950000,
+        "unitWeight": 53
+      },
+      {
+        "name": "Fire Phoenix I",
+        "dmg": 660000,
+        "hp": 1980000,
+        "unitWeight": 54
+      },
+      { "name": "Kraken I", "dmg": 670000, "hp": 2010000, "unitWeight": 55 },
+      { "name": "Trickster I", "dmg": 640000, "hp": 1920000, "unitWeight": 52 }
+    ]
+  },
+  {
+    "category": "monsters",
+    "tierId": 9,
+    "units": [
+      {
+        "name": "Devastator II",
+        "dmg": 1170000,
+        "hp": 3510000,
+        "unitWeight": 53
+      },
+      {
+        "name": "Fire Phoenix II",
+        "dmg": 1190000,
+        "hp": 3570000,
+        "unitWeight": 54
+      },
+      { "name": "Kraken II", "dmg": 1210000, "hp": 3630000, "unitWeight": 55 },
+      {
+        "name": "Trickster II",
+        "dmg": 1150000,
+        "hp": 3450000,
+        "unitWeight": 52
+      }
     ]
   }
 ]

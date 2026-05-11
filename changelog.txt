@@ -1,3 +1,13 @@
+v0.6.0 - 2026-05-11
+-------------------
+[NEW] Monster Unit Support: Added full support for Monster units (M1-M9).
+[NEW] Mirror Mode: Monsters automatically calculate the count needed to match Guardsmen damage when Leadership is entered. If Dominance is also provided, the app validates if the units fit your capacity.
+[NEW] Pure Monster Mode: If no Leadership is provided but Dominance is entered, the app proportionally distributes your total Dominance so every monster stack deals equal damage.
+[NEW] Smart Warnings: Added a real-time validation system that displays a ⚠️ icon if optimal monster counts exceed your provided Dominance.
+[NEW] Dynamic Tooltips: Hovering over warnings now displays the specific "Fair Share" limit for that unit to maintain army balance.
+[FIX] Input Resilience: Improved calculation logic to gracefully handle empty inputs, ensuring warnings and counts zero out immediately when text is deleted.
+[DOC] Integrated Guide: Updated the "How to Use" modal to explain the relationship between Leadership damage goals and Dominance constraints.
+
 v0.5.0 - 2026-05-10
 -------------------
 [NEW] Engineer Corps (Catapults): Integrated full data for T1-T9 Siege units

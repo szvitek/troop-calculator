@@ -134,7 +134,6 @@
               id="input-dominance"
               placeholder="0"
               min="0"
-              disabled
             />
             <label for="input-dominance" class="fw-bold text-warning">
               <i class="bi bi-lightning-fill me-1"></i> Dominance
@@ -187,12 +186,11 @@
         <li class="nav-item" role="presentation">
           <button
             class="nav-link shadow-sm border"
-            id="monster-tab"
+            id="monsters-tab"
             data-bs-toggle="pill"
-            data-bs-target="#monster-content"
+            data-bs-target="#monsters-content"
             type="button"
             role="tab"
-            disabled
           >
             <i class="bi bi-bug-fill"></i> Monsters
           </button>
@@ -242,11 +240,11 @@
 
         <div
           class="tab-pane fade"
-          id="monster-content"
+          id="monsters-content"
           role="tabpanel"
-          aria-labelledby="monster-tab"
+          aria-labelledby="monsters-tab"
         >
-          <div id="monster-container" class="row g-2"></div>
+          <div id="monsters-container" class="row g-2"></div>
         </div>
 
         <div
@@ -338,22 +336,46 @@
               <ul class="border-start border-2">
                 <li>
                   <strong>Leadership:</strong> Enter your total troop capacity
-                  for the march.
+                  for the march to set the "Damage Goal" for your army.
                 </li>
                 <li>
-                  <strong>Selection:</strong> Pick the troops to include. The
-                  calculator automatically balances the stack for you.
+                  <strong>Selection:</strong> Pick the units to include. The
+                  calculator automatically balances the stack so every tier
+                  deals equal damage.
                 </li>
                 <li>
-                  <strong>Logic:</strong> It uses the base damage of each unit
-                  and attempts to distribute the total damage equally across
-                  your selected tiers.
+                  <strong>Monsters & Dominance:</strong>
+                  <ul>
+                    <li>
+                      <strong>Mirror Mode:</strong> If
+                      <strong>Leadership</strong> is entered, monsters
+                      automatically scale to match your Guardsmen's damage.
+                    </li>
+                    <li>
+                      <strong>Pure Monster Mode:</strong> If
+                      <strong>no Leadership</strong> is provided but
+                      <strong>Dominance</strong> is entered, the app distributes
+                      that capacity equally across all selected monsters.
+                    </li>
+                  </ul>
+                  <small class="text-muted">
+                    <em>
+                      Note: The ⚠️ warning icon only appears if you provide your
+                      <strong>Dominance</strong>. It alerts you if the "optimal"
+                      damage match exceeds what your current dominance can
+                      actually hold.
+                    </em>
+                  </small>
                 </li>
                 <li>
-                  <strong>Buffs:</strong> It doesn't account for hero talents,
-                  research, or equipment. Damage numbers are for relative
-                  comparison; if you upgrade your tiers equally, the proportions
-                  remain accurate.
+                  <strong>Logic:</strong> The tool uses base unit damage to
+                  ensure a proportional "punch" across all tiers, preventing any
+                  single stack from being a weak link.
+                </li>
+                <li>
+                  <strong>Buffs:</strong> Hero talents and research aren't
+                  calculated. Since buffs usually apply equally to tiers, the
+                  calculated proportions remain the most efficient way to stack.
                 </li>
               </ul>
 
@@ -366,14 +388,15 @@
                   </li>
                   <li>
                     <strong>Optimal Stack:</strong> Select your 2–3 best
-                    Guardsman tiers. Adding specialists or monsters from the
-                    same tiers is optional.
+                    Guardsman tiers. Adding monsters from the same tiers is a
+                    great way to increase damage without increasing Leadership
+                    costs.
                   </li>
                   <li>
-                    <div class="alert alert-warning py-2 shadow-sm">
+                    <div class="alert alert-warning py-2 shadow-sm my-2">
                       <small>
                         <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                        <strong>Note on Damage:</strong> Adding more type of
+                        <strong>Note on Damage:</strong> Adding more types of
                         troops lowers the total damage of each individual slot.
                         The goal is for <strong>every type of unit</strong> to
                         secure kills. Check your in-game journal; if a tier
@@ -464,6 +487,14 @@
             <input class="form-check-input unit-check" type="checkbox" />
           </div>
           <span class="input-group-text flex-grow-1 unit-name-label"></span>
+          <span
+            class="input-group-text text-warning warning-icon d-none"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title=""
+          >
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </span>
           <span
             class="form-control text-end fw-bold unit-count-output d-flex align-items-center justify-content-end"
             style="max-width: 75px; min-height: 31px"
