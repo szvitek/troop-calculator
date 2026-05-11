@@ -1,3 +1,10 @@
+v0.7.0 - 2026-05-12
+-------------------
+[REF] ES Modules: Deconstructed the monolithic index.js into a modular architecture (Logic, UI, Data) using native import/export syntax.
+[DX] Modern Tooling: Migrated the project to use type="module", enabling cleaner dependency management and allowing for isolated unit testing.
+[PERF] Logic Separation: Isolated calculation logic from DOM manipulation, making the codebase category-agnostic and easier to extend.
+[FIX] Scoped Variables: Resolved potential global namespace pollution by encapsulating functionality within ES modules.
+
 v0.6.0 - 2026-05-11
 -------------------
 [NEW] Monster Unit Support: Added full support for Monster units (M1-M9).
