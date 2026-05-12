@@ -1,3 +1,8 @@
+v0.8.0 - 2026-05-12
+-------------------
+[FEAT] Mercenary Database: Integrated over 50 units (T5–T9) including Dragons and Lords with full stat mapping.
+[UX] Dynamic Context: Updated alerts to swap between Authority, Dominance, and Leadership based on unit category.
+
 v0.7.0 - 2026-05-12
 -------------------
 [REF] ES Modules: Deconstructed the monolithic index.js into a modular architecture (Logic, UI, Data) using native import/export syntax.
