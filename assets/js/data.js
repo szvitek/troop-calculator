@@ -23,6 +23,12 @@ export const CATEGORY_CONFIGS = [
     prefix: "M",
     resource: "dominance",
   },
+  {
+    name: "mercenaries",
+    rootId: "mercenaries-container",
+    prefix: "R",
+    resource: "authority",
+  },
 ];
 
 /**

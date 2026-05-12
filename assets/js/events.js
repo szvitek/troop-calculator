@@ -11,6 +11,8 @@ function runCalculation() {
     parseInt(document.getElementById("input-leadership").value, 10) || 0;
   const dominance =
     parseInt(document.getElementById("input-dominance").value, 10) || 0;
+  const authority =
+    parseInt(document.getElementById("input-authority").value, 10) || 0;
 
   const selectedUnits = Array.from(
     document.querySelectorAll(".unit-check:checked"),
@@ -21,7 +23,12 @@ function runCalculation() {
     resource: cb.dataset.resource,
   }));
 
-  const results = calculateTroops({ leadership, dominance, selectedUnits });
+  const results = calculateTroops({
+    leadership,
+    dominance,
+    authority,
+    selectedUnits,
+  });
   updateResults(results);
 }
 

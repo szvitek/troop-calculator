@@ -2,8 +2,8 @@
  * Renders all category tabs and exposes helpers to update calculation results.
  */
 
-function toSafeId(name) {
-  return name.replace(/\s+/g, "-").toLowerCase();
+function toSafeId(category, tierId, name) {
+  return `${category}-${tierId}-${name}`.replace(/\s+/g, "-").toLowerCase();
 }
 
 /**
@@ -39,7 +39,7 @@ export function renderAllCategories(troops, colorMap, configs) {
 
       tier.units.forEach((unit) => {
         const unitClone = unitTemplate.content.cloneNode(true);
-        const safeId = toSafeId(unit.name);
+        const safeId = toSafeId(config.name, tier.tierId, unit.name);
 
         const check = unitClone.querySelector(".unit-check");
         check.id = `check-${safeId}`;
@@ -103,7 +103,7 @@ export function updateResults(results) {
     if (dmgEl) dmgEl.textContent = r.damage.toLocaleString();
 
     if (r.warning) {
-      showWarning(r.id, r.warning.max);
+      showWarning(r.id, r.warning.max, r.warning.resource);
     }
   });
 }
@@ -111,7 +111,7 @@ export function updateResults(results) {
 /**
  * Shows the warning icon and updates its tooltip for a specific unit.
  */
-function showWarning(unitId, max) {
+function showWarning(unitId, max, resource) {
   const check = document.getElementById(`check-${unitId}`);
   if (!check) return;
 
@@ -120,7 +120,7 @@ function showWarning(unitId, max) {
   if (!icon) return;
 
   icon.classList.remove("d-none");
-  const msg = `Your current Dominance only allows ${max.toLocaleString()} units to maintain balance`;
+  const msg = `Your current ${resource} only allows ${max.toLocaleString()} units to maintain balance`;
   icon.setAttribute("data-bs-title", msg);
   icon.setAttribute("title", msg);
 
