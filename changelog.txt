@@ -1,7 +1,15 @@
+v0.9.0 - 2026-05-12
+-------------------
+[NEW] Summary View: Added a new view that groups all selected units by tier across every category, providing a quick overview of your full stack.
+[UX] View Toggle FAB: Introduced a floating action button to seamlessly switch between Detail View and Summary View.
+[UX] View Headings: Added centered "Detail View" and "Summary View" headings to clearly indicate the active view.
+[UX] FAB Opacity: Floating action buttons now render at reduced opacity and transition to full opacity on hover for a cleaner look.
+
 v0.8.0 - 2026-05-12
 -------------------
 [FEAT] Mercenary Database: Integrated over 50 units (T5–T9) including Dragons and Lords with full stat mapping.
 [UX] Dynamic Context: Updated alerts to swap between Authority, Dominance, and Leadership based on unit category.
+[FIX] Unique Element IDs: Fixed duplicate DOM IDs for mercenary units that appear across multiple tiers (e.g., Sphynx in T6 and T7).
 
 v0.7.0 - 2026-05-12
 -------------------

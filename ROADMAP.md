@@ -18,10 +18,9 @@
 - [x] v0.8.0: Content Completion
   - [x] Add Mercenaries data structure and tab.
   - [x] Finalize troop database across all categories.
-- [ ] v0.9.0: UX Overhaul
-  - [ ] Implement "Review Mode" (Flattened view for selected units only).
-  - [ ] Enable sticky header with auto-aligning navigation.
-  - [ ] Add dynamic filtering logic to hide zero-value rows in summary.
+- [x] v0.9.0: UX Overhaul
+  - [x] Implement "Review Mode" (Flattened view for selected units only).
+  - [x] Enable sticky header with auto-aligning navigation.
 
 ## [PHASE 4] Productivity & Professionalism
 

@@ -89,3 +89,28 @@
 [data-bs-theme="dark"] .dmg-label {
   color: #adb5bd;
 }
+
+/* Floating Action Buttons */
+.fab {
+  opacity: 0.25;
+  transition: opacity 0.2s;
+}
+
+.fab:hover {
+  opacity: 1;
+}
+
+/* Summary View */
+.summary-row {
+  padding: 4px 8px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+[data-bs-theme="dark"] .summary-row {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
