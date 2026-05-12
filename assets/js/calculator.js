@@ -5,20 +5,31 @@
  * @param {object}   params
  * @param {number}   params.leadership    - Total leadership capacity
  * @param {number}   params.dominance     - Total dominance capacity
+ * @param {number}   params.authority     - Total authority capacity
  * @param {Array}    params.selectedUnits - Array of { id, dmg, unitWeight, resource }
  * @returns {Array}  Array of { id, count, damage, warning }
  */
-export function calculateTroops({ leadership, dominance, selectedUnits }) {
+export function calculateTroops({
+  leadership,
+  dominance,
+  authority,
+  selectedUnits,
+}) {
   if (selectedUnits.length === 0) return [];
 
   const leadUnits = selectedUnits.filter((u) => u.resource === "leadership");
   const domUnits = selectedUnits.filter((u) => u.resource === "dominance");
+  const authUnits = selectedUnits.filter((u) => u.resource === "authority");
 
   const totalLeadRatio = leadUnits.reduce(
     (sum, u) => sum + u.unitWeight / u.dmg,
     0,
   );
   const totalDomRatio = domUnits.reduce(
+    (sum, u) => sum + u.unitWeight / u.dmg,
+    0,
+  );
+  const totalAuthRatio = authUnits.reduce(
     (sum, u) => sum + u.unitWeight / u.dmg,
     0,
   );
@@ -48,6 +59,22 @@ export function calculateTroops({ leadership, dominance, selectedUnits }) {
         }
       } else if (dominance > 0 && totalDomRatio > 0) {
         count = Math.floor(dominance / totalDomRatio / u.dmg);
+      }
+    } else if (u.resource === "authority") {
+      if (dmgGoal > 0) {
+        count = Math.ceil(dmgGoal / u.dmg);
+
+        if (authority > 0 && totalAuthRatio > 0) {
+          const maxAllowed = Math.floor(
+            (authority * (u.unitWeight / u.dmg / totalAuthRatio)) /
+              u.unitWeight,
+          );
+          if (count > maxAllowed) {
+            warning = { max: maxAllowed };
+          }
+        }
+      } else if (authority > 0 && totalAuthRatio > 0) {
+        count = Math.floor(authority / totalAuthRatio / u.dmg);
       }
     }
 

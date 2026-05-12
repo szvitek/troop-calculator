@@ -406,5 +406,178 @@
         "unitWeight": 52
       }
     ]
+  },
+  {
+    "category": "mercenaries",
+    "tierId": 5,
+    "units": [
+      { "name": "Cyclops", "dmg": 45000, "hp": 135000, "unitWeight": 43 },
+      {
+        "name": "Scorpion Rider",
+        "dmg": 37000,
+        "hp": 111000,
+        "unitWeight": 36
+      },
+      { "name": "Giant Zombie", "dmg": 33000, "hp": 99000, "unitWeight": 32 },
+      { "name": "Bear", "dmg": 22000, "hp": 66000, "unitWeight": 21 },
+      { "name": "Gargoyle", "dmg": 19000, "hp": 57000, "unitWeight": 19 },
+      { "name": "Swift Marksman", "dmg": 1050, "hp": 3150, "unitWeight": 1 },
+      {
+        "name": "Epic Monster Hunter V",
+        "dmg": 1050,
+        "hp": 3150,
+        "unitWeight": 1
+      }
+    ]
+  },
+  {
+    "category": "mercenaries",
+    "tierId": 6,
+    "units": [
+      { "name": "Archdemon", "dmg": 180000, "hp": 540000, "unitWeight": 95 },
+      { "name": "Abomination", "dmg": 130000, "hp": 390000, "unitWeight": 68 },
+      {
+        "name": "Cursed Dendroid",
+        "dmg": 111000,
+        "hp": 330000,
+        "unitWeight": 57
+      },
+      { "name": "Ent", "dmg": 73000, "hp": 219000, "unitWeight": 39 },
+      { "name": "Bone Golem", "dmg": 70000, "hp": 210000, "unitWeight": 37 },
+      { "name": "Death Chariot", "dmg": 57000, "hp": 171000, "unitWeight": 30 },
+      { "name": "Sphynx", "dmg": 18900, "hp": 56700, "unitWeight": 10 },
+      { "name": "Shedu", "dmg": 18900, "hp": 56700, "unitWeight": 10 },
+      { "name": "Chariot", "dmg": 3800, "hp": 11400, "unitWeight": 2 },
+      { "name": "Rhino Rider", "dmg": 3780, "hp": 11340, "unitWeight": 2 },
+      {
+        "name": "Epic Monster Hunter VI",
+        "dmg": 2030,
+        "hp": 6090,
+        "unitWeight": 1
+      },
+      { "name": "Bounty Hunter VI", "dmg": 2030, "hp": 6090, "unitWeight": 1 },
+      {
+        "name": "Combat Anteater VI",
+        "dmg": 2000,
+        "hp": 6000,
+        "unitWeight": 1
+      },
+      {
+        "name": "Chitinous Defender VI",
+        "dmg": 1950,
+        "hp": 5850,
+        "unitWeight": 1
+      },
+      { "name": "Legionary", "dmg": 1900, "hp": 5700, "unitWeight": 1 },
+      { "name": "Arbalester", "dmg": 1900, "hp": 5700, "unitWeight": 1 },
+      { "name": "Knight VI", "dmg": 1900, "hp": 5700, "unitWeight": 1 },
+      { "name": "Trailseeker", "dmg": 1890, "hp": 5670, "unitWeight": 1 },
+      { "name": "Grim Stalker VI", "dmg": 1800, "hp": 5400, "unitWeight": 1 },
+      { "name": "Wasp-Man VI", "dmg": 1800, "hp": 5400, "unitWeight": 1 },
+      { "name": "Pathfinder", "dmg": 940, "hp": 2800, "unitWeight": 5 }
+    ]
+  },
+  {
+    "category": "mercenaries",
+    "tierId": 7,
+    "units": [
+      { "name": "Fire Lord", "dmg": 560000, "hp": 1680000, "unitWeight": 164 },
+      { "name": "Sandworm", "dmg": 430000, "hp": 1290000, "unitWeight": 128 },
+      {
+        "name": "Cursed Dragon",
+        "dmg": 320000,
+        "hp": 960000,
+        "unitWeight": 93
+      },
+      { "name": "Life Dragon", "dmg": 240000, "hp": 720000, "unitWeight": 70 },
+      { "name": "Overlord", "dmg": 200000, "hp": 600000, "unitWeight": 60 },
+      {
+        "name": "Golden Dragon",
+        "dmg": 170000,
+        "hp": 510000,
+        "unitWeight": 50
+      },
+      {
+        "name": "Lightning Lord",
+        "dmg": 153000,
+        "hp": 460000,
+        "unitWeight": 45
+      },
+      { "name": "Sea Lord", "dmg": 140000, "hp": 420000, "unitWeight": 40 },
+      { "name": "Sphynx", "dmg": 136000, "hp": 408000, "unitWeight": 40 },
+      { "name": "Shedu", "dmg": 136000, "hp": 408000, "unitWeight": 40 },
+      { "name": "Jungle King", "dmg": 110000, "hp": 330000, "unitWeight": 33 },
+      { "name": "Chariot", "dmg": 6800, "hp": 20400, "unitWeight": 2 },
+      { "name": "Rhino Rider", "dmg": 6800, "hp": 20400, "unitWeight": 2 },
+      {
+        "name": "Epic Monster Hunter VII",
+        "dmg": 3740,
+        "hp": 11220,
+        "unitWeight": 1
+      },
+      { "name": "Legionary", "dmg": 3400, "hp": 10200, "unitWeight": 1 },
+      { "name": "Arbalester", "dmg": 3400, "hp": 10200, "unitWeight": 1 },
+      { "name": "Knight VII", "dmg": 3400, "hp": 10200, "unitWeight": 1 },
+      { "name": "Trailseeker", "dmg": 3400, "hp": 10200, "unitWeight": 1 }
+    ]
+  },
+  {
+    "category": "mercenaries",
+    "tierId": 9,
+    "units": [
+      { "name": "Wyvern", "dmg": 690000, "hp": 2070000, "unitWeight": 63 },
+      { "name": "Warden", "dmg": 470000, "hp": 1410000, "unitWeight": 43 },
+      {
+        "name": "Eternal Cannoneer",
+        "dmg": 444000,
+        "hp": 1320000,
+        "unitWeight": 40
+      },
+      {
+        "name": "Demonic Salamander",
+        "dmg": 410000,
+        "hp": 1230000,
+        "unitWeight": 38
+      },
+      { "name": "Warregal", "dmg": 220000, "hp": 660000, "unitWeight": 20 },
+      { "name": "Jago", "dmg": 220000, "hp": 660000, "unitWeight": 20 },
+      {
+        "name": "Superior Epic Monster Hunter",
+        "dmg": 25000,
+        "hp": 75000,
+        "unitWeight": 1
+      },
+      {
+        "name": "Elder Bounty Hunter",
+        "dmg": 25000,
+        "hp": 75000,
+        "unitWeight": 1
+      },
+      { "name": "Quicksand", "dmg": 22000, "hp": 66000, "unitWeight": 2 },
+      { "name": "Galloper", "dmg": 22000, "hp": 66000, "unitWeight": 2 },
+      {
+        "name": "Combat Anteater Leader",
+        "dmg": 11400,
+        "hp": 34200,
+        "unitWeight": 1
+      },
+      {
+        "name": "Chitinous Defender Leader",
+        "dmg": 11200,
+        "hp": 33600,
+        "unitWeight": 1
+      },
+      { "name": "Highlander", "dmg": 11000, "hp": 33000, "unitWeight": 1 },
+      { "name": "Slavic warrior", "dmg": 11000, "hp": 33000, "unitWeight": 1 },
+      { "name": "Pounder", "dmg": 11000, "hp": 33000, "unitWeight": 1 },
+      { "name": "Scarface", "dmg": 11000, "hp": 33000, "unitWeight": 1 },
+      { "name": "Wasp-Man Leader", "dmg": 10800, "hp": 32400, "unitWeight": 1 },
+      {
+        "name": "Grim Stalker Leader",
+        "dmg": 10600,
+        "hp": 31800,
+        "unitWeight": 1
+      }
+    ]
   }
 ]
