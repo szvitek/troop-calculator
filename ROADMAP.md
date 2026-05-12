@@ -1,0 +1,39 @@
+# Roadmap# PROJECT ROADMAP: Troop Calculator
+
+## [PHASE 1] The Foundation
+
+- [x] v0.1.0 - v0.3.0: Core logic and initial Bootstrap layout.
+- [x] v0.4.0: Added Specialists (S1-S9) and implemented first tabbed interface.
+- [x] v0.5.0: Refined UI feedback and calculation edge cases for high-leadership units.
+- [x] v0.6.0: Final monolithic version before major architectural shift.
+
+## [PHASE 2] The Modernization
+
+- [x] v0.7.0: ES Modules Refactor & Grid Alignment
+  - [x] Deconstruct monolithic index.js into Logic, UI, and Data modules.
+  - [x] Implement native import/export syntax (type="module").
+
+## [PHASE 3] Content & UX Expansion
+
+- [ ] v0.8.0: Content Completion
+  - [ ] Add Mercenaries data structure and tab.
+  - [ ] Finalize troop database across all categories.
+- [ ] v0.9.0: UX Overhaul
+  - [ ] Implement "Review Mode" (Flattened view for selected units only).
+  - [ ] Enable sticky header with auto-aligning navigation.
+  - [ ] Add dynamic filtering logic to hide zero-value rows in summary.
+
+## [PHASE 4] Productivity & Professionalism
+
+- [ ] v1.0.0: The Persistence Release (Gold)
+  - [ ] Presets: Save/Load army compositions to localStorage.
+  - [ ] Import/Export: Shareable army codes and JSON snapshots.
+  - [ ] Documentation and GitHub links integrated into header.
+- [ ] v1.1.0: The App Experience
+  - [ ] PWA Implementation: manifest.json and Service Worker support.
+  - [ ] Offline capability and asset caching for instant mobile loading.
+
+---
+
+Last Updated: 2026-05-12
+Status: Phase 3 (Development)
