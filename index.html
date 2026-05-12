@@ -141,72 +141,86 @@
         </div>
       </div>
 
-      <ul
-        class="nav nav-pills nav-fill mb-3 gap-2"
-        id="unitTabs"
-        role="tablist"
+      <div
+        class="row g-2 sticky-top"
+        style="
+          background-color: transparent;
+          backdrop-filter: blur(8px);
+          z-index: 1020;
+        "
       >
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active shadow-sm border"
-            id="guards-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#guards-content"
-            type="button"
-            role="tab"
+        <div
+          class="card p-0 border-1 bg-transparent"
+          style="border-color: transparent"
+        >
+          <ul
+            class="nav nav-pills nav-fill mb-3 gap-2"
+            id="unitTabs"
+            role="tablist"
           >
-            <i class="bi bi-shield-shaded"></i> Guards
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link shadow-sm border"
-            id="specs-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#specs-content"
-            type="button"
-            role="tab"
-          >
-            <i class="bi bi-star-fill"></i> Specs
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link shadow-sm border"
-            id="catapults-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#catapults-content"
-            type="button"
-            role="tab"
-          >
-            <i class="bi bi-tools"></i> Cats
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link shadow-sm border"
-            id="monsters-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#monsters-content"
-            type="button"
-            role="tab"
-          >
-            <i class="bi bi-bug-fill"></i> Monsters
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link shadow-sm border"
-            id="mercenaries-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#mercenaries-content"
-            type="button"
-            role="tab"
-          >
-            <i class="bi bi-coin"></i> Mercs
-          </button>
-        </li>
-      </ul>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active shadow-sm border"
+                id="guards-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#guards-content"
+                type="button"
+                role="tab"
+              >
+                <i class="bi bi-shield-shaded"></i> Guards
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link shadow-sm border"
+                id="specs-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#specs-content"
+                type="button"
+                role="tab"
+              >
+                <i class="bi bi-star-fill"></i> Specs
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link shadow-sm border"
+                id="catapults-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#catapults-content"
+                type="button"
+                role="tab"
+              >
+                <i class="bi bi-tools"></i> Cats
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link shadow-sm border"
+                id="monsters-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#monsters-content"
+                type="button"
+                role="tab"
+              >
+                <i class="bi bi-bug-fill"></i> Monsters
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link shadow-sm border"
+                id="mercenaries-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#mercenaries-content"
+                type="button"
+                role="tab"
+              >
+                <i class="bi bi-coin"></i> Mercs
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <div class="tab-content" id="unitTabsContent">
         <div
