@@ -26,7 +26,7 @@ export const CATEGORY_CONFIGS = [
   {
     name: "mercenaries",
     rootId: "mercenaries-container",
-    prefix: "R ",
+    prefix: "R",
     resource: "authority",
   },
 ];

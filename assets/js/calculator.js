@@ -54,7 +54,7 @@ export function calculateTroops({
             (dominance * (u.unitWeight / u.dmg / totalDomRatio)) / u.unitWeight,
           );
           if (count > maxAllowed) {
-            warning = { max: maxAllowed };
+            warning = { max: maxAllowed, resource: "Dominance" };
           }
         }
       } else if (dominance > 0 && totalDomRatio > 0) {
@@ -70,7 +70,7 @@ export function calculateTroops({
               u.unitWeight,
           );
           if (count > maxAllowed) {
-            warning = { max: maxAllowed };
+            warning = { max: maxAllowed, resource: "Authority" };
           }
         }
       } else if (authority > 0 && totalAuthRatio > 0) {
