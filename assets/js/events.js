@@ -1,5 +1,9 @@
 import { calculateTroops } from "./calculator.js";
-import { resetAllResults, updateResults } from "./renderer.js";
+import {
+  resetAllResults,
+  updateResults,
+  renderSummary,
+} from "./renderer.js";
 
 /**
  * Reads current UI state and runs the calculator, then pushes results to the DOM.
@@ -30,6 +34,7 @@ function runCalculation() {
     selectedUnits,
   });
   updateResults(results);
+  renderSummary(results);
 }
 
 /**
@@ -94,6 +99,27 @@ export function attachEvents() {
       runCalculation();
     });
   });
+
+  // View toggle FAB (detail <-> summary)
+  const toggleBtn = document.getElementById("view-toggle");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const detail = document.getElementById("detail-view");
+      const detailHeading = document.getElementById("detail-heading");
+      const summary = document.getElementById("summary-container");
+      const summaryHeading = document.getElementById("summary-heading");
+      const icon = toggleBtn.querySelector("i");
+
+      const showingSummary = detail.classList.toggle("d-none");
+      detailHeading.classList.toggle("d-none", showingSummary);
+      summary.classList.toggle("d-none", !showingSummary);
+      summaryHeading.classList.toggle("d-none", !showingSummary);
+
+      icon.className = showingSummary
+        ? "bi bi-grid-3x3-gap"
+        : "bi bi-list-check";
+    });
+  }
 
   // Bootstrap tooltips (once)
   document

@@ -141,6 +141,10 @@
         </div>
       </div>
 
+      <h5 class="mb-3 text-center" id="detail-heading">
+        <i class="bi bi-pencil-square me-1"></i> Detail View
+      </h5>
+      <div id="detail-view">
       <div
         class="row g-2 sticky-top"
         style="
@@ -268,10 +272,37 @@
           <div id="mercenaries-container" class="row g-2"></div>
         </div>
       </div>
+      </div>
+
+      <h5 class="mb-3 d-none text-center" id="summary-heading">
+        <i class="bi bi-list-check me-1"></i> Summary View
+      </h5>
+      <div id="summary-container" class="d-none mb-3">
+        <p class="text-muted text-center" id="summary-empty">
+          Select units from the detail view to see your stack summary.
+        </p>
+        <div id="summary-content"></div>
+      </div>
 
       <button
         type="button"
-        class="btn btn-primary rounded-circle shadow-lg"
+        class="btn btn-primary rounded-circle shadow-lg fab"
+        id="view-toggle"
+        style="
+          position: fixed;
+          bottom: 80px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+          z-index: 1050;
+        "
+      >
+        <i class="bi bi-list-check"></i>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary rounded-circle shadow-lg fab"
         data-bs-toggle="modal"
         data-bs-target="#helpModal"
         style="
@@ -519,6 +550,33 @@
           <span class="dmg-label">TOTAL DMG</span>
           <span class="fw-bold unit-dmg-output">0</span>
         </div>
+      </div>
+    </template>
+
+    <template id="summary-tier-template">
+      <div class="card mb-2 shadow-sm summary-tier-card">
+        <div class="card-body p-2">
+          <div class="fw-bold mb-1 summary-tier-label"></div>
+          <div class="summary-unit-container"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="summary-unit-template">
+      <div class="d-flex justify-content-between align-items-center summary-row">
+        <span class="text-truncate me-2">
+          <span class="summary-unit-name"></span>
+          <i
+            class="bi bi-exclamation-triangle-fill text-warning ms-1 summary-warning-icon d-none"
+            data-bs-toggle="tooltip"
+            title=""
+          ></i>
+        </span>
+        <span class="text-nowrap">
+          <span class="fw-bold summary-unit-count"></span>
+          <span class="text-muted mx-1">|</span>
+          <span class="summary-unit-damage"></span>
+        </span>
       </div>
     </template>
   </body>

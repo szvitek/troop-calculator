@@ -2,6 +2,8 @@
  * Renders all category tabs and exposes helpers to update calculation results.
  */
 
+let storedColorMap = {};
+
 function toSafeId(category, tierId, name) {
   return `${category}-${tierId}-${name}`.replace(/\s+/g, "-").toLowerCase();
 }
@@ -10,6 +12,7 @@ function toSafeId(category, tierId, name) {
  * Clones HTML templates and populates them for every category.
  */
 export function renderAllCategories(troops, colorMap, configs) {
+  storedColorMap = colorMap;
   const template = document.getElementById("tier-row-template");
   const unitTemplate = document.getElementById("unit-item-template");
 
@@ -126,4 +129,101 @@ function showWarning(unitId, max, resource) {
 
   const tt = bootstrap.Tooltip.getInstance(icon);
   if (tt) tt.setContent({ ".tooltip-inner": msg });
+}
+
+/**
+ * Builds the summary view from calculator results and checked checkbox metadata.
+ * Groups selected units by tier (descending) with counts and damage.
+ * @param {Array<{id: string, count: number, damage: number}>} results
+ */
+export function renderSummary(results) {
+  const contentEl = document.getElementById("summary-content");
+  const emptyEl = document.getElementById("summary-empty");
+  if (!contentEl || !emptyEl) return;
+
+  const resultMap = {};
+  results.forEach((r) => {
+    resultMap[r.id] = r;
+  });
+
+  const checked = document.querySelectorAll(".unit-check:checked");
+  if (checked.length === 0) {
+    contentEl.innerHTML = "";
+    emptyEl.classList.remove("d-none");
+    return;
+  }
+  emptyEl.classList.add("d-none");
+
+  const tierGroups = {};
+  checked.forEach((cb) => {
+    const id = cb.id.replace("check-", "");
+    const tier = parseInt(cb.dataset.tier, 10);
+    const row = cb.closest(".unit-item");
+    const name = row
+      ? row.querySelector(".unit-name-label").textContent
+      : id;
+
+    if (!tierGroups[tier]) tierGroups[tier] = [];
+    tierGroups[tier].push({
+      name,
+      count: resultMap[id]?.count ?? 0,
+      damage: resultMap[id]?.damage ?? 0,
+      warning: resultMap[id]?.warning ?? null,
+    });
+  });
+
+  const sortedTiers = Object.keys(tierGroups)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const tierTpl = document.getElementById("summary-tier-template");
+  const unitTpl = document.getElementById("summary-unit-template");
+
+  contentEl.innerHTML = "";
+
+  sortedTiers.forEach((tier) => {
+    const color = storedColorMap[tier] || "#6c757d";
+    const tierClone = tierTpl.content.cloneNode(true);
+
+    tierClone.querySelector(".summary-tier-card").style.borderColor = color;
+    const label = tierClone.querySelector(".summary-tier-label");
+    label.style.color = color;
+    label.textContent = `Tier ${tier}`;
+
+    const container = tierClone.querySelector(".summary-unit-container");
+
+    tierGroups[tier].forEach((u) => {
+      const unitClone = unitTpl.content.cloneNode(true);
+
+      unitClone.querySelector(".summary-unit-name").textContent = u.name;
+      unitClone.querySelector(".summary-unit-count").textContent =
+        u.count.toLocaleString();
+
+      const dmgEl = unitClone.querySelector(".summary-unit-damage");
+      dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
+      dmgEl.style.color = color;
+
+      if (u.warning) {
+        const icon = unitClone.querySelector(".summary-warning-icon");
+        icon.classList.remove("d-none");
+        const msg = `Your current ${u.warning.resource} only allows ${u.warning.max.toLocaleString()} units to maintain balance`;
+        icon.setAttribute("title", msg);
+        new bootstrap.Tooltip(icon);
+      }
+
+      container.appendChild(unitClone);
+    });
+
+    contentEl.appendChild(tierClone);
+  });
+}
+
+/**
+ * Clears the summary panel content.
+ */
+export function clearSummary() {
+  const contentEl = document.getElementById("summary-content");
+  const emptyEl = document.getElementById("summary-empty");
+  if (contentEl) contentEl.innerHTML = "";
+  if (emptyEl) emptyEl.classList.remove("d-none");
 }
