@@ -2,8 +2,8 @@
  * Renders all category tabs and exposes helpers to update calculation results.
  */
 
-function toSafeId(name) {
-  return name.replace(/\s+/g, "-").toLowerCase();
+function toSafeId(category, tierId, name) {
+  return `${category}-${tierId}-${name}`.replace(/\s+/g, "-").toLowerCase();
 }
 
 /**
@@ -39,7 +39,7 @@ export function renderAllCategories(troops, colorMap, configs) {
 
       tier.units.forEach((unit) => {
         const unitClone = unitTemplate.content.cloneNode(true);
-        const safeId = toSafeId(unit.name);
+        const safeId = toSafeId(config.name, tier.tierId, unit.name);
 
         const check = unitClone.querySelector(".unit-check");
         check.id = `check-${safeId}`;
