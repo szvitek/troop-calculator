@@ -89,6 +89,31 @@
         <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
       </div>
 
+      <!-- Preset Bar -->
+      <div class="d-flex align-items-center gap-2 mb-3" id="preset-bar">
+        <select
+          class="form-select form-select-sm flex-grow-1"
+          id="preset-select"
+        >
+          <option value="" selected disabled>-- Load Preset --</option>
+        </select>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-primary"
+          id="preset-save"
+        >
+          <i class="bi bi-floppy me-1"></i>Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          id="preset-delete"
+          disabled
+        >
+          <i class="bi bi-trash me-1"></i>Delete
+        </button>
+      </div>
+
       <!-- Stats Input Row -->
       <div class="row mb-4">
         <!-- Leadership (Red) -->
@@ -316,6 +341,65 @@
       >
         <i class="bi bi-question-lg"></i>
       </button>
+
+      <div
+        class="modal fade"
+        id="presetModal"
+        tabindex="-1"
+        aria-labelledby="presetModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="presetModalLabel"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p id="preset-modal-message" class="mb-0"></p>
+              <div id="preset-modal-input-wrap" class="mt-3 d-none">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="preset-modal-input"
+                  placeholder="Preset name"
+                />
+              </div>
+              <div id="preset-modal-overwrite-wrap" class="form-check mt-3 d-none">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="preset-modal-overwrite"
+                />
+                <label class="form-check-label" for="preset-modal-overwrite">
+                  Update
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-sm btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                id="preset-modal-confirm"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div
         class="modal fade"

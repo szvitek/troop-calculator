@@ -1,3 +1,15 @@
+v0.10.0 - 2026-05-13
+-------------------
+Summary: Named army presets (stats + selected units) persist in localStorage. Pick a preset from the bar to load it immediately and jump to Summary View. Save uses a Bootstrap modal (no native prompts): name field with OK disabled until non-empty, optional "Update" checkbox when a preset is selected (empty field pre-fills the current name; non-empty input is never replaced). Renaming updates only when appropriate; overwriting another preset asks for confirmation after the save modal closes so stacked modals work reliably.
+
+[NEW] Army Presets: Save and load army compositions to localStorage for quick recall.
+[NEW] Preset Management: Save, overwrite, rename, and delete named presets from a compact bar (dropdown + Save + Delete).
+[UX] Instant load: Choosing a preset in the dropdown applies it without a separate Load button.
+[UX] Auto-Summary: Loading a preset switches to Summary View for instant review.
+[UX] Preset modal: Bootstrap modal for save, overwrite confirmation, and delete (replaces alert/prompt/confirm).
+[UX] Save validation: OK stays disabled until the preset name field has text; "Update" checkbox controls in-place edit vs new name behavior.
+[FIX] Modal sequencing: Overwrite confirmation opens only after the save modal has fully hidden, avoiding missing dialogs when chaining modals.
+
 v0.9.0 - 2026-05-12
 -------------------
 [NEW] Summary View: Added a new view that groups all selected units by tier across every category, providing a quick overview of your full stack.
