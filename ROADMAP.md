@@ -24,7 +24,7 @@
 
 ## [PHASE 4] Productivity & Professionalism
 
-- [ ] v0.10.0: The Persistence Release
+- [x] v0.10.0: The Persistence Release
   - [x] Presets: Save/Load army compositions to localStorage.
   - [x] Export: Share code for the selected preset (clipboard; fallback modal if unavailable).
   - [x] Import: Paste share codes to merge presets into localStorage.

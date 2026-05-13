@@ -152,3 +152,13 @@
 [data-bs-theme="dark"] .summary-row {
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
+
+/* Preset toasts: near full width with side inset; override Bootstrap default max-width */
+#preset-toast-container {
+  box-sizing: border-box;
+}
+
+#preset-toast.toast {
+  width: 100%;
+  max-width: none;
+}

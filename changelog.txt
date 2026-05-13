@@ -1,3 +1,8 @@
+v0.10.1 - 2026-05-13
+-------------------
+
+[UX] Preset toasts: Refined layout—wide bar with horizontal inset, rounded corners, centered message, and dismiss control aligned for a cleaner top-of-screen banner.
+
 v0.10.0 - 2026-05-13
 -------------------
 
