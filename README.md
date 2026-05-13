@@ -37,4 +37,5 @@ Toasts confirm save, import, export, and delete. Nothing is uploaded to a server
 
 - **Bootstrap 5** - Responsive layout and components.
 - **Vanilla JavaScript (ES6)** - Modular logic for high performance.
-- **Bootstrap Icons** - For a clean, visual interface.
+- **Bootstrap Icons** - Preset bar, theme menu, and other stock UI glyphs.
+- **Game Icons** - SVGs under `assets/icons/` ([game-icons.net](https://game-icons.net), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)); each file uses `fill="currentColor"` so the page can tint icons via CSS on the wrapping `.gi-svg`.
