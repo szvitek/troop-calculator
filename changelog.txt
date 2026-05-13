@@ -1,8 +1,9 @@
 v0.10.0 - 2026-05-13
 -------------------
 
+[NEW] Preset bar reset: One control clears stat inputs, deselects all units, and returns the preset dropdown to no selection (saved presets are untouched).
 [NEW] Army Presets: Save and load army compositions to localStorage for quick recall.
-[NEW] Preset Management: Save, overwrite, rename, and delete named presets from a compact bar (dropdown + Save + Delete + Export + Import).
+[NEW] Preset Management: Save, overwrite, rename, and delete named presets from a compact bar (dropdown + Reset + Save + Delete + Export + Import).
 [NEW] Preset Export: Share codes for the currently selected preset only (`a2r-preset:` + base64url JSON with version, display name, stats, and unit ids). Export is disabled until a real preset is selected. Successful export copies to the clipboard; if the Clipboard API is unavailable, a modal shows the code for manual copy.
 [NEW] Preset Import: Modal with a paste area; Import stays disabled until the field is non-empty. Decodes and validates share codes (length limit, version check, numeric stats, unit ids that exist in the DOM). Saves as `Imported: <original name>` with `(2)`, `(3)`, … on name collisions, then loads the new preset after the modal closes.
 [UX] Instant load: Choosing a preset in the dropdown applies it without a separate Load button.

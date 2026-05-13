@@ -89,7 +89,7 @@
         <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
       </div>
 
-      <!-- Preset Bar: dropdown grows; icon buttons stay fixed at the end -->
+      <!-- Preset Bar: dropdown grows; icon buttons (Reset, Save, …) stay fixed at the end -->
       <div class="d-flex align-items-center gap-2 mb-3 flex-nowrap" id="preset-bar">
         <select
           class="form-select form-select-sm flex-grow-1 min-w-0"
@@ -100,12 +100,17 @@
         </select>
         <button
           type="button"
+          class="btn btn-sm btn-outline-secondary preset-icon-btn flex-shrink-0"
+          id="preset-reset"
+        >
+          <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+          <span class="visually-hidden">Reset form</span>
+        </button>
+        <button
+          type="button"
           class="btn btn-sm btn-outline-primary preset-icon-btn flex-shrink-0"
           id="preset-save"
           disabled
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Save preset"
         >
           <i class="bi bi-floppy" aria-hidden="true"></i>
           <span class="visually-hidden">Save preset</span>
@@ -115,9 +120,6 @@
           class="btn btn-sm btn-outline-danger preset-icon-btn flex-shrink-0"
           id="preset-delete"
           disabled
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Delete preset"
         >
           <i class="bi bi-trash" aria-hidden="true"></i>
           <span class="visually-hidden">Delete preset</span>
@@ -127,9 +129,6 @@
           class="btn btn-sm btn-outline-info preset-icon-btn flex-shrink-0"
           id="preset-export"
           disabled
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Copy share code for the selected preset"
         >
           <i class="bi bi-box-arrow-up" aria-hidden="true"></i>
           <span class="visually-hidden">Export preset</span>
@@ -138,9 +137,6 @@
           type="button"
           class="btn btn-sm btn-outline-success preset-icon-btn flex-shrink-0"
           id="preset-import"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Import a preset from a share code"
         >
           <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
           <span class="visually-hidden">Import preset</span>
@@ -656,6 +652,13 @@
                   that preset and open <strong>Summary</strong> view.
                 </li>
                 <li>
+                  <strong>Reset:</strong> Clears all stat fields and unit
+                  selections, returns the dropdown to
+                  <em>-- Load Preset --</em> (no preset selected), and switches
+                  to <strong>Detail</strong> view. Saved presets in storage are
+                  unchanged.
+                </li>
+                <li>
                   <strong>Save:</strong> Available once at least one stat field
                   has a value. Use <em>Update</em> when a preset is selected to
                   overwrite it or save under a new name.
@@ -826,5 +829,31 @@
         </span>
       </div>
     </template>
+
+    <div
+      class="toast-container position-fixed top-0 start-0 p-3"
+      id="preset-toast-container"
+      style="z-index: 1080"
+    >
+      <div
+        id="preset-toast"
+        class="toast align-items-center border-0 shadow text-bg-success"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-bs-delay="3200"
+        data-bs-autohide="true"
+      >
+        <div class="d-flex w-100">
+          <div class="toast-body py-2" id="preset-toast-body"></div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

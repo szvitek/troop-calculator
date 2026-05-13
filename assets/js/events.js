@@ -149,3 +149,26 @@ export function showSummaryView() {
     }
   }
 }
+
+/**
+ * Programmatically switches to the detail view if not already visible.
+ */
+export function showDetailView() {
+  const detail = document.getElementById("detail-view");
+  const detailHeading = document.getElementById("detail-heading");
+  const summary = document.getElementById("summary-container");
+  const summaryHeading = document.getElementById("summary-heading");
+  const toggleBtn = document.getElementById("view-toggle");
+
+  if (detail.classList.contains("d-none")) {
+    detail.classList.remove("d-none");
+    detailHeading.classList.remove("d-none");
+    summary.classList.add("d-none");
+    summaryHeading.classList.add("d-none");
+
+    if (toggleBtn) {
+      const icon = toggleBtn.querySelector("i");
+      icon.className = "bi bi-list-check";
+    }
+  }
+}

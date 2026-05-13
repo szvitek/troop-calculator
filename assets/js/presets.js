@@ -1,4 +1,4 @@
-import { runCalculation, showSummaryView } from "./events.js";
+import { runCalculation, showDetailView, showSummaryView } from "./events.js";
 
 const STORAGE_KEY = "troop-presets";
 const SHARE_VERSION = 1;
@@ -171,6 +171,31 @@ function showExportFallback(code) {
   );
 }
 
+let presetToastInstance = null;
+
+/**
+ * @param {string} message
+ */
+function showPresetToast(message) {
+  const el = document.getElementById("preset-toast");
+  const body = document.getElementById("preset-toast-body");
+  const closeBtn = el?.querySelector(".btn-close");
+  if (!el || !body) return;
+
+  body.textContent = message;
+  el.classList.remove("text-bg-success", "text-bg-info");
+  el.classList.add("text-bg-success");
+  closeBtn?.classList.add("btn-close-white");
+
+  if (!presetToastInstance) {
+    presetToastInstance = bootstrap.Toast.getOrCreateInstance(el, {
+      autohide: true,
+      delay: 3200,
+    });
+  }
+  presetToastInstance.show();
+}
+
 // --- Modal helper ---
 
 function showModal({
@@ -319,6 +344,35 @@ function restoreState(preset) {
   syncSavePresetButton();
 }
 
+/** Clears stat inputs and unit checks, resets preset dropdown to placeholder, recalculates, shows detail view. */
+function resetFormToEmpty() {
+  for (const id of [
+    "input-leadership",
+    "input-authority",
+    "input-dominance",
+  ]) {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  }
+
+  document.querySelectorAll(".unit-check").forEach((cb) => {
+    cb.checked = false;
+  });
+  document.querySelectorAll(".tier-master-check").forEach((cb) => {
+    cb.checked = false;
+    cb.indeterminate = false;
+  });
+
+  const select = document.getElementById("preset-select");
+  if (select) select.selectedIndex = 0;
+
+  syncAllMasters();
+  runCalculation();
+  showDetailView();
+  syncPresetActionButtons();
+  syncSavePresetButton();
+}
+
 function syncAllMasters() {
   document.querySelectorAll(".tier-master-check").forEach((master) => {
     const { tier, category } = master.dataset;
@@ -364,6 +418,7 @@ function populateDropdown() {
 
 export function initPresets() {
   const select = document.getElementById("preset-select");
+  const resetBtn = document.getElementById("preset-reset");
   const saveBtn = document.getElementById("preset-save");
   const deleteBtn = document.getElementById("preset-delete");
   const exportBtn = document.getElementById("preset-export");
@@ -373,10 +428,15 @@ export function initPresets() {
   const importSubmit = document.getElementById("import-preset-submit");
   const importAlert = document.getElementById("import-preset-alert");
 
-  if (!select || !saveBtn || !deleteBtn || !exportBtn || !importBtn) return;
+  if (!select || !resetBtn || !saveBtn || !deleteBtn || !exportBtn || !importBtn)
+    return;
   if (!importModalEl || !importTa || !importSubmit || !importAlert) return;
 
   populateDropdown();
+
+  resetBtn.addEventListener("click", () => {
+    resetFormToEmpty();
+  });
 
   document.addEventListener("input", (e) => {
     if (
@@ -415,6 +475,7 @@ export function initPresets() {
 
     try {
       await navigator.clipboard.writeText(code);
+      showPresetToast("Share code copied to clipboard.");
     } catch {
       showExportFallback(code);
     }
@@ -461,6 +522,7 @@ export function initPresets() {
       populateDropdown();
       select.value = key;
       select.dispatchEvent(new Event("change"));
+      showPresetToast("Preset imported");
     }
 
     importModalEl.addEventListener("hidden.bs.modal", onImportHidden);
@@ -504,6 +566,7 @@ export function initPresets() {
     populateDropdown();
     select.value = targetName;
     select.dispatchEvent(new Event("change"));
+    showPresetToast(`Preset saved "${targetName}"`);
   });
 
   deleteBtn.addEventListener("click", async () => {
@@ -522,5 +585,6 @@ export function initPresets() {
     delete presets[name];
     savePresets(presets);
     populateDropdown();
+    showPresetToast(`Preset deleted "${name}"`);
   });
 }
