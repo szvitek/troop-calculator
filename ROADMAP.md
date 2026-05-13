@@ -24,9 +24,10 @@
 
 ## [PHASE 4] Productivity & Professionalism
 
-- [ ] v0.10.0: The Persistence Release (Gold)
+- [ ] v0.10.0: The Persistence Release
   - [x] Presets: Save/Load army compositions to localStorage.
-  - [ ] Import/Export: Shareable army codes and JSON snapshots..
+  - [x] Export: Share code for the selected preset (clipboard; fallback modal if unavailable).
+  - [x] Import: Paste share codes to merge presets into localStorage.
 - [ ] v1.0.0: The App Experience
   - [ ] PWA Implementation: manifest.json and Service Worker support.
   - [ ] Offline capability and asset caching for instant mobile loading.

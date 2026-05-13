@@ -1,6 +1,175 @@
 import { runCalculation, showSummaryView } from "./events.js";
 
 const STORAGE_KEY = "troop-presets";
+const SHARE_VERSION = 1;
+/** Prefix so pasted codes are recognizable and import can validate. */
+const SHARE_PREFIX = "a2r-preset:";
+
+function base64UrlEncode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+}
+
+function base64UrlDecodeToString(b64url) {
+  let b64 = b64url.replace(/-/g, "+").replace(/_/g, "/");
+  const pad = b64.length % 4;
+  if (pad) b64 += "=".repeat(4 - pad);
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+const MAX_IMPORT_CHARS = 400_000;
+const MAX_STAT = 1e12;
+
+function clampStat(value) {
+  const x = parseInt(String(value), 10);
+  if (!Number.isFinite(x) || x < 0) return 0;
+  return Math.min(x, MAX_STAT);
+}
+
+function sanitizeImportedUnits(units) {
+  if (!Array.isArray(units)) return [];
+  const out = [];
+  for (const id of units) {
+    if (typeof id !== "string" || id.length > 256) continue;
+    const el = document.getElementById(id);
+    if (el && el.classList.contains("unit-check")) out.push(id);
+  }
+  return out;
+}
+
+function makeImportedStorageKey(presets, sourceLabel) {
+  const raw =
+    typeof sourceLabel === "string" && sourceLabel.trim()
+      ? sourceLabel.trim().slice(0, 120)
+      : "Preset";
+  const base = `Imported: ${raw}`;
+  if (!Object.prototype.hasOwnProperty.call(presets, base)) return base;
+  let n = 2;
+  while (Object.prototype.hasOwnProperty.call(presets, `${base} (${n})`)) {
+    n += 1;
+  }
+  return `${base} (${n})`;
+}
+
+/**
+ * @returns {{ ok: true, preset: object, sourceLabel: string } | { ok: false, error: string }}
+ */
+function parseShareCode(raw) {
+  const trimmed = raw.trim();
+  if (!trimmed) return { ok: false, error: "Paste a share code." };
+  if (trimmed.length > MAX_IMPORT_CHARS) {
+    return { ok: false, error: "Code is too long." };
+  }
+  if (!trimmed.startsWith(SHARE_PREFIX)) {
+    return {
+      ok: false,
+      error: `Invalid code (must start with ${SHARE_PREFIX}).`,
+    };
+  }
+
+  const b64 = trimmed.slice(SHARE_PREFIX.length).trim();
+  if (!b64) return { ok: false, error: "Missing encoded data after prefix." };
+
+  let jsonStr;
+  try {
+    jsonStr = base64UrlDecodeToString(b64);
+  } catch {
+    return { ok: false, error: "Could not decode the code." };
+  }
+
+  let obj;
+  try {
+    obj = JSON.parse(jsonStr);
+  } catch {
+    return { ok: false, error: "Could not parse preset data." };
+  }
+
+  if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
+    return { ok: false, error: "Invalid preset data." };
+  }
+  if (obj.v !== SHARE_VERSION) {
+    return { ok: false, error: "Unsupported share code version." };
+  }
+
+  const sourceLabel =
+    typeof obj.name === "string" ? obj.name.trim().slice(0, 120) : "";
+
+  const preset = {
+    leadership: clampStat(obj.leadership),
+    authority: clampStat(obj.authority),
+    dominance: clampStat(obj.dominance),
+    units: sanitizeImportedUnits(obj.units),
+  };
+
+  return { ok: true, preset, sourceLabel };
+}
+
+function buildShareCode(presetName, data) {
+  const payload = {
+    v: SHARE_VERSION,
+    name: presetName,
+    leadership: data.leadership ?? 0,
+    authority: data.authority ?? 0,
+    dominance: data.dominance ?? 0,
+    units: Array.isArray(data.units) ? data.units : [],
+  };
+  return `${SHARE_PREFIX}${base64UrlEncode(JSON.stringify(payload))}`;
+}
+
+function syncPresetActionButtons() {
+  const select = document.getElementById("preset-select");
+  const del = document.getElementById("preset-delete");
+  const exp = document.getElementById("preset-export");
+  if (!select || !del || !exp) return;
+  const hasSelection =
+    Boolean(select.value) && !select.selectedOptions[0]?.disabled;
+  del.disabled = !hasSelection;
+  exp.disabled = !hasSelection;
+}
+
+/** True if at least one of Leadership / Authority / Dominance has non-empty input. */
+function areStatInputsPopulated() {
+  for (const id of [
+    "input-leadership",
+    "input-authority",
+    "input-dominance",
+  ]) {
+    const el = document.getElementById(id);
+    if (el && el.value.trim() !== "") return true;
+  }
+  return false;
+}
+
+function syncSavePresetButton() {
+  const saveBtn = document.getElementById("preset-save");
+  if (!saveBtn) return;
+  saveBtn.disabled = !areStatInputsPopulated();
+}
+
+function showExportFallback(code) {
+  const ta = document.getElementById("export-fallback-text");
+  const modalEl = document.getElementById("exportFallbackModal");
+  if (!ta || !modalEl) return;
+  ta.value = code;
+  const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
+  modalEl.addEventListener(
+    "shown.bs.modal",
+    () => {
+      ta.focus();
+      ta.select();
+    },
+    { once: true },
+  );
+}
 
 // --- Modal helper ---
 
@@ -147,6 +316,7 @@ function restoreState(preset) {
   syncAllMasters();
   runCalculation();
   showSummaryView();
+  syncSavePresetButton();
 }
 
 function syncAllMasters() {
@@ -186,8 +356,8 @@ function populateDropdown() {
     select.value = currentValue;
   }
 
-  const hasSelection = select.value && !select.selectedOptions[0]?.disabled;
-  document.getElementById("preset-delete").disabled = !hasSelection;
+  syncPresetActionButtons();
+  syncSavePresetButton();
 }
 
 // --- Init ---
@@ -196,19 +366,105 @@ export function initPresets() {
   const select = document.getElementById("preset-select");
   const saveBtn = document.getElementById("preset-save");
   const deleteBtn = document.getElementById("preset-delete");
+  const exportBtn = document.getElementById("preset-export");
+  const importBtn = document.getElementById("preset-import");
+  const importModalEl = document.getElementById("importPresetModal");
+  const importTa = document.getElementById("import-preset-text");
+  const importSubmit = document.getElementById("import-preset-submit");
+  const importAlert = document.getElementById("import-preset-alert");
 
-  if (!select || !saveBtn || !deleteBtn) return;
+  if (!select || !saveBtn || !deleteBtn || !exportBtn || !importBtn) return;
+  if (!importModalEl || !importTa || !importSubmit || !importAlert) return;
 
   populateDropdown();
 
+  document.addEventListener("input", (e) => {
+    if (
+      e.target.id === "input-leadership" ||
+      e.target.id === "input-authority" ||
+      e.target.id === "input-dominance"
+    ) {
+      syncSavePresetButton();
+    }
+  });
+
   select.addEventListener("change", () => {
     const name = select.value;
-    if (!name) return;
+    if (!name) {
+      syncPresetActionButtons();
+      syncSavePresetButton();
+      return;
+    }
 
     const presets = getPresets();
     if (presets[name]) restoreState(presets[name]);
 
-    deleteBtn.disabled = false;
+    syncPresetActionButtons();
+    syncSavePresetButton();
+  });
+
+  exportBtn.addEventListener("click", async () => {
+    const name = select.value;
+    if (!name || select.selectedOptions[0]?.disabled) return;
+
+    const presets = getPresets();
+    const data = presets[name];
+    if (!data) return;
+
+    const code = buildShareCode(name, data);
+
+    try {
+      await navigator.clipboard.writeText(code);
+    } catch {
+      showExportFallback(code);
+    }
+  });
+
+  importBtn.addEventListener("click", () => {
+    importTa.value = "";
+    importAlert.textContent = "";
+    importAlert.classList.add("d-none");
+    importSubmit.disabled = true;
+    const modal = bootstrap.Modal.getOrCreateInstance(importModalEl);
+    modal.show();
+    importModalEl.addEventListener(
+      "shown.bs.modal",
+      () => importTa.focus(),
+      { once: true },
+    );
+  });
+
+  importTa.addEventListener("input", () => {
+    importSubmit.disabled = !importTa.value.trim();
+  });
+
+  importSubmit.addEventListener("click", () => {
+    importAlert.classList.add("d-none");
+    importAlert.textContent = "";
+
+    const parsed = parseShareCode(importTa.value);
+    if (!parsed.ok) {
+      importAlert.textContent = parsed.error;
+      importAlert.classList.remove("d-none");
+      return;
+    }
+
+    const presets = getPresets();
+    const key = makeImportedStorageKey(presets, parsed.sourceLabel);
+    presets[key] = parsed.preset;
+    savePresets(presets);
+
+    const modal = bootstrap.Modal.getOrCreateInstance(importModalEl);
+
+    function onImportHidden() {
+      importModalEl.removeEventListener("hidden.bs.modal", onImportHidden);
+      populateDropdown();
+      select.value = key;
+      select.dispatchEvent(new Event("change"));
+    }
+
+    importModalEl.addEventListener("hidden.bs.modal", onImportHidden);
+    modal.hide();
   });
 
   saveBtn.addEventListener("click", async () => {
