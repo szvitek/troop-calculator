@@ -89,58 +89,65 @@
         <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
       </div>
 
-      <!-- Preset Bar: dropdown grows; icon buttons (Reset, Save, …) stay fixed at the end -->
-      <div class="d-flex align-items-center gap-2 mb-3 flex-nowrap" id="preset-bar">
+      <!-- Preset Bar: select shrinks; icon group wraps as one unit on narrow widths -->
+      <div
+        class="d-flex flex-wrap align-items-center gap-2 mb-3 min-w-0"
+        id="preset-bar"
+      >
         <select
           class="form-select form-select-sm flex-grow-1 min-w-0"
           id="preset-select"
-          style="min-width: 10rem"
         >
           <option value="" selected disabled>-- Load Preset --</option>
         </select>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary preset-icon-btn flex-shrink-0"
-          id="preset-reset"
+        <div
+          class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0 ms-auto ms-sm-0"
+          id="preset-bar-actions"
         >
-          <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
-          <span class="visually-hidden">Reset form</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-primary preset-icon-btn flex-shrink-0"
-          id="preset-save"
-          disabled
-        >
-          <i class="bi bi-floppy" aria-hidden="true"></i>
-          <span class="visually-hidden">Save preset</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-danger preset-icon-btn flex-shrink-0"
-          id="preset-delete"
-          disabled
-        >
-          <i class="bi bi-trash" aria-hidden="true"></i>
-          <span class="visually-hidden">Delete preset</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-info preset-icon-btn flex-shrink-0"
-          id="preset-export"
-          disabled
-        >
-          <i class="bi bi-box-arrow-up" aria-hidden="true"></i>
-          <span class="visually-hidden">Export preset</span>
-        </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-success preset-icon-btn flex-shrink-0"
-          id="preset-import"
-        >
-          <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
-          <span class="visually-hidden">Import preset</span>
-        </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary preset-icon-btn flex-shrink-0"
+            id="preset-reset"
+          >
+            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+            <span class="visually-hidden">Reset form</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-primary preset-icon-btn flex-shrink-0"
+            id="preset-save"
+            disabled
+          >
+            <i class="bi bi-floppy" aria-hidden="true"></i>
+            <span class="visually-hidden">Save preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger preset-icon-btn flex-shrink-0"
+            id="preset-delete"
+            disabled
+          >
+            <i class="bi bi-trash" aria-hidden="true"></i>
+            <span class="visually-hidden">Delete preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-info preset-icon-btn flex-shrink-0"
+            id="preset-export"
+            disabled
+          >
+            <i class="bi bi-box-arrow-up" aria-hidden="true"></i>
+            <span class="visually-hidden">Export preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-success preset-icon-btn flex-shrink-0"
+            id="preset-import"
+          >
+            <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
+            <span class="visually-hidden">Import preset</span>
+          </button>
+        </div>
       </div>
 
       <!-- Stats Input Row -->
@@ -199,133 +206,133 @@
         <i class="bi bi-pencil-square me-1"></i> Detail View
       </h5>
       <div id="detail-view">
-      <div
-        class="row g-2 sticky-top"
-        style="
-          background-color: transparent;
-          backdrop-filter: blur(8px);
-          z-index: 1020;
-        "
-      >
         <div
-          class="card p-0 border-1 bg-transparent"
-          style="border-color: transparent"
+          class="row g-2 sticky-top"
+          style="
+            background-color: transparent;
+            backdrop-filter: blur(8px);
+            z-index: 1020;
+          "
         >
-          <ul
-            class="nav nav-pills nav-fill mb-3 gap-2"
-            id="unitTabs"
-            role="tablist"
+          <div
+            class="card p-0 border-1 bg-transparent"
+            style="border-color: transparent"
           >
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active shadow-sm border"
-                id="guards-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#guards-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-shield-shaded"></i> Guards
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="specs-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#specs-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-star-fill"></i> Specs
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="catapults-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#catapults-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-tools"></i> Cats
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="monsters-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#monsters-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-bug-fill"></i> Monsters
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="mercenaries-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#mercenaries-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-coin"></i> Mercs
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tab-content" id="unitTabsContent">
-        <div
-          class="tab-pane fade show active"
-          id="guards-content"
-          role="tabpanel"
-          aria-labelledby="guards-tab"
-        >
-          <div id="guardsmen-container" class="row g-2"></div>
+            <ul
+              class="nav nav-pills nav-fill mb-3 gap-2"
+              id="unitTabs"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active shadow-sm border"
+                  id="guards-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#guards-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-shield-shaded"></i> Guards
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="specs-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#specs-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-star-fill"></i> Specs
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="catapults-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#catapults-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-tools"></i> Cats
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="monsters-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#monsters-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-bug-fill"></i> Monsters
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="mercenaries-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#mercenaries-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-coin"></i> Mercs
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="specs-content"
-          role="tabpanel"
-          aria-labelledby="specs-tab"
-        >
-          <div id="specialists-container" class="row g-2"></div>
-        </div>
+        <div class="tab-content" id="unitTabsContent">
+          <div
+            class="tab-pane fade show active"
+            id="guards-content"
+            role="tabpanel"
+            aria-labelledby="guards-tab"
+          >
+            <div id="guardsmen-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="catapults-content"
-          role="tabpanel"
-          aria-labelledby="catapults-tab"
-        >
-          <div id="catapults-container" class="row g-2"></div>
-        </div>
+          <div
+            class="tab-pane fade"
+            id="specs-content"
+            role="tabpanel"
+            aria-labelledby="specs-tab"
+          >
+            <div id="specialists-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="monsters-content"
-          role="tabpanel"
-          aria-labelledby="monsters-tab"
-        >
-          <div id="monsters-container" class="row g-2"></div>
-        </div>
+          <div
+            class="tab-pane fade"
+            id="catapults-content"
+            role="tabpanel"
+            aria-labelledby="catapults-tab"
+          >
+            <div id="catapults-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="mercenaries-content"
-          role="tabpanel"
-          aria-labelledby="mercenaries-tab"
-        >
-          <div id="mercenaries-container" class="row g-2"></div>
+          <div
+            class="tab-pane fade"
+            id="monsters-content"
+            role="tabpanel"
+            aria-labelledby="monsters-tab"
+          >
+            <div id="monsters-container" class="row g-2"></div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="mercenaries-content"
+            role="tabpanel"
+            aria-labelledby="mercenaries-tab"
+          >
+            <div id="mercenaries-container" class="row g-2"></div>
+          </div>
         </div>
-      </div>
       </div>
 
       <h5 class="mb-3 d-none text-center" id="summary-heading">
@@ -399,7 +406,10 @@
                   placeholder="Preset name"
                 />
               </div>
-              <div id="preset-modal-overwrite-wrap" class="form-check mt-3 d-none">
+              <div
+                id="preset-modal-overwrite-wrap"
+                class="form-check mt-3 d-none"
+              >
                 <input
                   class="form-check-input"
                   type="checkbox"
@@ -664,11 +674,11 @@
                   overwrite it or save under a new name.
                 </li>
                 <li>
-                  <strong>Export / Import:</strong> <strong>Export</strong> (with
-                  a preset selected) copies a share code to your clipboard.
-                  <strong>Import</strong> pastes a code and adds it as a new entry
-                  named <em>Imported: …</em> so you can back up stacks or share
-                  them with others.
+                  <strong>Export / Import:</strong>
+                  <strong>Export</strong> (with a preset selected) copies a
+                  share code to your clipboard. <strong>Import</strong> pastes a
+                  code and adds it as a new entry named <em>Imported: …</em> so
+                  you can back up stacks or share them with others.
                 </li>
               </ul>
 
@@ -813,7 +823,9 @@
     </template>
 
     <template id="summary-unit-template">
-      <div class="d-flex justify-content-between align-items-center summary-row">
+      <div
+        class="d-flex justify-content-between align-items-center summary-row"
+      >
         <span class="text-truncate me-2">
           <span class="summary-unit-name"></span>
           <i
