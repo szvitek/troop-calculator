@@ -1,3 +1,19 @@
+v0.10.0 - 2026-05-13
+-------------------
+
+[NEW] Preset bar reset: One control clears stat inputs, deselects all units, and returns the preset dropdown to no selection (saved presets are untouched).
+[NEW] Army Presets: Save and load army compositions to localStorage for quick recall.
+[NEW] Preset Management: Save, overwrite, rename, and delete named presets from a compact bar (dropdown + Reset + Save + Delete + Export + Import).
+[NEW] Preset Export: Share codes for the currently selected preset only (`a2r-preset:` + base64url JSON with version, display name, stats, and unit ids). Export is disabled until a real preset is selected. Successful export copies to the clipboard; if the Clipboard API is unavailable, a modal shows the code for manual copy.
+[NEW] Preset Import: Modal with a paste area; Import stays disabled until the field is non-empty. Decodes and validates share codes (length limit, version check, numeric stats, unit ids that exist in the DOM). Saves as `Imported: <original name>` with `(2)`, `(3)`, … on name collisions, then loads the new preset after the modal closes.
+[UX] Instant load: Choosing a preset in the dropdown applies it without a separate Load button.
+[UX] Auto-Summary: Loading a preset switches to Summary View for instant review.
+[UX] Preset modal: Bootstrap modal for save, overwrite confirmation, and delete (replaces alert/prompt/confirm).
+[UX] Save validation: OK stays disabled until the preset name field has text; "Update" checkbox controls in-place edit vs new name behavior.
+[UX] Preset bar actions: Export uses outline-info and Import outline-success so they read separately from Save (primary) and Delete (danger).
+[FIX] Modal sequencing: Overwrite confirmation opens only after the save modal has fully hidden, avoiding missing dialogs when chaining modals.
+[FIX] Save preset disabled until input: The Save button stays disabled until at least one of Leadership, Authority, or Dominance has non-whitespace text, including on load and after loading a preset from the dropdown (avoids saving with no stat context).
+
 v0.9.0 - 2026-05-12
 -------------------
 [NEW] Summary View: Added a new view that groups all selected units by tier across every category, providing a quick overview of your full stack.

@@ -1,4 +1,4 @@
-# Roadmap# PROJECT ROADMAP: Troop Calculator
+# PROJECT ROADMAP: Troop Calculator
 
 ## [PHASE 1] The Foundation
 
@@ -24,15 +24,15 @@
 
 ## [PHASE 4] Productivity & Professionalism
 
-- [ ] v1.0.0: The Persistence Release (Gold)
-  - [ ] Presets: Save/Load army compositions to localStorage.
-  - [ ] Import/Export: Shareable army codes and JSON snapshots.
-  - [ ] Documentation and GitHub links integrated into header.
-- [ ] v1.1.0: The App Experience
+- [ ] v0.10.0: The Persistence Release
+  - [x] Presets: Save/Load army compositions to localStorage.
+  - [x] Export: Share code for the selected preset (clipboard; fallback modal if unavailable).
+  - [x] Import: Paste share codes to merge presets into localStorage.
+- [ ] v1.0.0: The App Experience
   - [ ] PWA Implementation: manifest.json and Service Worker support.
   - [ ] Offline capability and asset caching for instant mobile loading.
 
 ---
 
-Last Updated: 2026-05-12
-Status: Phase 3 (Development)
+Last Updated: 2026-05-13
+Status: Phase 4 (Development)

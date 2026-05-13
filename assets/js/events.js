@@ -8,7 +8,7 @@ import {
 /**
  * Reads current UI state and runs the calculator, then pushes results to the DOM.
  */
-function runCalculation() {
+export function runCalculation() {
   resetAllResults();
 
   const leadership =
@@ -125,4 +125,50 @@ export function attachEvents() {
   document
     .querySelectorAll('[data-bs-toggle="tooltip"]')
     .forEach((el) => new bootstrap.Tooltip(el));
+}
+
+/**
+ * Programmatically switches to the summary view if not already visible.
+ */
+export function showSummaryView() {
+  const detail = document.getElementById("detail-view");
+  const detailHeading = document.getElementById("detail-heading");
+  const summary = document.getElementById("summary-container");
+  const summaryHeading = document.getElementById("summary-heading");
+  const toggleBtn = document.getElementById("view-toggle");
+
+  if (!detail.classList.contains("d-none")) {
+    detail.classList.add("d-none");
+    detailHeading.classList.add("d-none");
+    summary.classList.remove("d-none");
+    summaryHeading.classList.remove("d-none");
+
+    if (toggleBtn) {
+      const icon = toggleBtn.querySelector("i");
+      icon.className = "bi bi-grid-3x3-gap";
+    }
+  }
+}
+
+/**
+ * Programmatically switches to the detail view if not already visible.
+ */
+export function showDetailView() {
+  const detail = document.getElementById("detail-view");
+  const detailHeading = document.getElementById("detail-heading");
+  const summary = document.getElementById("summary-container");
+  const summaryHeading = document.getElementById("summary-heading");
+  const toggleBtn = document.getElementById("view-toggle");
+
+  if (detail.classList.contains("d-none")) {
+    detail.classList.remove("d-none");
+    detailHeading.classList.remove("d-none");
+    summary.classList.add("d-none");
+    summaryHeading.classList.add("d-none");
+
+    if (toggleBtn) {
+      const icon = toggleBtn.querySelector("i");
+      icon.className = "bi bi-list-check";
+    }
+  }
 }

@@ -100,6 +100,44 @@
   opacity: 1;
 }
 
+/* Preset bar: avoid horizontal overflow (narrow viewports + five icon buttons) */
+#preset-bar {
+  /* Let the flex row shrink inside .container instead of forcing overflow */
+  min-width: 0;
+}
+
+#preset-bar > .form-select {
+  flex: 1 1 7rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Preset bar: square icon buttons aligned with form-select-sm */
+#preset-bar .preset-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+#preset-bar .preset-icon-btn i {
+  font-size: 1rem;
+}
+
+@media (max-width: 575.98px) {
+  #preset-bar .preset-icon-btn {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  #preset-bar .preset-icon-btn i {
+    font-size: 0.9rem;
+  }
+}
+
 /* Summary View */
 .summary-row {
   padding: 4px 8px;

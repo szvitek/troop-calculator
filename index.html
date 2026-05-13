@@ -89,6 +89,67 @@
         <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
       </div>
 
+      <!-- Preset Bar: select shrinks; icon group wraps as one unit on narrow widths -->
+      <div
+        class="d-flex flex-wrap align-items-center gap-2 mb-3 min-w-0"
+        id="preset-bar"
+      >
+        <select
+          class="form-select form-select-sm flex-grow-1 min-w-0"
+          id="preset-select"
+        >
+          <option value="" selected disabled>-- Load Preset --</option>
+        </select>
+        <div
+          class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0 ms-auto ms-sm-0"
+          id="preset-bar-actions"
+        >
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary preset-icon-btn flex-shrink-0"
+            id="preset-reset"
+          >
+            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+            <span class="visually-hidden">Reset form</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-primary preset-icon-btn flex-shrink-0"
+            id="preset-save"
+            disabled
+          >
+            <i class="bi bi-floppy" aria-hidden="true"></i>
+            <span class="visually-hidden">Save preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger preset-icon-btn flex-shrink-0"
+            id="preset-delete"
+            disabled
+          >
+            <i class="bi bi-trash" aria-hidden="true"></i>
+            <span class="visually-hidden">Delete preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-info preset-icon-btn flex-shrink-0"
+            id="preset-export"
+            disabled
+          >
+            <i class="bi bi-box-arrow-up" aria-hidden="true"></i>
+            <span class="visually-hidden">Export preset</span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-success preset-icon-btn flex-shrink-0"
+            id="preset-import"
+          >
+            <i class="bi bi-box-arrow-in-down" aria-hidden="true"></i>
+            <span class="visually-hidden">Import preset</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Stats Input Row -->
       <div class="row mb-4">
         <!-- Leadership (Red) -->
@@ -145,133 +206,133 @@
         <i class="bi bi-pencil-square me-1"></i> Detail View
       </h5>
       <div id="detail-view">
-      <div
-        class="row g-2 sticky-top"
-        style="
-          background-color: transparent;
-          backdrop-filter: blur(8px);
-          z-index: 1020;
-        "
-      >
         <div
-          class="card p-0 border-1 bg-transparent"
-          style="border-color: transparent"
+          class="row g-2 sticky-top"
+          style="
+            background-color: transparent;
+            backdrop-filter: blur(8px);
+            z-index: 1020;
+          "
         >
-          <ul
-            class="nav nav-pills nav-fill mb-3 gap-2"
-            id="unitTabs"
-            role="tablist"
+          <div
+            class="card p-0 border-1 bg-transparent"
+            style="border-color: transparent"
           >
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active shadow-sm border"
-                id="guards-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#guards-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-shield-shaded"></i> Guards
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="specs-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#specs-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-star-fill"></i> Specs
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="catapults-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#catapults-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-tools"></i> Cats
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="monsters-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#monsters-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-bug-fill"></i> Monsters
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link shadow-sm border"
-                id="mercenaries-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#mercenaries-content"
-                type="button"
-                role="tab"
-              >
-                <i class="bi bi-coin"></i> Mercs
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tab-content" id="unitTabsContent">
-        <div
-          class="tab-pane fade show active"
-          id="guards-content"
-          role="tabpanel"
-          aria-labelledby="guards-tab"
-        >
-          <div id="guardsmen-container" class="row g-2"></div>
+            <ul
+              class="nav nav-pills nav-fill mb-3 gap-2"
+              id="unitTabs"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active shadow-sm border"
+                  id="guards-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#guards-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-shield-shaded"></i> Guards
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="specs-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#specs-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-star-fill"></i> Specs
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="catapults-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#catapults-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-tools"></i> Cats
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="monsters-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#monsters-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-bug-fill"></i> Monsters
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link shadow-sm border"
+                  id="mercenaries-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#mercenaries-content"
+                  type="button"
+                  role="tab"
+                >
+                  <i class="bi bi-coin"></i> Mercs
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="specs-content"
-          role="tabpanel"
-          aria-labelledby="specs-tab"
-        >
-          <div id="specialists-container" class="row g-2"></div>
-        </div>
+        <div class="tab-content" id="unitTabsContent">
+          <div
+            class="tab-pane fade show active"
+            id="guards-content"
+            role="tabpanel"
+            aria-labelledby="guards-tab"
+          >
+            <div id="guardsmen-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="catapults-content"
-          role="tabpanel"
-          aria-labelledby="catapults-tab"
-        >
-          <div id="catapults-container" class="row g-2"></div>
-        </div>
+          <div
+            class="tab-pane fade"
+            id="specs-content"
+            role="tabpanel"
+            aria-labelledby="specs-tab"
+          >
+            <div id="specialists-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="monsters-content"
-          role="tabpanel"
-          aria-labelledby="monsters-tab"
-        >
-          <div id="monsters-container" class="row g-2"></div>
-        </div>
+          <div
+            class="tab-pane fade"
+            id="catapults-content"
+            role="tabpanel"
+            aria-labelledby="catapults-tab"
+          >
+            <div id="catapults-container" class="row g-2"></div>
+          </div>
 
-        <div
-          class="tab-pane fade"
-          id="mercenaries-content"
-          role="tabpanel"
-          aria-labelledby="mercenaries-tab"
-        >
-          <div id="mercenaries-container" class="row g-2"></div>
+          <div
+            class="tab-pane fade"
+            id="monsters-content"
+            role="tabpanel"
+            aria-labelledby="monsters-tab"
+          >
+            <div id="monsters-container" class="row g-2"></div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="mercenaries-content"
+            role="tabpanel"
+            aria-labelledby="mercenaries-tab"
+          >
+            <div id="mercenaries-container" class="row g-2"></div>
+          </div>
         </div>
-      </div>
       </div>
 
       <h5 class="mb-3 d-none text-center" id="summary-heading">
@@ -316,6 +377,173 @@
       >
         <i class="bi bi-question-lg"></i>
       </button>
+
+      <div
+        class="modal fade"
+        id="presetModal"
+        tabindex="-1"
+        aria-labelledby="presetModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="presetModalLabel"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p id="preset-modal-message" class="mb-0"></p>
+              <div id="preset-modal-input-wrap" class="mt-3 d-none">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="preset-modal-input"
+                  placeholder="Preset name"
+                />
+              </div>
+              <div
+                id="preset-modal-overwrite-wrap"
+                class="form-check mt-3 d-none"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="preset-modal-overwrite"
+                />
+                <label class="form-check-label" for="preset-modal-overwrite">
+                  Update
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-sm btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                id="preset-modal-confirm"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="importPresetModal"
+        tabindex="-1"
+        aria-labelledby="importPresetModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="importPresetModalLabel">
+                Import preset
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p class="small text-muted mb-2">
+                Paste a share code (starts with <code>a2r-preset:</code>). It is
+                saved as a new preset whose name begins with
+                <strong>Imported:</strong>.
+              </p>
+              <textarea
+                class="form-control font-monospace small"
+                id="import-preset-text"
+                rows="8"
+                placeholder="a2r-preset:..."
+                spellcheck="false"
+              ></textarea>
+              <div
+                id="import-preset-alert"
+                class="alert alert-danger mt-2 py-2 small mb-0 d-none"
+                role="alert"
+              ></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-sm btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                id="import-preset-submit"
+                disabled
+              >
+                Import
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exportFallbackModal"
+        tabindex="-1"
+        aria-labelledby="exportFallbackModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exportFallbackModalLabel">
+                Copy share code
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p class="small text-muted mb-2">
+                Clipboard access was not available. Select the text below and
+                copy it manually (Ctrl+C / Cmd+C).
+              </p>
+              <textarea
+                class="form-control font-monospace small"
+                id="export-fallback-text"
+                rows="8"
+                readonly
+              ></textarea>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-sm btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div
         class="modal fade"
@@ -419,6 +647,38 @@
                   <strong>Buffs:</strong> Hero talents and research aren't
                   calculated. Since buffs usually apply equally to tiers, the
                   calculated proportions remain the most efficient way to stack.
+                </li>
+              </ul>
+
+              <h6 class="fw-bold mt-3">Presets</h6>
+              <p class="small mb-2">
+                Presets remember your stat inputs and selected units. They are
+                stored only in this browser (<strong>local storage</strong> on
+                your device)—nothing is uploaded to a server.
+              </p>
+              <ul class="border-start border-2 small mb-0">
+                <li>
+                  <strong>Load:</strong> Choose a name in the dropdown to apply
+                  that preset and open <strong>Summary</strong> view.
+                </li>
+                <li>
+                  <strong>Reset:</strong> Clears all stat fields and unit
+                  selections, returns the dropdown to
+                  <em>-- Load Preset --</em> (no preset selected), and switches
+                  to <strong>Detail</strong> view. Saved presets in storage are
+                  unchanged.
+                </li>
+                <li>
+                  <strong>Save:</strong> Available once at least one stat field
+                  has a value. Use <em>Update</em> when a preset is selected to
+                  overwrite it or save under a new name.
+                </li>
+                <li>
+                  <strong>Export / Import:</strong>
+                  <strong>Export</strong> (with a preset selected) copies a
+                  share code to your clipboard. <strong>Import</strong> pastes a
+                  code and adds it as a new entry named <em>Imported: …</em> so
+                  you can back up stacks or share them with others.
                 </li>
               </ul>
 
@@ -563,7 +823,9 @@
     </template>
 
     <template id="summary-unit-template">
-      <div class="d-flex justify-content-between align-items-center summary-row">
+      <div
+        class="d-flex justify-content-between align-items-center summary-row"
+      >
         <span class="text-truncate me-2">
           <span class="summary-unit-name"></span>
           <i
@@ -579,5 +841,31 @@
         </span>
       </div>
     </template>
+
+    <div
+      class="toast-container position-fixed top-0 start-0 p-3"
+      id="preset-toast-container"
+      style="z-index: 1080"
+    >
+      <div
+        id="preset-toast"
+        class="toast align-items-center border-0 shadow text-bg-success"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-bs-delay="3200"
+        data-bs-autohide="true"
+      >
+        <div class="d-flex w-100">
+          <div class="toast-body py-2" id="preset-toast-body"></div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
