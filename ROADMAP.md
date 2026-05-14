@@ -31,8 +31,9 @@
 - [x] v1.0.0: The App Experience
   - [x] PWA Implementation: `manifest.webmanifest` and service worker (`sw.js`) with installable standalone UI, theme colors, and icons/screenshots for richer install prompts.
   - [x] Offline capability and asset precaching for repeat visits and basic offline use after first load (same-origin assets, including self-hosted Bootstrap Icons).
+  - [x] Umami analytics: aggregate traffic in a **browser tab** only; tracker not loaded in the **installed PWA**
 
 ---
 
-Last Updated: 2026-05-13
+Last Updated: 2026-05-14
 Status: Phase 4 (Complete — v1.0.0 shipped)
