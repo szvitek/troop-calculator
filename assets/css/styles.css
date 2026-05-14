@@ -109,9 +109,14 @@
   fill: currentColor;
 }
 
-.gi-svg.gi-navbar {
+/* Navbar mark: raster PWA/favicon art (matches tab icon); 32px asset shown at 28px */
+.navbar-site-logo {
   width: 28px;
   height: 28px;
+  display: inline-block;
+  flex-shrink: 0;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 .gi-svg.gi-label {

@@ -16,6 +16,7 @@ In high-level play, **Troop Stacking** is critical. This tool allows you to:
 - **Real-time Totals:** Instant calculations for troop counts and leadership requirements as you type.
 - **Optimized for Mobile:** A clean, tabbed interface with a focus on one-handed navigation.
 - **Privacy-Focused:** No trackers or external databases; all calculations happen locally in your browser.
+- **Installable (PWA):** Web app manifest and service worker cache core assets for faster repeat visits and basic offline support after the first load.
 - **Army presets:** Save named combinations of stats and selected units in this browser only ([localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)), reload them from a dropdown, reset the form, or share them with import/export codes.
 
 ## 📋 Army presets

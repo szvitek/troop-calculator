@@ -3,12 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Troop stacking calculator for A2R: leadership, authority, dominance, and unit counts in your browser."
+    />
+    <meta name="theme-color" content="#e95420" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/pwa/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/pwa/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/pwa/favicon-16x16.png"
+    />
     <title>A2R Troop Stacking Calculator</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <!-- Bootstrap Icons CDN -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script src="assets/js/bootstrap.bundle.min.js" defer></script>
@@ -20,18 +43,20 @@
         class="container d-flex justify-content-between align-items-center flex-nowrap"
       >
         <div class="d-flex align-items-center overflow-hidden me-2">
-          <svg
-            class="gi-svg gi-navbar flex-shrink-0 me-2"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <use href="assets/icons/spartan-helmet.svg#gi"></use>
-          </svg>
           <a
             class="navbar-brand fw-bold text-truncate mb-0"
             href="#"
             style="font-size: 1rem"
           >
+            <img
+              class="navbar-site-logo me-2"
+              src="assets/pwa/favicon-32x32.png"
+              width="32"
+              height="32"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+            />
             A2R Troop Stacking Calculator
           </a>
           <a
@@ -707,9 +732,14 @@
                   single stack from being a weak link.
                 </li>
                 <li>
-                  <strong>Buffs:</strong> Hero talents and research aren't
-                  calculated. Since buffs usually apply equally to tiers, the
-                  calculated proportions remain the most efficient way to stack.
+                  <strong>Bonuses:</strong> This tool is designed for simplicity
+                  and does not factor in hero talents, research, or equipment
+                  bonuses.
+                  <strong>
+                    It is intended to provide quick, estimated unit proportions
+                    for players learning troop stacking. Note: I may reconsider
+                    adding specific unit bonuses in a future version.
+                  </strong>
                 </li>
               </ul>
 
@@ -919,7 +949,9 @@
         data-bs-delay="3200"
         data-bs-autohide="true"
       >
-        <div class="d-flex w-100 position-relative align-items-center justify-content-center">
+        <div
+          class="d-flex w-100 position-relative align-items-center justify-content-center"
+        >
           <div
             class="toast-body py-2 text-center w-100 px-5"
             id="preset-toast-body"
