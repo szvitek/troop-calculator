@@ -1,3 +1,12 @@
+v1.0.0 - 2026-05-14
+-------------------
+
+[NEW] Progressive Web App: installable via manifest + `sw.js` precache (registered from `main.js`); icons, favicons, and screenshots under `assets/pwa/`.
+[NOTE] Install and service workers need a **secure context** (HTTPS or `http://localhost`); `file://` will not register the worker.
+[CHANGE] Self-host Bootstrap Icons (vendor CSS + fonts) so glyph UI works offline—no CDN dependency.
+[NEW] Favicon / touch-icon set and navbar mark wired in `index.html` and covered by the precache list.
+[NEW] Umami analytics: **skipped in installed PWA**
+
 v0.10.1 - 2026-05-13
 -------------------
 

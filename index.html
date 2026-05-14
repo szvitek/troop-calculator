@@ -3,12 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Troop stacking calculator for A2R: leadership, authority, dominance, and unit counts in your browser."
+    />
+    <meta name="theme-color" content="#e95420" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Umami (optional): set both `content` values. Omitted when empty. Not loaded in installed PWA. -->
+    <meta
+      name="umami-website-id"
+      content="4a169f94-2da2-4933-8709-5a26c7e5d9e6"
+    />
+    <meta name="umami-script-url" content="https://cloud.umami.is/script.js" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/pwa/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/pwa/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/pwa/favicon-16x16.png"
+    />
     <title>A2R Troop Stacking Calculator</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <!-- Bootstrap Icons CDN -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.min.css"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script src="assets/js/bootstrap.bundle.min.js" defer></script>
@@ -25,6 +54,15 @@
             href="#"
             style="font-size: 1rem"
           >
+            <img
+              class="navbar-site-logo me-2"
+              src="assets/pwa/favicon-32x32.png"
+              width="32"
+              height="32"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+            />
             A2R Troop Stacking Calculator
           </a>
           <a
@@ -163,7 +201,14 @@
               min="0"
             />
             <label for="input-leadership" class="fw-bold text-danger">
-              <i class="bi bi-shield-shaded me-1"></i> Leadership
+              <svg
+                class="gi-svg gi-label gi-flip-x me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/spartan-helmet.svg#gi"></use>
+              </svg>
+              Leadership
             </label>
           </div>
         </div>
@@ -180,7 +225,14 @@
               style="border-color: #8b4513"
             />
             <label for="input-authority" class="fw-bold" style="color: #8b4513">
-              <i class="bi bi-person-badge-fill me-1"></i> Authority
+              <svg
+                class="gi-svg gi-label me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/eagle-head.svg#gi"></use>
+              </svg>
+              Authority
             </label>
           </div>
         </div>
@@ -196,7 +248,14 @@
               min="0"
             />
             <label for="input-dominance" class="fw-bold text-warning">
-              <i class="bi bi-lightning-fill me-1"></i> Dominance
+              <svg
+                class="gi-svg gi-label me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/lion.svg#gi"></use>
+              </svg>
+              Dominance
             </label>
           </div>
         </div>
@@ -232,7 +291,14 @@
                   type="button"
                   role="tab"
                 >
-                  <i class="bi bi-shield-shaded"></i> Guards
+                  <svg
+                    class="gi-svg gi-tab me-1"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <use href="assets/icons/crested-helmet.svg#gi"></use>
+                  </svg>
+                  Guards
                 </button>
               </li>
               <li class="nav-item" role="presentation">
@@ -244,7 +310,14 @@
                   type="button"
                   role="tab"
                 >
-                  <i class="bi bi-star-fill"></i> Specs
+                  <svg
+                    class="gi-svg gi-tab me-1"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <use href="assets/icons/gladius.svg#gi"></use>
+                  </svg>
+                  Specs
                 </button>
               </li>
               <li class="nav-item" role="presentation">
@@ -256,7 +329,14 @@
                   type="button"
                   role="tab"
                 >
-                  <i class="bi bi-tools"></i> Cats
+                  <svg
+                    class="gi-svg gi-tab me-1"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <use href="assets/icons/catapult.svg#gi"></use>
+                  </svg>
+                  Cats
                 </button>
               </li>
               <li class="nav-item" role="presentation">
@@ -268,7 +348,14 @@
                   type="button"
                   role="tab"
                 >
-                  <i class="bi bi-bug-fill"></i> Monsters
+                  <svg
+                    class="gi-svg gi-tab me-1"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <use href="assets/icons/dragon-head.svg#gi"></use>
+                  </svg>
+                  Monsters
                 </button>
               </li>
               <li class="nav-item" role="presentation">
@@ -280,7 +367,14 @@
                   type="button"
                   role="tab"
                 >
-                  <i class="bi bi-coin"></i> Mercs
+                  <svg
+                    class="gi-svg gi-tab me-1"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <use href="assets/icons/william-tell-skull.svg#gi"></use>
+                  </svg>
+                  Mercs
                 </button>
               </li>
             </ul>
@@ -644,9 +738,14 @@
                   single stack from being a weak link.
                 </li>
                 <li>
-                  <strong>Buffs:</strong> Hero talents and research aren't
-                  calculated. Since buffs usually apply equally to tiers, the
-                  calculated proportions remain the most efficient way to stack.
+                  <strong>Bonuses:</strong> This tool is designed for simplicity
+                  and does not factor in hero talents, research, or equipment
+                  bonuses.
+                  <strong>
+                    It is intended to provide quick, estimated unit proportions
+                    for players learning troop stacking. Note: I may reconsider
+                    adding specific unit bonuses in a future version.
+                  </strong>
                 </li>
               </ul>
 
@@ -856,7 +955,9 @@
         data-bs-delay="3200"
         data-bs-autohide="true"
       >
-        <div class="d-flex w-100 position-relative align-items-center justify-content-center">
+        <div
+          class="d-flex w-100 position-relative align-items-center justify-content-center"
+        >
           <div
             class="toast-body py-2 text-center w-100 px-5"
             id="preset-toast-body"

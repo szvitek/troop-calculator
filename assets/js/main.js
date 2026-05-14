@@ -4,6 +4,9 @@ import { renderAllCategories } from "./renderer.js";
 import { attachEvents } from "./events.js";
 import { initPresets } from "./presets.js";
 import { initChangelog } from "./changelog.js";
+import { initUmami } from "./analytics.js";
+
+initUmami();
 
 async function init() {
   initTheme();
@@ -21,3 +24,11 @@ async function init() {
 }
 
 init();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js", { scope: "./" })
+      .catch((err) => console.warn("Service worker registration failed:", err));
+  });
+}
