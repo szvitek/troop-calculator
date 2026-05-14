@@ -4,6 +4,9 @@ import { renderAllCategories } from "./renderer.js";
 import { attachEvents } from "./events.js";
 import { initPresets } from "./presets.js";
 import { initChangelog } from "./changelog.js";
+import { initUmami } from "./analytics.js";
+
+initUmami();
 
 async function init() {
   initTheme();

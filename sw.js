@@ -24,6 +24,7 @@ const PRECACHE_URLS = [
   "./assets/js/presets.js",
   "./assets/js/calculator.js",
   "./assets/js/changelog.js",
+  "./assets/js/analytics.js",
   "./assets/data/troops.json",
   "./assets/data/tiers.json",
   "./assets/icons/spartan-helmet.svg",
