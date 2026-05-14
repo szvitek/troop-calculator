@@ -1,6 +1,19 @@
 # A2R Troop Stacking Calculator
 
-A professional, mobile-first web utility designed for players to calculate and manage army compositions efficiently. Built for speed, accuracy, and ease of use during active gameplay.
+A mobile-friendly, **installable PWA** for calculating optimal troop ratios in Total Battle.
+
+---
+
+### 💡 Simple by Design
+
+This tool is built to be a fast, streamlined reference for players learning the fundamentals of troop stacking.
+
+- **Installable:** This app is a **Progressive Web App (PWA)**. You can "Add to Home Screen" on iOS and Android to use it just like a native app.
+- **Basic Calculation:** To keep the interface clean and the math straightforward, this calculator **does not factor in** hero talents, research, or equipment bonuses.
+- **Rough Proportions:** The results provide a solid starting point for unit ratios. I may reconsider adding specific unit bonuses in a future update, but for now, it remains a "no-fuss" estimator.
+- **Privacy-friendly:** Troop math and presets stay on your device and are **never** sent to a server. Lightweight **aggregate analytics (Umami)** may run when accessed via a **browser tab** to monitor site traffic. By design, the **installed PWA skips analytics entirely**, ensuring your standalone use remains completely private.
+
+---
 
 ## 💡 Why use this?
 
