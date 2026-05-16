@@ -1,5 +1,5 @@
 /* Bump CACHE_VERSION when static assets change so clients drop old caches. */
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v3";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -25,6 +25,7 @@ const PRECACHE_URLS = [
   "./assets/js/calculator.js",
   "./assets/js/changelog.js",
   "./assets/js/analytics.js",
+  "./assets/js/bonuses.js",
   "./assets/data/troops.json",
   "./assets/data/tiers.json",
   "./assets/icons/spartan-helmet.svg",

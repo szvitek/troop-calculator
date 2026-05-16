@@ -39,9 +39,9 @@
 
 - [x] **Database Schema Expansion**
   - Extend `troops.json` payload data to explicitly map unique `unitTypes`, classification `tags`, and combat `features` counters.
-- [ ] **Front-End DOM Synchronization**
+- [x] **Front-End DOM Synchronization**
   - Wire up reactive event listeners across the single-panel **Active March Modifiers** accordion dashboard to handle dynamic state updates.
-- [ ] **Calculation Logic Overhaul**
+- [x] **Calculation Logic Overhaul**
   - Rewrite core execution script functions to mathematically factor in unit-specific multipliers, matrices, and unbaked baseline card traits.
 
 ---
@@ -61,4 +61,4 @@
 ---
 
 Last Updated: 2026-05-16
-Status: Phase 5 (Active — v1.0.0 shipped | Developing v1.1.0)
+Status: Phase 5 (Active — v1.1.0 shipped | Developing v1.2.0)

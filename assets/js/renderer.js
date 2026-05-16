@@ -51,6 +51,8 @@ export function renderAllCategories(troops, colorMap, configs) {
         check.dataset.dmg = unit.dmg;
         check.dataset.resource = config.resource;
         check.dataset.unitWeight = unit.unitWeight;
+        check.dataset.tags = JSON.stringify(unit.tags ?? []);
+        check.dataset.features = JSON.stringify(unit.features ?? {});
 
         unitClone.querySelector(".unit-name-label").textContent = unit.name;
 

@@ -1,4 +1,5 @@
 import { calculateTroops } from "./calculator.js";
+import { collapseArmyBonusesAccordion, readBonusState } from "./bonuses.js";
 import {
   resetAllResults,
   updateResults,
@@ -20,18 +21,38 @@ export function runCalculation() {
 
   const selectedUnits = Array.from(
     document.querySelectorAll(".unit-check:checked"),
-  ).map((cb) => ({
-    id: cb.id.replace("check-", ""),
-    dmg: parseFloat(cb.dataset.dmg),
-    unitWeight: parseFloat(cb.dataset.unitWeight),
-    resource: cb.dataset.resource,
-  }));
+  ).map((cb) => {
+    let tags = [];
+    let features = {};
+    try {
+      tags = JSON.parse(cb.dataset.tags || "[]");
+    } catch {
+      tags = [];
+    }
+    try {
+      features = JSON.parse(cb.dataset.features || "{}");
+    } catch {
+      features = {};
+    }
+    return {
+      id: cb.id.replace("check-", ""),
+      baseDmg: parseFloat(cb.dataset.dmg),
+      unitWeight: parseFloat(cb.dataset.unitWeight),
+      resource: cb.dataset.resource,
+      category: cb.dataset.category,
+      tags,
+      features,
+    };
+  });
+
+  const bonusState = readBonusState();
 
   const results = calculateTroops({
     leadership,
     dominance,
     authority,
     selectedUnits,
+    bonusState,
   });
   updateResults(results);
   renderSummary(results);
@@ -105,19 +126,11 @@ export function attachEvents() {
   if (toggleBtn) {
     toggleBtn.addEventListener("click", () => {
       const detail = document.getElementById("detail-view");
-      const detailHeading = document.getElementById("detail-heading");
-      const summary = document.getElementById("summary-container");
-      const summaryHeading = document.getElementById("summary-heading");
-      const icon = toggleBtn.querySelector("i");
-
-      const showingSummary = detail.classList.toggle("d-none");
-      detailHeading.classList.toggle("d-none", showingSummary);
-      summary.classList.toggle("d-none", !showingSummary);
-      summaryHeading.classList.toggle("d-none", !showingSummary);
-
-      icon.className = showingSummary
-        ? "bi bi-grid-3x3-gap"
-        : "bi bi-list-check";
+      if (detail.classList.contains("d-none")) {
+        showDetailView();
+      } else {
+        showSummaryView();
+      }
     });
   }
 
@@ -147,6 +160,8 @@ export function showSummaryView() {
       const icon = toggleBtn.querySelector("i");
       icon.className = "bi bi-grid-3x3-gap";
     }
+
+    collapseArmyBonusesAccordion();
   }
 }
 
@@ -170,5 +185,7 @@ export function showDetailView() {
       const icon = toggleBtn.querySelector("i");
       icon.className = "bi bi-list-check";
     }
+
+    collapseArmyBonusesAccordion();
   }
 }
