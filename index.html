@@ -261,6 +261,50 @@
         </div>
       </div>
 
+      <div class="accordion mb-4" id="armyBonusesAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed py-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#armyBonusesCollapse"
+              aria-expanded="false"
+              aria-controls="armyBonusesCollapse"
+            >
+              Army Bonuses
+              <span class="text-muted small fw-normal ms-2 d-none d-sm-inline"
+                >optional — match in-game Strength %</span
+              >
+            </button>
+          </h2>
+          <div
+            id="armyBonusesCollapse"
+            class="accordion-collapse collapse"
+            data-bs-parent="#armyBonusesAccordion"
+          >
+            <div class="accordion-body py-2 px-2 px-md-3">
+              <p class="small text-muted mb-2">
+                Enter the <strong>Strength %</strong> values from in-game (whole
+                numbers, e.g. <strong>52</strong> for 52%) — they already
+                reflect <strong>hero talents, research, equipment</strong>, and
+                similar bonuses bundled into your army Strength. Counts use
+                <strong
+                  >effective damage = base × (1 + Strength bonuses + highest
+                  Melee/Ranged/Mounted/Flying feature on the card)</strong
+                >
+                (fortification, beast, siege lines on the card are ignored). All
+                Strength percents add together (they are not multiplied).
+                <strong>Catapult</strong> and <strong>Mercenary</strong> bonus
+                inputs are coming in a future update. Health % fields are
+                placeholders for a future update.
+              </p>
+              <div id="army-bonuses-mount"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h5 class="mb-3 text-center" id="detail-heading">
         <i class="bi bi-pencil-square me-1"></i> Detail View
       </h5>
@@ -733,27 +777,43 @@
                   </small>
                 </li>
                 <li>
-                  <strong>Logic:</strong> The tool uses base unit damage to
-                  ensure a proportional "punch" across all tiers, preventing any
-                  single stack from being a weak link.
+                  <strong>Damage &amp; stacking logic:</strong> Each tier is
+                  balanced so every selected stack deals the same
+                  <strong>effective damage</strong>. With no Army Bonuses
+                  entered, that uses each unit's base damage from the database.
+                  When you fill in bonuses, counts use
+                  <strong
+                    >base × (1 + Strength bonuses + highest
+                    Melee/Ranged/Mounted/Flying feature on the card)</strong
+                  >
+                  — Strength percents <strong>add</strong> (they are not
+                  multiplied). Fortification, beast, siege, and similar lines on
+                  the card are ignored for now.
                 </li>
                 <li>
-                  <strong>Bonuses:</strong> This tool is designed for simplicity
-                  and does not factor in hero talents, research, or equipment
-                  bonuses.
-                  <strong>
-                    It is intended to provide quick, estimated unit proportions
-                    for players learning troop stacking. Note: I may reconsider
-                    adding specific unit bonuses in a future version.
-                  </strong>
+                  <strong>Army Bonuses (optional):</strong> Expand the accordion
+                  under the stat inputs. Enter the
+                  <strong>Strength %</strong> the game shows (e.g.
+                  <strong>52</strong> for 52%) —
+                  <strong>Strength against Epic</strong>, then your Guardsman /
+                  Specialist / Monster grid (Melee, Ranged, Mounted, Flying).
+                  Those values already include
+                  <strong>hero talents, research, equipment</strong>, and other
+                  bonuses baked into your in-game Strength; you do not enter
+                  them separately. The accordion closes when you switch views or
+                  load a preset. <strong>Catapult</strong> and
+                  <strong>Mercenary</strong>
+                  bonus inputs are planned for a future update. Health % fields
+                  are shown but not used in counts yet.
                 </li>
               </ul>
 
               <h6 class="fw-bold mt-3">Presets</h6>
               <p class="small mb-2">
-                Presets remember your stat inputs and selected units. They are
-                stored only in this browser (<strong>local storage</strong> on
-                your device)—nothing is uploaded to a server.
+                Presets remember your stat inputs, selected units, and
+                <strong>Army Bonuses</strong> values. They are stored only in
+                this browser (<strong>local storage</strong> on your
+                device)—nothing is uploaded to a server.
               </p>
               <ul class="border-start border-2 small mb-0">
                 <li>

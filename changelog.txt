@@ -1,11 +1,18 @@
+v1.1.0 - 2026-05-16
+-------------------
+
+[NEW] Army Bonuses accordion under stat inputs: **Strength against Epic %** plus Guardsman / Specialist / Monster × Melee / Ranged / Mounted / Flying grid. Health % fields are shown but not applied yet. Epic Monster Hunter and Army Offset inputs are hidden until their in-game behavior is confirmed.
+[FIX] Army bonus damage: Strength % and unit features now **add** on the card (`base × (1 + bonuses + feature)`), not multiply — matches in-game damage vs epics much more closely. Feature bonus uses the highest **Melee/Ranged/Mounted/Flying** line on the unit card (not beast/siege/etc.).
+[NEW] Presets include **Army Bonuses** (localStorage and share codes v2). Loading a preset restores bonus fields so players do not re-enter them each session. Older presets and v1 share codes still load (bonuses default to empty).
+[UX] Army Bonuses accordion collapses automatically when switching Detail/Summary view or loading a preset.
+
 v1.0.0 - 2026-05-14
 -------------------
 
 [NEW] Progressive Web App: installable via manifest + `sw.js` precache (registered from `main.js`); icons, favicons, and screenshots under `assets/pwa/`.
-[NOTE] Install and service workers need a **secure context** (HTTPS or `http://localhost`); `file://` will not register the worker.
 [CHANGE] Self-host Bootstrap Icons (vendor CSS + fonts) so glyph UI works offline—no CDN dependency.
 [NEW] Favicon / touch-icon set and navbar mark wired in `index.html` and covered by the precache list.
-[NEW] Umami analytics: **skipped in installed PWA**
+[NEW] Optional Umami analytics: `assets/js/analytics.js` loads your tracker script from meta tags in `index.html` when configured; **skipped in installed PWA** (standalone / minimal-ui / iOS). See README for setup.
 
 v0.10.1 - 2026-05-13
 -------------------

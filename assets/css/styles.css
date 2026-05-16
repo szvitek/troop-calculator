@@ -197,3 +197,38 @@
   width: 100%;
   max-width: none;
 }
+
+/* Army bonuses accordion */
+.bonus-mini-label {
+  font-size: 0.7rem;
+  margin-bottom: 0.15rem;
+}
+
+.bonus-special-card,
+.bonus-type-card {
+  background: rgba(var(--bs-body-bg-rgb), 0.6);
+}
+
+.bonus-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 991.98px) {
+  .bonus-category-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bonus-category-title {
+  letter-spacing: 0.02em;
+}
+
+#armyBonusesAccordion .accordion-button {
+  font-weight: 600;
+}
+
+#armyBonusesAccordion .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}

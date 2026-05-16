@@ -1,10 +1,11 @@
 import { initTheme } from "./theme.js";
 import { loadData, CATEGORY_CONFIGS } from "./data.js";
 import { renderAllCategories } from "./renderer.js";
-import { attachEvents } from "./events.js";
+import { attachEvents, runCalculation } from "./events.js";
 import { initPresets } from "./presets.js";
 import { initChangelog } from "./changelog.js";
 import { initUmami } from "./analytics.js";
+import { initBonusUI } from "./bonuses.js";
 
 initUmami();
 
@@ -15,6 +16,7 @@ async function init() {
     const { troops, colorMap } = await loadData();
     renderAllCategories(troops, colorMap, CATEGORY_CONFIGS);
     attachEvents();
+    initBonusUI(runCalculation);
     initPresets();
   } catch (err) {
     console.error("Failed to load configuration:", err);

@@ -1,7 +1,13 @@
 import { runCalculation, showDetailView, showSummaryView } from "./events.js";
+import {
+  applyBonusInputs,
+  captureBonusInputs,
+  collapseArmyBonusesAccordion,
+  sanitizeBonusInputs,
+} from "./bonuses.js";
 
 const STORAGE_KEY = "troop-presets";
-const SHARE_VERSION = 1;
+const SHARE_VERSION = 2;
 /** Prefix so pasted codes are recognizable and import can validate. */
 const SHARE_PREFIX = "a2r-preset:";
 
@@ -95,7 +101,7 @@ function parseShareCode(raw) {
   if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
     return { ok: false, error: "Invalid preset data." };
   }
-  if (obj.v !== SHARE_VERSION) {
+  if (obj.v !== 1 && obj.v !== SHARE_VERSION) {
     return { ok: false, error: "Unsupported share code version." };
   }
 
@@ -107,6 +113,8 @@ function parseShareCode(raw) {
     authority: clampStat(obj.authority),
     dominance: clampStat(obj.dominance),
     units: sanitizeImportedUnits(obj.units),
+    bonuses:
+      obj.v >= 2 ? sanitizeBonusInputs(obj.bonuses) : {},
   };
 
   return { ok: true, preset, sourceLabel };
@@ -120,6 +128,7 @@ function buildShareCode(presetName, data) {
     authority: data.authority ?? 0,
     dominance: data.dominance ?? 0,
     units: Array.isArray(data.units) ? data.units : [],
+    bonuses: sanitizeBonusInputs(data.bonuses),
   };
   return `${SHARE_PREFIX}${base64UrlEncode(JSON.stringify(payload))}`;
 }
@@ -315,6 +324,7 @@ function captureState() {
     units: Array.from(document.querySelectorAll(".unit-check:checked")).map(
       (cb) => cb.id,
     ),
+    bonuses: captureBonusInputs(),
   };
 }
 
@@ -338,8 +348,11 @@ function restoreState(preset) {
     if (cb) cb.checked = true;
   });
 
+  applyBonusInputs(sanitizeBonusInputs(preset.bonuses));
+
   syncAllMasters();
   runCalculation();
+  collapseArmyBonusesAccordion();
   showSummaryView();
   syncSavePresetButton();
 }
@@ -365,6 +378,8 @@ function resetFormToEmpty() {
 
   const select = document.getElementById("preset-select");
   if (select) select.selectedIndex = 0;
+
+  applyBonusInputs({});
 
   syncAllMasters();
   runCalculation();
