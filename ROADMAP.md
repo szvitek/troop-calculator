@@ -33,7 +33,32 @@
   - [x] Offline capability and asset precaching for repeat visits and basic offline use after first load (same-origin assets, including self-hosted Bootstrap Icons).
   - [x] Umami analytics: aggregate traffic in a **browser tab** only; tracker not loaded in the **installed PWA**
 
+## 📌 [PHASE 5] Bonuses & Epic Monster Optimizations
+
+### 🚀 v1.1.0 — Unit Bonuses & State Integration
+
+- [x] **Database Schema Expansion**
+  - Extend `troops.json` payload data to explicitly map unique `unitTypes`, classification `tags`, and combat `features` counters.
+- [ ] **Front-End DOM Synchronization**
+  - Wire up reactive event listeners across the single-panel **Active March Modifiers** accordion dashboard to handle dynamic state updates.
+- [ ] **Calculation Logic Overhaul**
+  - Rewrite core execution script functions to mathematically factor in unit-specific multipliers, matrices, and unbaked baseline card traits.
+
 ---
 
-Last Updated: 2026-05-14
-Status: Phase 4 (Complete — v1.0.0 shipped)
+### 🧠 v1.2.0 — Epics, UI, & Algorithmic Optimization
+
+- [ ] **Master Epic Data Deployment**
+  - Seed the database engine with complete `epics.json` profiles detailing multi-layer squad sequences and recurring wave metrics.
+- [ ] **Target Interface Engineering**
+  - Build out intuitive frontend dropdown selectors for immediate presets of standard in-game Epic Targets.
+  - Construct generic manual override fields allowing players to experiment with non-standard or raw custom Epic Monster statistics.
+- [ ] **The "Smart-Fill" Optimization Module**
+  - Implement the core optimization loop to deconstruct enemy row lineups and automatically map your absolute highest-efficiency army output.
+- [ ] **End-User Documentation & Onboarding**
+  - Author a comprehensive, step-by-step "How-To" strategy guide embedded directly into the application UI, complete with visual UI screenshots.
+
+---
+
+Last Updated: 2026-05-16
+Status: Phase 5 (Active — v1.0.0 shipped | Developing v1.1.0)

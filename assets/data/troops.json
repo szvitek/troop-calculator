@@ -3,50 +3,157 @@
     "category": "guardsmen",
     "tierId": 1,
     "units": [
-      { "name": "Archer I", "dmg": 50, "hp": 150, "unitWeight": 1 },
-      { "name": "Spearman I", "dmg": 50, "hp": 150, "unitWeight": 1 },
-      { "name": "Rider I", "dmg": 100, "hp": 300, "unitWeight": 2 }
+      {
+        "name": "Archer I",
+        "dmg": 50,
+        "hp": 150,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 0.52, "flying": 0.67 }
+      },
+      {
+        "name": "Spearman I",
+        "dmg": 50,
+        "hp": 150,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 0.52, "beast": 0.8 }
+      },
+      {
+        "name": "Rider I",
+        "dmg": 100,
+        "hp": 300,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 0.65, "siege": 0.54 }
+      }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 2,
     "units": [
-      { "name": "Archer II", "dmg": 90, "hp": 270, "unitWeight": 1 },
-      { "name": "Spearman II", "dmg": 90, "hp": 270, "unitWeight": 1 },
-      { "name": "Rider II", "dmg": 180, "hp": 540, "unitWeight": 2 }
+      {
+        "name": "Archer II",
+        "dmg": 90,
+        "hp": 270,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 0.78, "flying": 1.01 }
+      },
+      {
+        "name": "Spearman II",
+        "dmg": 90,
+        "hp": 270,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 0.59, "beast": 1.2 }
+      },
+      {
+        "name": "Rider II",
+        "dmg": 180,
+        "hp": 540,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 0.98, "siege": 0.81 }
+      }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 3,
     "units": [
-      { "name": "Archer III", "dmg": 160, "hp": 480, "unitWeight": 1 },
-      { "name": "Spearman III", "dmg": 160, "hp": 480, "unitWeight": 1 },
-      { "name": "Rider III", "dmg": 320, "hp": 960, "unitWeight": 2 }
+      {
+        "name": "Archer III",
+        "dmg": 160,
+        "hp": 480,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 1.17, "flying": 1.51 }
+      },
+      {
+        "name": "Spearman III",
+        "dmg": 160,
+        "hp": 480,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 0.88, "beast": 1.8 }
+      },
+      {
+        "name": "Rider III",
+        "dmg": 320,
+        "hp": 960,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 1.46, "siege": 1.22 }
+      }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 4,
     "units": [
-      { "name": "Archer IV", "dmg": 290, "hp": 870, "unitWeight": 1 },
-      { "name": "Spearman IV", "dmg": 290, "hp": 870, "unitWeight": 1 },
-      { "name": "Rider IV", "dmg": 580, "hp": 1740, "unitWeight": 2 }
+      {
+        "name": "Archer IV",
+        "dmg": 290,
+        "hp": 870,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 1.76, "flying": 2.26 }
+      },
+      {
+        "name": "Spearman IV",
+        "dmg": 290,
+        "hp": 870,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 1.32, "beast": 2.7 }
+      },
+      {
+        "name": "Rider IV",
+        "dmg": 580,
+        "hp": 1740,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 2.19, "siege": 1.82 }
+      }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 5,
     "units": [
-      { "name": "Archer V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
-      { "name": "Spearman V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
-      { "name": "Rider V", "dmg": 1050, "hp": 3150, "unitWeight": 2 },
+      {
+        "name": "Archer V",
+        "dmg": 520,
+        "hp": 1560,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 2.63, "flying": 3.39 }
+      },
+      {
+        "name": "Spearman V",
+        "dmg": 520,
+        "hp": 1560,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 1.97, "beast": 4.05 }
+      },
+      {
+        "name": "Rider V",
+        "dmg": 1050,
+        "hp": 3150,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 3.29, "siege": 2.73 }
+      },
       {
         "name": "Battle Griffin V",
         "dmg": 10000,
         "hp": 30000,
-        "unitWeight": 20
+        "unitWeight": 20,
+        "tags": ["flying", "beast"],
+        "features": { "mounted": 3.95, "fortification": 2.08 }
       }
     ]
   },
@@ -58,20 +165,33 @@
         "name": "Heavy Arbalester VI",
         "dmg": 940,
         "hp": 2820,
-        "unitWeight": 1
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 3.95, "flying": 5.09 }
       },
       {
         "name": "Heavy Halberdier VI",
         "dmg": 940,
         "hp": 2820,
-        "unitWeight": 1
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 2.96, "beast": 6.08 }
       },
-      { "name": "Mounted Knight VI", "dmg": 1900, "hp": 5700, "unitWeight": 2 },
+      {
+        "name": "Mounted Knight VI",
+        "dmg": 1900,
+        "hp": 5700,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 4.94, "siege": 4.1 }
+      },
       {
         "name": "Battle Griffin VI",
         "dmg": 19000,
         "hp": 57000,
-        "unitWeight": 20
+        "unitWeight": 20,
+        "tags": ["flying", "beast"],
+        "features": { "mounted": 5.92, "fortification": 3.11 }
       }
     ]
   },
@@ -83,25 +203,33 @@
         "name": "Heavy Arbalester VII",
         "dmg": 1700,
         "hp": 5100,
-        "unitWeight": 1
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 5.92, "flying": 7.63 }
       },
       {
         "name": "Heavy Halberdier VII",
         "dmg": 1700,
         "hp": 5100,
-        "unitWeight": 1
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 4.44, "beast": 9.11 }
       },
       {
         "name": "Mounted Knight VII",
         "dmg": 3400,
         "hp": 10200,
-        "unitWeight": 2
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 7.4, "siege": 6.15 }
       },
       {
         "name": "Battle Griffin VII",
         "dmg": 34000,
         "hp": 102000,
-        "unitWeight": 20
+        "unitWeight": 20,
+        "tags": ["flying", "beast"],
+        "features": { "mounted": 8.88, "fortification": 4.67 }
       }
     ]
   },
@@ -109,94 +237,357 @@
     "category": "guardsmen",
     "tierId": 8,
     "units": [
-      { "name": "Purifier I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
-      { "name": "Punisher I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
-      { "name": "Smiter I", "dmg": 6120, "hp": 18360, "unitWeight": 2 },
-      { "name": "Corax I", "dmg": 183600, "hp": 550800, "unitWeight": 20 }
+      {
+        "name": "Purifier I",
+        "dmg": 3060,
+        "hp": 9180,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 8.88, "flying": 11.45 }
+      },
+      {
+        "name": "Punisher I",
+        "dmg": 3060,
+        "hp": 9180,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 6.67, "beast": 13.67 }
+      },
+      {
+        "name": "Smiter I",
+        "dmg": 6120,
+        "hp": 18360,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 11.11, "siege": 9.23 }
+      },
+      {
+        "name": "Corax I",
+        "dmg": 183600,
+        "hp": 550800,
+        "unitWeight": 20,
+        "tags": ["flying", "human"],
+        "features": { "mounted": 13.33, "fortification": 7.01 }
+      }
     ]
   },
   {
     "category": "guardsmen",
     "tierId": 9,
     "units": [
-      { "name": "Purifier II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
-      { "name": "Punisher II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
-      { "name": "Smiter II", "dmg": 11020, "hp": 33060, "unitWeight": 2 },
-      { "name": "Corax II", "dmg": 110200, "hp": 330600, "unitWeight": 20 }
+      {
+        "name": "Purifier II",
+        "dmg": 5510,
+        "hp": 16530,
+        "unitWeight": 1,
+        "tags": ["ranged", "human"],
+        "features": { "melee": 13.33, "flying": 17.17 }
+      },
+      {
+        "name": "Punisher II",
+        "dmg": 5510,
+        "hp": 16530,
+        "unitWeight": 1,
+        "tags": ["melee", "human"],
+        "features": { "mounted": 10.0, "beast": 20.5 }
+      },
+      {
+        "name": "Smiter II",
+        "dmg": 11020,
+        "hp": 33060,
+        "unitWeight": 2,
+        "tags": ["mounted", "human"],
+        "features": { "ranged": 16.67, "siege": 12.84 }
+      },
+      {
+        "name": "Corax II",
+        "dmg": 110200,
+        "hp": 330600,
+        "unitWeight": 20,
+        "tags": ["flying", "human"],
+        "features": { "mounted": 19.99, "fortification": 10.51 }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 1,
-    "units": [{ "name": "Swordsman I", "dmg": 50, "hp": 150, "unitWeight": 1 }]
+    "units": [
+      {
+        "name": "Swordsman I",
+        "dmg": 50,
+        "hp": 150,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": { "pvp": 2.0, "human": 1.05, "mounted": 0.2, "beast": 0.4 }
+      }
+    ]
   },
   {
     "category": "specialists",
     "tierId": 2,
-    "units": [{ "name": "Swordsman II", "dmg": 90, "hp": 270, "unitWeight": 1 }]
+    "units": [
+      {
+        "name": "Swordsman II",
+        "dmg": 90,
+        "hp": 270,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": { "pvp": 2.0, "human": 1.05, "mounted": 0.29, "beast": 0.6 }
+      }
+    ]
   },
   {
     "category": "specialists",
     "tierId": 3,
     "units": [
-      { "name": "Swordsman III", "dmg": 160, "hp": 480, "unitWeight": 1 }
+      {
+        "name": "Swordsman III",
+        "dmg": 160,
+        "hp": 480,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": { "pvp": 2.0, "human": 1.05, "mounted": 0.44, "beast": 0.9 }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 4,
     "units": [
-      { "name": "Swordsman IV", "dmg": 290, "hp": 870, "unitWeight": 1 }
+      {
+        "name": "Swordsman IV",
+        "dmg": 290,
+        "hp": 870,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 0.66,
+          "beast": 1.35
+        }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 5,
     "units": [
-      { "name": "Swordsman V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
-      { "name": "Deadshot V", "dmg": 520, "hp": 1560, "unitWeight": 1 },
-      { "name": "Lion Rider V", "dmg": 1050, "hp": 3150, "unitWeight": 2 },
-      { "name": "Vulture V", "dmg": 520, "hp": 1560, "unitWeight": 1 }
+      {
+        "name": "Swordsman V",
+        "dmg": 520,
+        "hp": 1560,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 0.99,
+          "beast": 2.03
+        }
+      },
+      {
+        "name": "Deadshot V",
+        "dmg": 520,
+        "hp": 1560,
+        "unitWeight": 1,
+        "tags": ["human", "ranged"],
+        "features": { "pvp": 2.0, "human": 1.05, "melee": 1.32, "flying": 1.7 }
+      },
+      {
+        "name": "Lion Rider V",
+        "dmg": 1050,
+        "hp": 3150,
+        "unitWeight": 2,
+        "tags": ["human", "mounted"],
+        "features": { "pvp": 2.0, "human": 1.05, "ranged": 1.65, "siege": 1.37 }
+      },
+      {
+        "name": "Vulture V",
+        "dmg": 520,
+        "hp": 1560,
+        "unitWeight": 1,
+        "tags": ["human", "flying"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 1.97,
+          "fortification": 1.04
+        }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 6,
     "units": [
-      { "name": "Heavy Knight VI", "dmg": 940, "hp": 2820, "unitWeight": 1 },
-      { "name": "Deadshot VI", "dmg": 940, "hp": 2820, "unitWeight": 1 },
-      { "name": "Lion Rider VI", "dmg": 1900, "hp": 5700, "unitWeight": 2 },
-      { "name": "Vulture VI", "dmg": 940, "hp": 2820, "unitWeight": 1 }
+      {
+        "name": "Heavy Knight VI",
+        "dmg": 940,
+        "hp": 2820,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 1.48,
+          "beast": 3.04
+        }
+      },
+      {
+        "name": "Deadshot VI",
+        "dmg": 940,
+        "hp": 2820,
+        "unitWeight": 1,
+        "tags": ["human", "ranged"],
+        "features": { "pvp": 2.0, "human": 1.05, "melee": 1.97, "flying": 2.54 }
+      },
+      {
+        "name": "Lion Rider VI",
+        "dmg": 1900,
+        "hp": 5700,
+        "unitWeight": 2,
+        "tags": ["human", "mounted"],
+        "features": { "pvp": 2.0, "human": 1.05, "ranged": 2.47, "siege": 2.05 }
+      },
+      {
+        "name": "Vulture VI",
+        "dmg": 940,
+        "hp": 2820,
+        "unitWeight": 1,
+        "tags": ["human", "flying"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 2.96,
+          "fortification": 1.56
+        }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 7,
     "units": [
-      { "name": "Heavy Knight VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 },
-      { "name": "Deadshot VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 },
-      { "name": "Lion Rider VII", "dmg": 3400, "hp": 10200, "unitWeight": 2 },
-      { "name": "Vulture VII", "dmg": 1700, "hp": 5100, "unitWeight": 1 }
+      {
+        "name": "Heavy Knight VII",
+        "dmg": 1700,
+        "hp": 5100,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 2.22,
+          "beast": 4.56
+        }
+      },
+      {
+        "name": "Deadshot VII",
+        "dmg": 1700,
+        "hp": 5100,
+        "unitWeight": 1,
+        "tags": ["human", "ranged"],
+        "features": { "pvp": 2.0, "human": 1.05, "melee": 2.96, "flying": 3.82 }
+      },
+      {
+        "name": "Lion Rider VII",
+        "dmg": 3400,
+        "hp": 10200,
+        "unitWeight": 2,
+        "tags": ["human", "mounted"],
+        "features": { "pvp": 2.0, "human": 1.05, "ranged": 3.7, "siege": 3.08 }
+      },
+      {
+        "name": "Vulture VII",
+        "dmg": 1700,
+        "hp": 5100,
+        "unitWeight": 1,
+        "tags": ["human", "flying"],
+        "features": {
+          "pvp": 2.0,
+          "human": 1.05,
+          "mounted": 4.44,
+          "fortification": 2.34
+        }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 8,
     "units": [
-      { "name": "Legitimist I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
-      { "name": "Duelist I", "dmg": 3060, "hp": 9180, "unitWeight": 1 },
-      { "name": "Whitemane I", "dmg": 6120, "hp": 18360, "unitWeight": 2 },
-      { "name": "Royal Lion I", "dmg": 61200, "hp": 183600, "unitWeight": 20 }
+      {
+        "name": "Legitimist I",
+        "dmg": 3060,
+        "hp": 9180,
+        "unitWeight": 1,
+        "tags": ["human", "ranged"],
+        "features": { "pvp": 2.0, "melee": 4.44, "flying": 5.72 }
+      },
+      {
+        "name": "Duelist I",
+        "dmg": 3060,
+        "hp": 9180,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": { "pvp": 2.0, "mounted": 3.33, "beast": 6.83 }
+      },
+      {
+        "name": "Whitemane I",
+        "dmg": 6120,
+        "hp": 18360,
+        "unitWeight": 2,
+        "tags": ["human", "mounted"],
+        "features": { "pvp": 2.0, "ranged": 5.55, "siege": 4.61 }
+      },
+      {
+        "name": "Royal Lion I",
+        "dmg": 61200,
+        "hp": 183600,
+        "unitWeight": 20,
+        "tags": ["human", "flying"],
+        "features": { "pvp": 2.0, "mounted": 6.67, "fortification": 3.5 }
+      }
     ]
   },
   {
     "category": "specialists",
     "tierId": 9,
     "units": [
-      { "name": "Legitimist II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
-      { "name": "Duelist II", "dmg": 5510, "hp": 16530, "unitWeight": 1 },
-      { "name": "Whitemane II", "dmg": 11020, "hp": 33060, "unitWeight": 2 },
-      { "name": "Royal Lion II", "dmg": 110200, "hp": 330600, "unitWeight": 20 }
+      {
+        "name": "Legitimist II",
+        "dmg": 5510,
+        "hp": 16530,
+        "unitWeight": 1,
+        "tags": ["human", "ranged"],
+        "features": { "pvp": 2.0, "melee": 6.67, "flying": 8.59 }
+      },
+      {
+        "name": "Duelist II",
+        "dmg": 5510,
+        "hp": 16530,
+        "unitWeight": 1,
+        "tags": ["human", "melee"],
+        "features": { "pvp": 2.0, "mounted": 5.0, "beast": 10.25 }
+      },
+      {
+        "name": "Whitemane II",
+        "dmg": 11020,
+        "hp": 33060,
+        "unitWeight": 2,
+        "tags": ["human", "mounted"],
+        "features": { "pvp": 2.0, "ranged": 8.33, "siege": 6.92 }
+      },
+      {
+        "name": "Royal Lion II",
+        "dmg": 110200,
+        "hp": 330600,
+        "unitWeight": 20,
+        "tags": ["human", "flying"],
+        "features": { "pvp": 2.0, "mounted": 10.0, "fortification": 5.25 }
+      }
     ]
   },
   {
@@ -276,25 +667,76 @@
     "category": "monsters",
     "tierId": 3,
     "units": [
-      { "name": "Emerald Dragon", "dmg": 4500, "hp": 13500, "unitWeight": 7 },
-      { "name": "Water Elemental", "dmg": 1900, "hp": 5700, "unitWeight": 3 },
-      { "name": "Stone Gargoyle", "dmg": 5200, "hp": 15600, "unitWeight": 8 },
-      { "name": "Battle Boar", "dmg": 3900, "hp": 11700, "unitWeight": 6 }
+      {
+        "name": "Emerald Dragon",
+        "dmg": 4500,
+        "hp": 13500,
+        "unitWeight": 7,
+        "tags": ["dragon", "flying"],
+        "features": { "giant": 0.72, "mounted": 1.85 }
+      },
+      {
+        "name": "Water Elemental",
+        "dmg": 1900,
+        "hp": 5700,
+        "unitWeight": 3,
+        "tags": ["elemental", "ranged"],
+        "features": { "melee": 1.13, "flying": 1.44 }
+      },
+      {
+        "name": "Stone Gargoyle",
+        "dmg": 5200,
+        "hp": 15600,
+        "unitWeight": 8,
+        "tags": ["flying", "giant"],
+        "features": { "beast": 0.72, "melee": 1.85 }
+      },
+      {
+        "name": "Battle Boar",
+        "dmg": 3900,
+        "hp": 11700,
+        "unitWeight": 6,
+        "tags": ["beast", "mounted"],
+        "features": { "mounted": 1.44, "ranged": 1.13 }
+      }
     ]
   },
   {
     "category": "monsters",
     "tierId": 4,
     "units": [
-      { "name": "Magic Dragon", "dmg": 15000, "hp": 45000, "unitWeight": 13 },
-      { "name": "Ice Phoenix", "dmg": 17000, "hp": 51000, "unitWeight": 15 },
+      {
+        "name": "Magic Dragon",
+        "dmg": 15000,
+        "hp": 45000,
+        "unitWeight": 13,
+        "tags": ["dragon", "ranged"],
+        "features": { "ranged": 2.16, "melee": 1.69 }
+      },
+      {
+        "name": "Ice Phoenix",
+        "dmg": 17000,
+        "hp": 51000,
+        "unitWeight": 15,
+        "tags": ["elemental", "flying"],
+        "features": { "flying": 2.23, "dragon": 1.62 }
+      },
       {
         "name": "Many-Armed Guardian",
         "dmg": 13000,
         "hp": 39000,
-        "unitWeight": 11
+        "unitWeight": 11,
+        "tags": ["giant", "melee"],
+        "features": { "mounted": 1.15, "elemental": 2.7 }
       },
-      { "name": "Gorgon Medusa", "dmg": 12000, "hp": 36000, "unitWeight": 10 }
+      {
+        "name": "Gorgon Medusa",
+        "dmg": 12000,
+        "hp": 36000,
+        "unitWeight": 10,
+        "tags": ["beast", "ranged"],
+        "features": { "melee": 2.77, "flying": 1.08 }
+      }
     ]
   },
   {
@@ -305,20 +747,33 @@
         "name": "Desert Vanquisher",
         "dmg": 42000,
         "hp": 126000,
-        "unitWeight": 20
+        "unitWeight": 20,
+        "tags": ["dragon", "mounted"],
+        "features": { "elemental": 3.24, "ranged": 2.53 }
       },
       {
         "name": "Flaming Centaur",
         "dmg": 44000,
         "hp": 132000,
-        "unitWeight": 21
+        "unitWeight": 21,
+        "tags": ["elemental", "mounted"],
+        "features": { "beast": 1.62, "ranged": 4.15 }
       },
-      { "name": "Ettin", "dmg": 48000, "hp": 144000, "unitWeight": 23 },
+      {
+        "name": "Ettin",
+        "dmg": 48000,
+        "hp": 144000,
+        "unitWeight": 23,
+        "tags": ["giant", "melee"],
+        "features": { "fortification": 2.43, "melee": 3.34 }
+      },
       {
         "name": "Fearsome Manticore",
         "dmg": 46000,
         "hp": 138000,
-        "unitWeight": 22
+        "unitWeight": 22,
+        "tags": ["beast", "flying"],
+        "features": { "flying": 2.53, "giant": 3.24 }
       }
     ]
   },
@@ -330,15 +785,33 @@
         "name": "Crystal Dragon",
         "dmg": 120000,
         "hp": 360000,
-        "unitWeight": 33
+        "unitWeight": 33,
+        "tags": ["dragon", "melee"],
+        "features": { "elemental": 6.08, "mounted": 2.58 }
       },
-      { "name": "Ruby Golem", "dmg": 130000, "hp": 390000, "unitWeight": 35 },
-      { "name": "Troll Rider", "dmg": 110000, "hp": 330000, "unitWeight": 30 },
+      {
+        "name": "Ruby Golem",
+        "dmg": 130000,
+        "hp": 390000,
+        "unitWeight": 35,
+        "tags": ["elemental", "melee"],
+        "features": { "melee": 4.86, "mounted": 3.8 }
+      },
+      {
+        "name": "Troll Rider",
+        "dmg": 110000,
+        "hp": 330000,
+        "unitWeight": 30,
+        "tags": ["giant", "mounted"],
+        "features": { "fortification": 4.86, "ranged": 3.8 }
+      },
       {
         "name": "Jungle Destroyer",
         "dmg": 130000,
         "hp": 390000,
-        "unitWeight": 34
+        "unitWeight": 34,
+        "tags": ["beast", "melee"],
+        "features": { "dragon": 2.43, "mounted": 6.23 }
       }
     ]
   },
@@ -346,19 +819,37 @@
     "category": "monsters",
     "tierId": 7,
     "units": [
-      { "name": "Black Dragon", "dmg": 300000, "hp": 900000, "unitWeight": 44 },
-      { "name": "Wind Lord", "dmg": 310000, "hp": 930000, "unitWeight": 45 },
+      {
+        "name": "Black Dragon",
+        "dmg": 300000,
+        "hp": 900000,
+        "unitWeight": 44,
+        "tags": ["dragon", "flying"],
+        "features": { "beast": 7.29, "melee": 5.7 }
+      },
+      {
+        "name": "Wind Lord",
+        "dmg": 310000,
+        "hp": 930000,
+        "unitWeight": 45,
+        "tags": ["elemental", "melee"],
+        "features": { "dragon": 9.11, "mounted": 3.87 }
+      },
       {
         "name": "Destructive Colossus",
         "dmg": 290000,
         "hp": 870000,
-        "unitWeight": 43
+        "unitWeight": 43,
+        "tags": ["giant", "ranged"],
+        "features": { "melee": 7.52, "flying": 5.47 }
       },
       {
         "name": "Ancient Terror",
         "dmg": 280000,
         "hp": 840000,
-        "unitWeight": 41
+        "unitWeight": 41,
+        "tags": ["beast", "mounted"],
+        "features": { "ranged": 7.52, "fortification": 5.47 }
       }
     ]
   },
@@ -370,16 +861,34 @@
         "name": "Devastator I",
         "dmg": 650000,
         "hp": 1950000,
-        "unitWeight": 53
+        "unitWeight": 53,
+        "tags": ["dragon", "mounted"],
+        "features": { "ranged": 12.81, "giant": 6.67 }
       },
       {
         "name": "Fire Phoenix I",
         "dmg": 660000,
         "hp": 1980000,
-        "unitWeight": 54
+        "unitWeight": 54,
+        "tags": ["elemental", "flying"],
+        "features": { "melee": 7.01, "dragon": 12.47 }
       },
-      { "name": "Kraken I", "dmg": 670000, "hp": 2010000, "unitWeight": 55 },
-      { "name": "Trickster I", "dmg": 640000, "hp": 1920000, "unitWeight": 52 }
+      {
+        "name": "Kraken I",
+        "dmg": 670000,
+        "hp": 2010000,
+        "unitWeight": 55,
+        "tags": ["giant", "melee"],
+        "features": { "mounted": 9.91, "beast": 9.57 }
+      },
+      {
+        "name": "Trickster I",
+        "dmg": 640000,
+        "hp": 1920000,
+        "unitWeight": 52,
+        "tags": ["beast", "ranged"],
+        "features": { "flying": 9.4, "elemental": 10.08 }
+      }
     ]
   },
   {
@@ -390,20 +899,33 @@
         "name": "Devastator II",
         "dmg": 1170000,
         "hp": 3510000,
-        "unitWeight": 53
+        "unitWeight": 53,
+        "tags": ["dragon", "mounted"],
+        "features": { "ranged": 19.22, "giant": 10.0 }
       },
       {
         "name": "Fire Phoenix II",
         "dmg": 1190000,
         "hp": 3570000,
-        "unitWeight": 54
+        "unitWeight": 54,
+        "tags": ["elemental", "flying"],
+        "features": { "melee": 10.51, "dragon": 18.71 }
       },
-      { "name": "Kraken II", "dmg": 1210000, "hp": 3630000, "unitWeight": 55 },
+      {
+        "name": "Kraken II",
+        "dmg": 1210000,
+        "hp": 3630000,
+        "unitWeight": 55,
+        "tags": ["giant", "melee"],
+        "features": { "mounted": 14.86, "beast": 14.35 }
+      },
       {
         "name": "Trickster II",
         "dmg": 1150000,
         "hp": 3450000,
-        "unitWeight": 52
+        "unitWeight": 52,
+        "tags": ["beast", "ranged"],
+        "features": { "flying": 14.1, "elemental": 15.12 }
       }
     ]
   },
