@@ -353,10 +353,11 @@
                   >effective damage = base × (1 + Strength bonuses + highest
                   Melee/Ranged/Mounted/Flying feature on the card)</strong
                 >
-                (fortification, beast, siege lines on the card are ignored). All
-                Strength percents add together (they are not multiplied).
-                <strong>Catapult</strong> and <strong>Mercenary</strong> bonus
-                inputs are coming in a future update.
+                (fortification, beast, siege lines on the card are ignored for
+                epic feature math). All Strength percents add together (they are
+                not multiplied). <strong>Catapult</strong> uses one Strength %
+                for all tiers; <strong>Mercenary</strong> bonus inputs are still
+                planned.
               </p>
               <div id="army-bonuses-mount"></div>
             </div>
@@ -854,8 +855,8 @@
                 </li>
                 <li>
                   <strong>Damage formula:</strong> For
-                  <strong>Guardsmen, Specialists, and Monsters</strong>, Army
-                  Bonuses and unit-card features are included:
+                  <strong>Guardsmen, Specialists, Monsters, and Catapults</strong>,
+                  Army Bonuses and unit-card features are included:
                   <strong
                     >base × (1 + Strength bonuses + feature bonus)</strong
                   >. Strength percents <strong>add</strong> (they are not
@@ -887,13 +888,13 @@
                   <strong>Strength %</strong> (e.g.
                   <strong>52</strong> for 52%)—start with
                   <strong>Strength against Epic %</strong>, then the
-                  Guardsman / Specialist / Monster grid (these categories get
+                  Guardsman / Specialist / Monster grid and
+                  <strong>Catapult</strong> Strength % (these categories get
                   the bonus math above). Those numbers already include
                   <strong>hero talents, research, equipment</strong>, etc.; do
                   not enter them twice. The accordion closes when you switch
-                  views or load a preset.
-                  <strong>Catapult</strong> and <strong>Mercenary</strong>
-                  bonus rows are planned once their in-game rules are clear.
+                  views or load a preset. <strong>Mercenary</strong> bonus rows
+                  are planned once their in-game rules are clear.
                 </li>
               </ul>
 

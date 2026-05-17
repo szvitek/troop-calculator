@@ -1,6 +1,10 @@
 v1.2.0 - 2026-05-17
 -------------------
+[NEW] Army Bonuses: Catapult Strength % (single value for all tiers); applies to selected catapults with vs Epic and grid bonuses.
 
+
+v1.2.0 - 2026-05-17
+-------------------
 [NEW] Epic target: Standard presets from `epics.json` or Custom layers; optional squad-details accordion.
 [NEW] Epic combat hints: per-stack kill estimates on Summary; warning when a stack may not secure kills on the selected epic.
 [UX] Summary: units sorted by stack damage within tier; dice icon marks highest-damage stacks (~50% frontline risk).
@@ -12,7 +16,6 @@ v1.2.0 - 2026-05-17
 
 v1.1.0 - 2026-05-16
 -------------------
-
 [NEW] Army Bonuses accordion under stat inputs: **Strength against Epic %** plus Guardsman / Specialist / Monster × Melee / Ranged / Mounted / Flying grid. Epic Monster Hunter and Army Offset inputs are hidden until their in-game behavior is confirmed.
 [FIX] Army bonus damage: Strength % and unit features now **add** on the card (`base × (1 + bonuses + feature)`), not multiply — matches in-game damage vs epics much more closely. Feature bonus uses the highest **Melee/Ranged/Mounted/Flying** line on the unit card (not beast/siege/etc.).
 [NEW] Presets include **Army Bonuses** (localStorage and share codes v2). Loading a preset restores bonus fields so players do not re-enter them each session. Older presets and v1 share codes still load (bonuses default to empty).
@@ -20,7 +23,6 @@ v1.1.0 - 2026-05-16
 
 v1.0.0 - 2026-05-14
 -------------------
-
 [NEW] Progressive Web App: installable via manifest + `sw.js` precache (registered from `main.js`); icons, favicons, and screenshots under `assets/pwa/`.
 [CHANGE] Self-host Bootstrap Icons (vendor CSS + fonts) so glyph UI works offline—no CDN dependency.
 [NEW] Favicon / touch-icon set and navbar mark wired in `index.html` and covered by the precache list.
@@ -28,12 +30,10 @@ v1.0.0 - 2026-05-14
 
 v0.10.1 - 2026-05-13
 -------------------
-
 [UX] Preset toasts: Refined layout—wide bar with horizontal inset, rounded corners, centered message, and dismiss control aligned for a cleaner top-of-screen banner.
 
 v0.10.0 - 2026-05-13
 -------------------
-
 [NEW] Preset bar reset: One control clears stat inputs, deselects all units, and returns the preset dropdown to no selection (saved presets are untouched).
 [NEW] Army Presets: Save and load army compositions to localStorage for quick recall.
 [NEW] Preset Management: Save, overwrite, rename, and delete named presets from a compact bar (dropdown + Reset + Save + Delete + Export + Import).

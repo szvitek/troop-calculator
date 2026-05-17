@@ -30,7 +30,7 @@ In high-level play, **Troop Stacking** is critical. This tool allows you to:
 
   `Effective Damage = Base Damage × (1 + Input Strength Bonuses + Unit Card Feature Bonus)`
 
-  _(Note: Catapult and Mercenary bonus inputs are planned for a future update)._
+  _(Note: Catapult Strength % is in Army Bonuses; Mercenary bonus inputs are planned for a future update)._
 
 - **Optimized for Mobile:** A responsive, tabbed interface designed for seamless one-handed navigation.
 - **Strict Privacy Controls:** All custom army setups utilize client-side processing. Lightweight aggregate traffic monitoring (Umami) only triggers when the app is opened inside a standard desktop browser tab; the installed PWA environment completely bypasses analytics scripts.

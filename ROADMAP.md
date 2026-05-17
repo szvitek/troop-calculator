@@ -62,7 +62,7 @@
 
 Scope: **Catapults** (siege support alongside the existing march stack).
 
-- [ ] **Catapult bonus damage in the calculator**
+- [x] **Catapult bonus damage in the calculator**
   - Add Catapult Strength % (and related inputs) to Army Bonuses and wire them into effective damage / stacking math for catapult units.
 - [ ] **Citadel catapult calculator**
   - Given a target (e.g. monster citadel), recommend **how many catapults** to send so walls/structures break down as intended—separate from the leadership-based troop stack balancer.
