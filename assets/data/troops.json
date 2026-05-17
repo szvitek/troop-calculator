@@ -594,35 +594,70 @@
     "category": "catapults",
     "tierId": 1,
     "units": [
-      { "name": "Catapult I", "dmg": 250, "hp": 1500, "unitWeight": 10 }
+      {
+        "name": "Catapult I",
+        "dmg": 250,
+        "hp": 1500,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 0.65 }
+      }
     ]
   },
   {
     "category": "catapults",
     "tierId": 2,
     "units": [
-      { "name": "Catapult II", "dmg": 450, "hp": 2700, "unitWeight": 10 }
+      {
+        "name": "Catapult II",
+        "dmg": 450,
+        "hp": 2700,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 0.98 }
+      }
     ]
   },
   {
     "category": "catapults",
     "tierId": 3,
     "units": [
-      { "name": "Catapult III", "dmg": 810, "hp": 4860, "unitWeight": 10 }
+      {
+        "name": "Catapult III",
+        "dmg": 810,
+        "hp": 4860,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 1.46 }
+      }
     ]
   },
   {
     "category": "catapults",
     "tierId": 4,
     "units": [
-      { "name": "Catapult IV", "dmg": 1460, "hp": 8750, "unitWeight": 10 }
+      {
+        "name": "Catapult IV",
+        "dmg": 1460,
+        "hp": 8750,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 2.19 }
+      }
     ]
   },
   {
     "category": "catapults",
     "tierId": 5,
     "units": [
-      { "name": "Catapult V", "dmg": 2630, "hp": 15800, "unitWeight": 10 }
+      {
+        "name": "Catapult V",
+        "dmg": 2630,
+        "hp": 15800,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 3.29 }
+      }
     ]
   },
   {
@@ -633,7 +668,9 @@
         "name": "Siege Ballistae VI",
         "dmg": 4730,
         "hp": 28400,
-        "unitWeight": 10
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 4.94 }
       }
     ]
   },
@@ -645,7 +682,9 @@
         "name": "Siege Ballistae VII",
         "dmg": 8500,
         "hp": 51000,
-        "unitWeight": 10
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 7.4 }
       }
     ]
   },
@@ -653,14 +692,28 @@
     "category": "catapults",
     "tierId": 8,
     "units": [
-      { "name": "Josephine I", "dmg": 15310, "hp": 91800, "unitWeight": 10 }
+      {
+        "name": "Josephine I",
+        "dmg": 15310,
+        "hp": 91800,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 11.11 }
+      }
     ]
   },
   {
     "category": "catapults",
     "tierId": 9,
     "units": [
-      { "name": "Josephine II", "dmg": 27550, "hp": 165300, "unitWeight": 10 }
+      {
+        "name": "Josephine II",
+        "dmg": 27550,
+        "hp": 165300,
+        "unitWeight": 10,
+        "tags": ["engineer corps", "human", "siege engine"],
+        "features": { "fortification": 16.67 }
+      }
     ]
   },
   {
