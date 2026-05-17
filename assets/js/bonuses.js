@@ -47,16 +47,16 @@ export function getCombatType(tags = []) {
 }
 
 /**
- * Unit card feature bonus for epic-style fights: only Melee / Ranged / Mounted /
- * Flying lines on the card (the same types epics field). Ignores fortification,
- * beast, siege, dragon, etc. Uses the highest of those four until a target-epic
- * picker chooses a specific defender type.
+ * Unit card feature bonus for epic fights.
  * @param {Record<string, number>} features
+ * @param {string[]|null} [epicCombatTypes] Types present on the target epic
  */
-export function combatFeatureBonus(features = {}) {
-  const vals = COMBAT_TYPES.map((key) => features[key]).filter(
-    (v) => typeof v === "number" && !Number.isNaN(v),
-  );
+export function combatFeatureBonus(features = {}, epicCombatTypes = null) {
+  const types =
+    epicCombatTypes?.length > 0 ? epicCombatTypes : COMBAT_TYPES;
+  const vals = types
+    .map((key) => features[key])
+    .filter((v) => typeof v === "number" && !Number.isNaN(v));
   return vals.length ? Math.max(...vals) : 0;
 }
 
@@ -168,11 +168,12 @@ export function getStrengthBonusPercent(unit, bonusState) {
  * @param {number} baseDmg
  * @param {{ category: string, tags?: string[], features?: Record<string, number> }} unit
  * @param {ReturnType<typeof readBonusState>|null} bonusState
+ * @param {string[]|null} [epicCombatTypes]
  */
-export function getEffectiveDmg(baseDmg, unit, bonusState) {
+export function getEffectiveDmg(baseDmg, unit, bonusState, epicCombatTypes = null) {
   if (!bonusState) return baseDmg;
   const strPct = getStrengthBonusPercent(unit, bonusState);
-  const featPct = combatFeatureBonus(unit.features ?? {});
+  const featPct = combatFeatureBonus(unit.features ?? {}, epicCombatTypes);
   return baseDmg * (1 + strPct + featPct);
 }
 
@@ -245,10 +246,8 @@ export function initBonusUI(onChange) {
         <div class="card-body p-2">
           <div class="small fw-semibold">${COMBAT_LABELS[combat]}</div>
           <label class="form-label bonus-mini-label" for="${id}-str">Strength %</label>
-          <input type="number" class="form-control form-control-sm bonus-pct-input mb-1" id="${id}-str"
+          <input type="number" class="form-control form-control-sm bonus-pct-input" id="${id}-str"
             data-bonus-key="grid.${category}.${combat}" min="0" step="0.01" placeholder="0" />
-          <label class="form-label bonus-mini-label text-muted" for="${id}-hp">Health %</label>
-          <input type="number" class="form-control form-control-sm" id="${id}-hp" min="0" step="0.01" placeholder="0" disabled />
         </div>
       `;
       col.appendChild(card);

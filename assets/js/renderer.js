@@ -2,6 +2,8 @@
  * Renders all category tabs and exposes helpers to update calculation results.
  */
 
+import { COMBAT_LABELS } from "./epics.js";
+
 let storedColorMap = {};
 
 function toSafeId(category, tierId, name) {
@@ -97,7 +99,7 @@ export function resetAllResults() {
 
 /**
  * Writes calculator results into the DOM.
- * @param {Array<{id: string, count: number, damage: number, warning: object|null}>} results
+ * @param {Array<{id: string, count: number, damage: number, warning?: object|null, epicWarning?: string}>} results
  */
 export function updateResults(results) {
   results.forEach((r) => {
@@ -107,8 +109,16 @@ export function updateResults(results) {
     if (countEl) countEl.textContent = r.count.toLocaleString();
     if (dmgEl) dmgEl.textContent = r.damage.toLocaleString();
 
+    const messages = [];
     if (r.warning) {
-      showWarning(r.id, r.warning.max, r.warning.resource);
+      messages.push(
+        `Your current ${r.warning.resource} only allows ${r.warning.max.toLocaleString()} units to maintain balance`,
+      );
+    }
+    if (r.epicWarning) messages.push(r.epicWarning);
+
+    if (messages.length > 0) {
+      setUnitWarning(r.id, messages.join(" "));
     }
   });
 }
@@ -116,7 +126,7 @@ export function updateResults(results) {
 /**
  * Shows the warning icon and updates its tooltip for a specific unit.
  */
-function showWarning(unitId, max, resource) {
+function setUnitWarning(unitId, message) {
   const check = document.getElementById(`check-${unitId}`);
   if (!check) return;
 
@@ -125,12 +135,11 @@ function showWarning(unitId, max, resource) {
   if (!icon) return;
 
   icon.classList.remove("d-none");
-  const msg = `Your current ${resource} only allows ${max.toLocaleString()} units to maintain balance`;
-  icon.setAttribute("data-bs-title", msg);
-  icon.setAttribute("title", msg);
+  icon.setAttribute("data-bs-title", message);
+  icon.setAttribute("title", message);
 
   const tt = bootstrap.Tooltip.getInstance(icon);
-  if (tt) tt.setContent({ ".tooltip-inner": msg });
+  if (tt) tt.setContent({ ".tooltip-inner": message });
 }
 
 /**
@@ -171,8 +180,20 @@ export function renderSummary(results) {
       count: resultMap[id]?.count ?? 0,
       damage: resultMap[id]?.damage ?? 0,
       warning: resultMap[id]?.warning ?? null,
+      epicWarning: resultMap[id]?.epicWarning ?? null,
+      epicKills: resultMap[id]?.epicKills ?? null,
     });
   });
+
+  const showEpicKills = results.some((r) => r.epicKills);
+
+  const allSummaryUnits = Object.values(tierGroups).flat();
+  const maxStackDamage = allSummaryUnits.reduce(
+    (max, u) => Math.max(max, u.damage),
+    0,
+  );
+  const DIE_FIRST_TIP =
+    "Highest stack damage in your army — ~50% chance this stack is eliminated first.";
 
   const sortedTiers = Object.keys(tierGroups)
     .map(Number)
@@ -194,8 +215,26 @@ export function renderSummary(results) {
 
     const container = tierClone.querySelector(".summary-unit-container");
 
+    tierGroups[tier].sort(
+      (a, b) => b.damage - a.damage || a.name.localeCompare(b.name),
+    );
+
     tierGroups[tier].forEach((u) => {
       const unitClone = unitTpl.content.cloneNode(true);
+      const row = unitClone.querySelector(".summary-row");
+      const isHighestDmg =
+        maxStackDamage > 0 && u.damage === maxStackDamage;
+
+      if (isHighestDmg && row) {
+        row.classList.add("summary-row-highest-dmg");
+        const dieFirstIcon = unitClone.querySelector(".summary-die-first-icon");
+        if (dieFirstIcon) {
+          dieFirstIcon.classList.remove("d-none");
+          dieFirstIcon.setAttribute("data-bs-title", DIE_FIRST_TIP);
+          dieFirstIcon.setAttribute("title", DIE_FIRST_TIP);
+          new bootstrap.Tooltip(dieFirstIcon);
+        }
+      }
 
       unitClone.querySelector(".summary-unit-name").textContent = u.name;
       unitClone.querySelector(".summary-unit-count").textContent =
@@ -205,10 +244,42 @@ export function renderSummary(results) {
       dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
       dmgEl.style.color = color;
 
+      if (showEpicKills && u.epicKills) {
+        const sep = unitClone.querySelector(".summary-kills-sep");
+        const killsEl = unitClone.querySelector(".summary-unit-kills");
+        if (sep) sep.classList.remove("d-none");
+        if (killsEl) {
+          killsEl.classList.remove("d-none");
+          const k = u.epicKills.kills;
+          killsEl.textContent = `${k.toLocaleString()} kill${k === 1 ? "" : "s"}`;
+          killsEl.classList.toggle("text-success", k > 0);
+          killsEl.classList.toggle("text-danger", k === 0);
+
+          const typeLabel = u.epicKills.combatType
+            ? COMBAT_LABELS[u.epicKills.combatType]
+            : "";
+          const tip =
+            `Est. kills vs ${typeLabel} (${u.epicKills.layerName}): ` +
+            `floor(stack dmg ÷ enemy HP). Best target by stack damage.`;
+          killsEl.setAttribute("data-bs-title", tip);
+          killsEl.setAttribute("title", tip);
+          new bootstrap.Tooltip(killsEl);
+        }
+      }
+
+      const summaryMessages = [];
       if (u.warning) {
+        summaryMessages.push(
+          `Your current ${u.warning.resource} only allows ${u.warning.max.toLocaleString()} units to maintain balance`,
+        );
+      }
+      if (u.epicWarning) summaryMessages.push(u.epicWarning);
+
+      if (summaryMessages.length > 0) {
         const icon = unitClone.querySelector(".summary-warning-icon");
         icon.classList.remove("d-none");
-        const msg = `Your current ${u.warning.resource} only allows ${u.warning.max.toLocaleString()} units to maintain balance`;
+        const msg = summaryMessages.join(" ");
+        icon.setAttribute("data-bs-title", msg);
         icon.setAttribute("title", msg);
         new bootstrap.Tooltip(icon);
       }

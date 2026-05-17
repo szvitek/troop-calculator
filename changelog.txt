@@ -1,7 +1,19 @@
+v1.2.0 - 2026-05-17
+-------------------
+
+[NEW] Epic target: Standard presets from `epics.json` or Custom layers; optional squad-details accordion.
+[NEW] Epic combat hints: per-stack kill estimates on Summary; warning when a stack may not secure kills on the selected epic.
+[UX] Summary: units sorted by stack damage within tier; dice icon marks highest-damage stacks (~50% frontline risk).
+[UX] Help modal updated for Authority (mercenaries), epic flow, presets, and pro-tips.
+[NEW] Presets and share codes (v3) include the active epic target—Standard preset id or Custom layer stats—so event stacks load with one click.
+[FIX] v1/v2 share codes and older saved presets still load (epic defaults to none).
+[UX] Removed unused Health % inputs from the Army Bonuses grid (calculator uses Strength only; health may return if survivability logic is added later).
+
+
 v1.1.0 - 2026-05-16
 -------------------
 
-[NEW] Army Bonuses accordion under stat inputs: **Strength against Epic %** plus Guardsman / Specialist / Monster × Melee / Ranged / Mounted / Flying grid. Health % fields are shown but not applied yet. Epic Monster Hunter and Army Offset inputs are hidden until their in-game behavior is confirmed.
+[NEW] Army Bonuses accordion under stat inputs: **Strength against Epic %** plus Guardsman / Specialist / Monster × Melee / Ranged / Mounted / Flying grid. Epic Monster Hunter and Army Offset inputs are hidden until their in-game behavior is confirmed.
 [FIX] Army bonus damage: Strength % and unit features now **add** on the card (`base × (1 + bonuses + feature)`), not multiply — matches in-game damage vs epics much more closely. Feature bonus uses the highest **Melee/Ranged/Mounted/Flying** line on the unit card (not beast/siege/etc.).
 [NEW] Presets include **Army Bonuses** (localStorage and share codes v2). Loading a preset restores bonus fields so players do not re-enter them each session. Older presets and v1 share codes still load (bonuses default to empty).
 [UX] Army Bonuses accordion collapses automatically when switching Detail/Summary view or loading a preset.

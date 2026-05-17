@@ -1,0 +1,470 @@
+[
+  {
+    "encounterName": "Doomsday",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Demon",
+        "tier": 3,
+        "tags": ["epic", "flying", "undead"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Bone Golem",
+        "tier": 6,
+        "tags": ["epic", "melee", "undead"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Death Chariot",
+        "tier": 6,
+        "tags": ["epic", "mounted", "undead"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      },
+      {
+        "name": "Necromancer",
+        "tier": 2,
+        "tags": ["epic", "ranged", "undead"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Arachne",
+    "type": "solo",
+    "repeatingMultiplier": 2,
+    "squads": [
+      {
+        "name": "Merciless Arachne",
+        "tier": 3,
+        "tags": ["epic", "ranged", "swarm"],
+        "strength": 50000,
+        "hp": 150000,
+        "features": { "flying": 0.5 }
+      },
+      {
+        "name": "Malicious Mantis",
+        "tier": 2,
+        "tags": ["epic", "melee", "swarm"],
+        "strength": 11000,
+        "hp": 33000,
+        "features": { "mounted": 0.5 }
+      },
+      {
+        "name": "Caterpillar Cavalry",
+        "tier": 2,
+        "tags": ["epic", "mounted", "swarm"],
+        "strength": 11000,
+        "hp": 33000,
+        "features": { "ranged": 0.5 }
+      },
+      {
+        "name": "Elusive Wasp",
+        "tier": 2,
+        "tags": ["epic", "flying", "swarm"],
+        "strength": 11000,
+        "hp": 33000,
+        "features": { "melee": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Armageddon",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Fire Hydra",
+        "tier": 3,
+        "tags": ["demon", "epic", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.75 }
+      },
+      {
+        "name": "Ifrit",
+        "tier": 5,
+        "tags": ["demon", "epic", "flying"],
+        "strength": 44000,
+        "hp": 132000,
+        "features": { "melee": 0.7 }
+      },
+      {
+        "name": "Fireworm Rider",
+        "tier": 5,
+        "tags": ["demon", "epic", "mounted"],
+        "strength": 50000,
+        "hp": 150000,
+        "features": { "ranged": 0.55 }
+      },
+      {
+        "name": "Overseer",
+        "tier": 3,
+        "tags": ["demon", "epic", "ranged"],
+        "strength": 6500,
+        "hp": 19500,
+        "features": { "flying": 0.7 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Ragnarök Fenrir",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Draug Mage",
+        "tier": 2,
+        "tags": ["epic", "Fenrir", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      },
+      {
+        "name": "Fenrir",
+        "tier": 6,
+        "tags": ["epic", "Fenrir", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Dark Elf",
+        "tier": 3,
+        "tags": ["epic", "Fenrir", "flying"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Valkyre",
+        "tier": 6,
+        "tags": ["epic", "Fenrir", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Ragnarök Jörmungandr",
+    "type": "solo",
+    "repeatingMultiplier": 4,
+    "squads": [
+      {
+        "name": "Dark Elf",
+        "tier": 3,
+        "tags": ["epic", "Jörmungandr", "flying"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Valkyre",
+        "tier": 6,
+        "tags": ["epic", "Jörmungandr", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      },
+      {
+        "name": "Jörmungandr",
+        "tier": 6,
+        "tags": ["epic", "Jörmungandr", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Draug Mage",
+        "tier": 2,
+        "tags": ["epic", "Jörmungandr", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Hellforge",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Hell's Blacksmith",
+        "tier": 3,
+        "tags": ["demon", "epic", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.75 }
+      },
+      {
+        "name": "Ifrit",
+        "tier": 5,
+        "tags": ["demon", "epic", "flying"],
+        "strength": 44000,
+        "hp": 132000,
+        "features": { "melee": 0.7 }
+      },
+      {
+        "name": "Fireworm Rider",
+        "tier": 5,
+        "tags": ["demon", "epic", "mounted"],
+        "strength": 50000,
+        "hp": 150000,
+        "features": { "ranged": 0.55 }
+      },
+      {
+        "name": "Overseer",
+        "tier": 3,
+        "tags": ["demon", "epic", "ranged"],
+        "strength": 6500,
+        "hp": 19500,
+        "features": { "flying": 0.7 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Dark Omens",
+    "type": "solo",
+    "repeatingMultiplier": 2,
+    "squads": [
+      {
+        "name": "Arcanomancer",
+        "tier": 6,
+        "tags": ["epic", "melee"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Moonmarked Huntress",
+        "tier": 6,
+        "tags": ["epic", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      },
+      {
+        "name": "Aetherwing Sentinel",
+        "tier": 3,
+        "tags": ["epic", "flying"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Arcane Archer",
+        "tier": 2,
+        "tags": ["dark omen", "epic", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Shadow City",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Shadow Warrior",
+        "tier": 3,
+        "tags": ["epic", "guardsmen", "melee", "shadow"],
+        "strength": 9920,
+        "hp": 29760,
+        "features": { "mounted": 0.5 }
+      },
+      {
+        "name": "Shadow Ranger",
+        "tier": 3,
+        "tags": ["epic", "guardsmen", "ranged", "shadow"],
+        "strength": 9920,
+        "hp": 29760,
+        "features": { "flying": 0.5 }
+      },
+      {
+        "name": "Shadow Rider",
+        "tier": 3,
+        "tags": ["epic", "guardsmen", "mounted", "shadow"],
+        "strength": 19840,
+        "hp": 59520,
+        "features": { "ranged": 0.5 }
+      },
+      {
+        "name": "Shadow Corax",
+        "tier": 3,
+        "tags": ["epic", "guardsmen", "flying", "shadow"],
+        "strength": 99200,
+        "hp": 297600,
+        "features": { "melee": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Ancients",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Mechanical Griffin",
+        "tier": 2,
+        "tags": ["ancient", "epic", "flying"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Ancient Arbalester",
+        "tier": 2,
+        "tags": ["ancient", "epic", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      },
+      {
+        "name": "Golden Guardian",
+        "tier": 3,
+        "tags": ["ancient", "epic", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Tiger Rider",
+        "tier": 2,
+        "tags": ["ancient", "epic", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Olympus - Briareus",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Briareus",
+        "tier": 6,
+        "tags": ["epic", "melee"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Centaur",
+        "tier": 6,
+        "tags": ["epic", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      },
+      {
+        "name": "Harpy",
+        "tier": 3,
+        "tags": ["epic", "flying"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Satyr",
+        "tier": 2,
+        "tags": ["epic", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Olympus - Basilisk",
+    "type": "solo",
+    "repeatingMultiplier": 1,
+    "squads": [
+      {
+        "name": "Basilisk",
+        "tier": 3,
+        "tags": ["epic", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.75 }
+      },
+      {
+        "name": "Centaur",
+        "tier": 5,
+        "tags": ["epic", "mounted"],
+        "strength": 50000,
+        "hp": 150000,
+        "features": { "ranged": 0.55 }
+      },
+      {
+        "name": "Harpy",
+        "tier": 5,
+        "tags": ["epic", "flying"],
+        "strength": 44000,
+        "hp": 132000,
+        "features": { "melee": 0.7 }
+      },
+      {
+        "name": "Satyr",
+        "tier": 3,
+        "tags": ["epic", "ranged"],
+        "strength": 6500,
+        "hp": 19500,
+        "features": { "flying": 0.7 }
+      }
+    ]
+  },
+  {
+    "encounterName": "Olympus - Chimera",
+    "type": "solo",
+    "repeatingMultiplier": 4,
+    "squads": [
+      {
+        "name": "Harpy",
+        "tier": 3,
+        "tags": ["epic", "flying"],
+        "strength": 70000,
+        "hp": 210000,
+        "features": { "melee": 0.8 }
+      },
+      {
+        "name": "Satyr",
+        "tier": 2,
+        "tags": ["epic", "ranged"],
+        "strength": 720,
+        "hp": 2160,
+        "features": { "flying": 0.5 }
+      },
+      {
+        "name": "Chimera",
+        "tier": 6,
+        "tags": ["epic", "melee"],
+        "strength": 100000,
+        "hp": 300000,
+        "features": { "mounted": 0.45 }
+      },
+      {
+        "name": "Centaur",
+        "tier": 6,
+        "tags": ["epic", "mounted"],
+        "strength": 57000,
+        "hp": 171000,
+        "features": { "ranged": 0.6 }
+      }
+    ]
+  }
+]

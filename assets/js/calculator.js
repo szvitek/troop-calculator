@@ -10,6 +10,7 @@ import { getEffectiveDmg } from "./bonuses.js";
  * @param {number}   params.authority     - Total authority capacity
  * @param {Array}    params.selectedUnits - Array of { id, baseDmg, unitWeight, resource, category, tags, features }
  * @param {object|null} params.bonusState - Army bonus inputs (see bonuses.js)
+ * @param {string[]|null} params.epicCombatTypes - Combat types on target epic
  * @returns {Array}  Array of { id, count, damage, warning, effectiveDmg }
  */
 export function calculateTroops({
@@ -18,11 +19,17 @@ export function calculateTroops({
   authority,
   selectedUnits,
   bonusState = null,
+  epicCombatTypes = null,
 }) {
   if (selectedUnits.length === 0) return [];
 
   const units = selectedUnits.map((u) => {
-    const effectiveDmg = getEffectiveDmg(u.baseDmg, u, bonusState);
+    const effectiveDmg = getEffectiveDmg(
+      u.baseDmg,
+      u,
+      bonusState,
+      epicCombatTypes,
+    );
     return { ...u, effectiveDmg };
   });
 

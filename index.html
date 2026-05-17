@@ -261,6 +261,66 @@
         </div>
       </div>
 
+      <div class="card mb-4 border-secondary" id="epic-target-section">
+        <div class="card-body py-3">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h6 class="mb-0 fw-semibold">Epic target</h6>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Epic source">
+              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-preset" autocomplete="off" checked />
+              <label class="btn btn-outline-secondary" for="epic-mode-preset">Standard</label>
+              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-custom" autocomplete="off" />
+              <label class="btn btn-outline-secondary" for="epic-mode-custom">Custom</label>
+            </div>
+          </div>
+          <div id="epic-preset-panel">
+            <label class="form-label small fw-semibold mb-1" for="epic-preset-select">Epic encounter</label>
+            <select class="form-select form-select-sm" id="epic-preset-select">
+              <option value="" selected>— Select epic —</option>
+            </select>
+          </div>
+          <div id="epic-custom-panel" class="d-none">
+            <p class="small text-muted mb-2">
+              Event or temporary epics: one layer per combat type. Feature % is vs the type that layer counters (Flying→Melee→Mounted→Ranged→Flying).
+            </p>
+            <div class="row g-2 mb-3">
+              <div class="col-sm-4 col-md-3">
+                <label class="form-label small fw-semibold mb-1" for="epic-custom-layer-count">Layer count</label>
+                <input type="number" class="form-control form-control-sm epic-custom-input" id="epic-custom-layer-count" min="1" step="1" value="1" />
+                <div class="form-text">Repeat waves or stacked layers.</div>
+              </div>
+            </div>
+            <div class="epic-custom-grid" id="epic-custom-grid-mount"></div>
+          </div>
+          <div id="epic-info-accordion" class="accordion d-none mt-3">
+            <div class="accordion-item border-0">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed py-2 small"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#epicInfoCollapse"
+                  aria-expanded="false"
+                  aria-controls="epicInfoCollapse"
+                  id="epic-info-accordion-btn"
+                >
+                  <span class="epic-info-accordion-label">Epic squad details</span>
+                  <span class="text-muted fw-normal ms-2 d-none d-sm-inline"
+                    >optional reference</span
+                  >
+                </button>
+              </h2>
+              <div
+                id="epicInfoCollapse"
+                class="accordion-collapse collapse"
+                data-bs-parent="#epic-info-accordion"
+              >
+                <div class="accordion-body py-2 px-0 px-sm-2" id="epic-info-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="accordion mb-4" id="armyBonusesAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -296,8 +356,7 @@
                 (fortification, beast, siege lines on the card are ignored). All
                 Strength percents add together (they are not multiplied).
                 <strong>Catapult</strong> and <strong>Mercenary</strong> bonus
-                inputs are coming in a future update. Health % fields are
-                placeholders for a future update.
+                inputs are coming in a future update.
               </p>
               <div id="army-bonuses-mount"></div>
             </div>
@@ -744,100 +803,176 @@
               <h6 class="fw-bold">How the calculator works</h6>
               <ul class="border-start border-2">
                 <li>
-                  <strong>Leadership:</strong> Enter your total troop capacity
-                  for the march to set the "Damage Goal" for your army.
+                  <strong>Leadership:</strong> March capacity for
+                  <strong>Guardsmen</strong>, <strong>Specialists</strong>, and
+                  <strong>Catapults</strong>. This sets the "damage goal" those
+                  units balance toward.
+                </li>
+                <li>
+                  <strong>Authority:</strong> How many
+                  <strong>Mercenaries</strong> you can bring. With
+                  <strong>Leadership</strong> set, mercenaries scale to match
+                  your stack's damage (like monsters). With
+                  <strong>no Leadership</strong> but
+                  <strong>Authority</strong> filled in, capacity is split
+                  across selected mercenaries only.
                 </li>
                 <li>
                   <strong>Selection:</strong> Pick the units to include. The
-                  calculator automatically balances the stack so every tier
-                  deals equal damage.
+                  calculator balances the stack so every selected tier deals the
+                  same <strong>effective damage</strong> per soldier.
                 </li>
                 <li>
-                  <strong>Monsters & Dominance:</strong>
+                  <strong>Monsters &amp; Dominance:</strong>
                   <ul>
                     <li>
-                      <strong>Mirror Mode:</strong> If
-                      <strong>Leadership</strong> is entered, monsters
-                      automatically scale to match your Guardsmen's damage.
+                      <strong>Mirror mode:</strong> With
+                      <strong>Leadership</strong> entered, monsters scale to
+                      match your guards' damage.
                     </li>
                     <li>
-                      <strong>Pure Monster Mode:</strong> If
-                      <strong>no Leadership</strong> is provided but
-                      <strong>Dominance</strong> is entered, the app distributes
-                      that capacity equally across all selected monsters.
+                      <strong>Pure monster mode:</strong> With
+                      <strong>no Leadership</strong> but
+                      <strong>Dominance</strong> entered, capacity is split
+                      across selected monsters only.
                     </li>
                   </ul>
                   <small class="text-muted">
                     <em>
-                      Note: The ⚠️ warning icon only appears if you provide your
-                      <strong>Dominance</strong>. It alerts you if the "optimal"
-                      damage match exceeds what your current dominance can
-                      actually hold.
+                      The
+                      <i
+                        class="bi bi-exclamation-triangle-fill text-warning"
+                        aria-hidden="true"
+                      ></i>
+                      icon appears when you enter
+                      <strong>Dominance</strong> or
+                      <strong>Authority</strong> and the balanced stack needs
+                      more capacity than you have—it shows the maximum that
+                      still keeps the mix in balance.
                     </em>
                   </small>
                 </li>
                 <li>
-                  <strong>Damage &amp; stacking logic:</strong> Each tier is
-                  balanced so every selected stack deals the same
-                  <strong>effective damage</strong>. With no Army Bonuses
-                  entered, that uses each unit's base damage from the database.
-                  When you fill in bonuses, counts use
+                  <strong>Damage formula:</strong> For
+                  <strong>Guardsmen, Specialists, and Monsters</strong>, Army
+                  Bonuses and unit-card features are included:
                   <strong
-                    >base × (1 + Strength bonuses + highest
-                    Melee/Ranged/Mounted/Flying feature on the card)</strong
+                    >base × (1 + Strength bonuses + feature bonus)</strong
+                  >. Strength percents <strong>add</strong> (they are not
+                  multiplied). The feature line uses the
+                  <strong
+                    >highest Melee / Ranged / Mounted / Flying % on the unit
+                    card</strong
                   >
-                  — Strength percents <strong>add</strong> (they are not
-                  multiplied). Fortification, beast, siege, and similar lines on
-                  the card are ignored for now.
+                  that applies—when an <strong>Epic target</strong> is set, only
+                  types present on that epic count. Fortification, beast, siege,
+                  and similar lines are ignored.
+                  <strong>Mercenaries</strong> use base damage only for now—we
+                  do not have enough in-game data to apply mercenary bonuses
+                  reliably (mercenary bonus inputs are planned for a future
+                  update).
+                </li>
+                <li>
+                  <strong>Epic target (optional):</strong> Pick
+                  <strong>Standard</strong> (preset encounters) or
+                  <strong>Custom</strong> (event epics: one layer per combat
+                  type). This steers feature % and unlocks epic kill estimates.
+                  Expand <strong>Epic squad details</strong> for enemy strength,
+                  HP, and features (reference only). Standard and Custom epic
+                  targets are saved with presets and share codes (v3+).
                 </li>
                 <li>
                   <strong>Army Bonuses (optional):</strong> Expand the accordion
-                  under the stat inputs. Enter the
-                  <strong>Strength %</strong> the game shows (e.g.
-                  <strong>52</strong> for 52%) —
-                  <strong>Strength against Epic</strong>, then your Guardsman /
-                  Specialist / Monster grid (Melee, Ranged, Mounted, Flying).
-                  Those values already include
-                  <strong>hero talents, research, equipment</strong>, and other
-                  bonuses baked into your in-game Strength; you do not enter
-                  them separately. The accordion closes when you switch views or
-                  load a preset. <strong>Catapult</strong> and
-                  <strong>Mercenary</strong>
-                  bonus inputs are planned for a future update. Health % fields
-                  are shown but not used in counts yet.
+                  below epic target. Enter in-game
+                  <strong>Strength %</strong> (e.g.
+                  <strong>52</strong> for 52%)—start with
+                  <strong>Strength against Epic %</strong>, then the
+                  Guardsman / Specialist / Monster grid (these categories get
+                  the bonus math above). Those numbers already include
+                  <strong>hero talents, research, equipment</strong>, etc.; do
+                  not enter them twice. The accordion closes when you switch
+                  views or load a preset.
+                  <strong>Catapult</strong> and <strong>Mercenary</strong>
+                  bonus rows are planned once their in-game rules are clear.
+                </li>
+              </ul>
+
+              <h6 class="fw-bold mt-3">Detail &amp; Summary views</h6>
+              <p class="small mb-2">
+                Use the floating button (bottom-right) to switch views.
+                Calculations update whenever stats, units, bonuses, or epic
+                target change.
+              </p>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Detail:</strong> Select units by category and tier;
+                  see troop counts and total stack damage on each card.
+                </li>
+                <li>
+                  <strong>Summary:</strong> All selected units grouped by tier
+                  (highest tier first). Within each tier, rows are sorted by
+                  stack damage (highest first).
+                </li>
+                <li>
+                  <strong
+                    ><i
+                      class="bi bi-dice-5-fill text-warning"
+                      aria-hidden="true"
+                    ></i>
+                    Dice icon:</strong
+                  >
+                  Marks stacks tied for the
+                  <strong>highest total damage</strong> in your army (~50%
+                  chance that stack is eliminated first in battle). This is a
+                  rule-of-thumb, not a combat simulation.
+                </li>
+                <li>
+                  <strong>Epic selected:</strong> Summary shows estimated
+                  <strong>kills</strong> per stack (best layer by stack damage).
+                  <i
+                    class="bi bi-exclamation-triangle-fill text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  warns if a stack may not reach one enemy HP on any layer.
+                  Check your battle journal if numbers look off.
                 </li>
               </ul>
 
               <h6 class="fw-bold mt-3">Presets</h6>
               <p class="small mb-2">
-                Presets remember your stat inputs, selected units, and
-                <strong>Army Bonuses</strong> values. They are stored only in
-                this browser (<strong>local storage</strong> on your
-                device)—nothing is uploaded to a server.
+                Presets store stat inputs, selected units,
+                <strong>Army Bonuses</strong>, and the active
+                <strong>epic target</strong> in this browser only (<strong
+                  >local storage</strong
+                >)—nothing is uploaded.
               </p>
               <ul class="border-start border-2 small mb-0">
                 <li>
-                  <strong>Load:</strong> Choose a name in the dropdown to apply
-                  that preset and open <strong>Summary</strong> view.
+                  <strong>Load:</strong> Pick a name in the dropdown to apply it
+                  and open <strong>Summary</strong> view.
                 </li>
                 <li>
-                  <strong>Reset:</strong> Clears all stat fields and unit
-                  selections, returns the dropdown to
-                  <em>-- Load Preset --</em> (no preset selected), and switches
-                  to <strong>Detail</strong> view. Saved presets in storage are
-                  unchanged.
+                  <strong>Reset:</strong> Clears stats and unit selections,
+                  returns the dropdown to <em>-- Load Preset --</em>, and opens
+                  <strong>Detail</strong> view. Saved presets are unchanged.
                 </li>
                 <li>
-                  <strong>Save:</strong> Available once at least one stat field
-                  has a value. Use <em>Update</em> when a preset is selected to
-                  overwrite it or save under a new name.
+                  <strong>Save:</strong> Enabled once at least one of
+                  Leadership, Authority, or Dominance has a value. Use
+                  <em>Update</em> to overwrite the selected preset or save under
+                  a new name.
+                </li>
+                <li>
+                  <strong>Delete:</strong> Removes the selected preset after
+                  confirmation.
                 </li>
                 <li>
                   <strong>Export / Import:</strong>
-                  <strong>Export</strong> (with a preset selected) copies a
-                  share code to your clipboard. <strong>Import</strong> pastes a
-                  code and adds it as a new entry named <em>Imported: …</em> so
-                  you can back up stacks or share them with others.
+                  <strong>Export</strong> needs a preset selected; copies an
+                  <code>a2r-preset:</code> share code (v3 includes bonuses and
+                  epic target). <strong>Import</strong> adds
+                  <em>Imported: …</em> and loads it. Older v1/v2 codes import
+                  without bonuses and/or epic.
                 </li>
               </ul>
 
@@ -865,6 +1000,23 @@
                         shows 0 kills, try selecting fewer types or tiers.
                       </small>
                     </div>
+                  </li>
+                  <li>
+                    <strong
+                      ><i
+                        class="bi bi-exclamation-triangle-fill text-warning me-1"
+                        aria-hidden="true"
+                      ></i
+                      >Epic kill warning:</strong
+                    >
+                    When an epic target
+                    is set and a unit shows this warning, that stack may not
+                    deal enough damage to kill at least one enemy on any layer.
+                    Try removing your <strong>lowest-damage</strong> units (or
+                    tiers) until every remaining stack can secure kills—or swap
+                    in <strong>stronger units</strong>, or use a
+                    <strong>captain with higher Leadership</strong> so your
+                    main tiers can carry more troops.
                   </li>
                   <li>
                     <strong>Mercenaries:</strong> You can add more than the
@@ -988,6 +1140,11 @@
         <span class="text-truncate me-2">
           <span class="summary-unit-name"></span>
           <i
+            class="bi bi-dice-5-fill text-warning ms-1 summary-die-first-icon d-none"
+            data-bs-toggle="tooltip"
+            title=""
+          ></i>
+          <i
             class="bi bi-exclamation-triangle-fill text-warning ms-1 summary-warning-icon d-none"
             data-bs-toggle="tooltip"
             title=""
@@ -997,8 +1154,89 @@
           <span class="fw-bold summary-unit-count"></span>
           <span class="text-muted mx-1">|</span>
           <span class="summary-unit-damage"></span>
+          <span class="text-muted mx-1 summary-kills-sep d-none">|</span>
+          <span
+            class="summary-unit-kills small d-none"
+            data-bs-toggle="tooltip"
+            title=""
+          ></span>
         </span>
       </div>
+    </template>
+
+    <template id="epic-custom-type-template">
+      <div class="epic-custom-type card">
+        <div class="card-body p-2">
+          <div class="small fw-bold mb-2 epic-custom-type-title"></div>
+          <label class="form-label epic-mini-label epic-custom-strength-label"
+            >Strength</label
+          >
+          <input
+            type="number"
+            class="form-control form-control-sm epic-custom-input epic-custom-strength-input mb-1"
+            min="0"
+            step="1"
+            placeholder="0"
+          />
+          <label class="form-label epic-mini-label epic-custom-hp-label">HP</label>
+          <input
+            type="number"
+            class="form-control form-control-sm epic-custom-input epic-custom-hp-input mb-1"
+            min="0"
+            step="1"
+            placeholder="0"
+          />
+          <label class="form-label epic-mini-label epic-custom-feature-label"
+            >Feature %</label
+          >
+          <input
+            type="number"
+            class="form-control form-control-sm epic-custom-input epic-custom-feature-input"
+            min="0"
+            step="0.01"
+            placeholder="0"
+          />
+        </div>
+      </div>
+    </template>
+
+    <template id="epic-info-content-template">
+      <div>
+        <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
+          <span class="fw-semibold epic-info-name"></span>
+          <span
+            class="badge text-bg-secondary ms-1 epic-info-layer-badge d-none"
+          ></span>
+        </div>
+        <p class="small text-muted mb-2 mb-md-1 epic-info-hint">
+          Your stack uses each unit's feature % vs the combat types on this epic
+          (Flying → Melee → Mounted → Ranged → Flying).
+        </p>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped mb-0 epic-squad-table">
+            <thead>
+              <tr>
+                <th>Unit</th>
+                <th>Type</th>
+                <th class="text-end">Strength</th>
+                <th class="text-end">HP</th>
+                <th>Feature</th>
+              </tr>
+            </thead>
+            <tbody class="epic-squad-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </template>
+
+    <template id="epic-squad-row-template">
+      <tr>
+        <td class="text-nowrap epic-squad-unit"></td>
+        <td class="epic-squad-type"></td>
+        <td class="text-end epic-squad-strength"></td>
+        <td class="text-end epic-squad-hp"></td>
+        <td class="small epic-squad-feature"></td>
+      </tr>
     </template>
 
     <div

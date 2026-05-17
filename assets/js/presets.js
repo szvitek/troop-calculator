@@ -5,9 +5,15 @@ import {
   collapseArmyBonusesAccordion,
   sanitizeBonusInputs,
 } from "./bonuses.js";
+import {
+  applyEpicPresetState,
+  captureEpicPresetState,
+  sanitizeEpicPreset,
+} from "./epics.js";
+import { syncEpicTargetDisplay } from "./epic-ui.js";
 
 const STORAGE_KEY = "troop-presets";
-const SHARE_VERSION = 2;
+const SHARE_VERSION = 3;
 /** Prefix so pasted codes are recognizable and import can validate. */
 const SHARE_PREFIX = "a2r-preset:";
 
@@ -101,7 +107,7 @@ function parseShareCode(raw) {
   if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
     return { ok: false, error: "Invalid preset data." };
   }
-  if (obj.v !== 1 && obj.v !== SHARE_VERSION) {
+  if (obj.v !== 1 && obj.v !== 2 && obj.v !== SHARE_VERSION) {
     return { ok: false, error: "Unsupported share code version." };
   }
 
@@ -115,6 +121,10 @@ function parseShareCode(raw) {
     units: sanitizeImportedUnits(obj.units),
     bonuses:
       obj.v >= 2 ? sanitizeBonusInputs(obj.bonuses) : {},
+    epic:
+      obj.v >= 3
+        ? sanitizeEpicPreset(obj.epic)
+        : { mode: "none" },
   };
 
   return { ok: true, preset, sourceLabel };
@@ -129,6 +139,7 @@ function buildShareCode(presetName, data) {
     dominance: data.dominance ?? 0,
     units: Array.isArray(data.units) ? data.units : [],
     bonuses: sanitizeBonusInputs(data.bonuses),
+    epic: sanitizeEpicPreset(data.epic),
   };
   return `${SHARE_PREFIX}${base64UrlEncode(JSON.stringify(payload))}`;
 }
@@ -325,10 +336,14 @@ function captureState() {
       (cb) => cb.id,
     ),
     bonuses: captureBonusInputs(),
+    epic: captureEpicPresetState(),
   };
 }
 
-function restoreState(preset) {
+async function restoreState(preset) {
+  await applyEpicPresetState(preset.epic ?? { mode: "none" });
+  syncEpicTargetDisplay();
+
   document.getElementById("input-leadership").value = preset.leadership || 0;
   document.getElementById("input-authority").value = preset.authority || 0;
   document.getElementById("input-dominance").value = preset.dominance || 0;
@@ -358,7 +373,10 @@ function restoreState(preset) {
 }
 
 /** Clears stat inputs and unit checks, resets preset dropdown to placeholder, recalculates, shows detail view. */
-function resetFormToEmpty() {
+async function resetFormToEmpty() {
+  await applyEpicPresetState({ mode: "none" });
+  syncEpicTargetDisplay();
+
   for (const id of [
     "input-leadership",
     "input-authority",
@@ -450,7 +468,7 @@ export function initPresets() {
   populateDropdown();
 
   resetBtn.addEventListener("click", () => {
-    resetFormToEmpty();
+    void resetFormToEmpty();
   });
 
   document.addEventListener("input", (e) => {
@@ -472,7 +490,9 @@ export function initPresets() {
     }
 
     const presets = getPresets();
-    if (presets[name]) restoreState(presets[name]);
+    if (presets[name]) {
+      void restoreState(presets[name]);
+    }
 
     syncPresetActionButtons();
     syncSavePresetButton();

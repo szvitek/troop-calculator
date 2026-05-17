@@ -6,6 +6,7 @@ import { initPresets } from "./presets.js";
 import { initChangelog } from "./changelog.js";
 import { initUmami } from "./analytics.js";
 import { initBonusUI } from "./bonuses.js";
+import { initEpicUI } from "./epic-ui.js";
 
 initUmami();
 
@@ -16,6 +17,7 @@ async function init() {
     const { troops, colorMap } = await loadData();
     renderAllCategories(troops, colorMap, CATEGORY_CONFIGS);
     attachEvents();
+    initEpicUI(runCalculation);
     initBonusUI(runCalculation);
     initPresets();
   } catch (err) {
