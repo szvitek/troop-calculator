@@ -30,7 +30,7 @@ In high-level play, **Troop Stacking** is critical. This tool allows you to:
 
   `Effective Damage = Base Damage × (1 + Input Strength Bonuses + Unit Card Feature Bonus)`
 
-  _(Note: Catapults, Mercenaries, and Health % matrices are planned for a future update)._
+  _(Note: Catapult and Mercenary bonus inputs are planned for a future update)._
 
 - **Optimized for Mobile:** A responsive, tabbed interface designed for seamless one-handed navigation.
 - **Strict Privacy Controls:** All custom army setups utilize client-side processing. Lightweight aggregate traffic monitoring (Umami) only triggers when the app is opened inside a standard desktop browser tab; the installed PWA environment completely bypasses analytics scripts.
@@ -44,9 +44,9 @@ Presets live in a compact control bar sitting directly above the stat inputs:
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Dropdown** | Pick a preset to apply it immediately and open **Summary** view. The placeholder row means no preset is selected.                                                                                     |
 | **Reset**    | Clears stats and all unit selections, clears the dropdown selection, switches to **Detail** view, and recalculates. Saved presets are **not** removed from storage.                                   |
-| **Save**     | Opens a modal to name the preset (or update the selected one via the overwrite option). Saves stats, selected units, and **Army Bonuses** values. Disabled until at least one stat field has a value. |
+| **Save**     | Opens a modal to name the preset (or update the selected one via the overwrite option). Saves stats, selected units, **Army Bonuses**, and the active **epic target**. Disabled until at least one stat field has a value. |
 | **Delete**   | Removes the selected preset from storage after confirmation.                                                                                                                                          |
-| **Export**   | Copies a share code for the **selected** preset to the clipboard (`a2r-preset:` + encoded JSON v2, including bonuses). If the clipboard API is unavailable, a modal shows the code to copy manually.  |
+| **Export**   | Copies a share code for the **selected** preset to the clipboard (`a2r-preset:` + encoded JSON v3, including bonuses and epic target). If the clipboard API is unavailable, a modal shows the code to copy manually. v1/v2 codes still import. |
 | **Import**   | Paste a share code; valid codes are stored as a new preset (named `Imported: …` with suffixes if that name already exists) and loaded when the modal closes. v1 codes import without bonuses.         |
 
 Toasts provide instant confirmation feedback for saves, imports, exports, and profile deletions.

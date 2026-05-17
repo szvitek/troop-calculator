@@ -232,3 +232,56 @@
 #armyBonusesAccordion .accordion-button:not(.collapsed) {
   box-shadow: none;
 }
+
+#epic-info-accordion .accordion-button {
+  font-weight: 600;
+}
+
+#epic-info-accordion .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+/* Summary: highest stack damage (frontline risk) */
+.summary-row-highest-dmg {
+  background: rgba(var(--bs-warning-rgb), 0.12);
+  border-radius: 0.25rem;
+  margin-inline: -0.25rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.summary-die-first-icon {
+  font-size: 0.85em;
+  vertical-align: -0.05em;
+}
+
+/* Epic target */
+.epic-mini-label {
+  font-size: 0.7rem;
+  margin-bottom: 0.15rem;
+}
+
+.epic-custom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 991.98px) {
+  .epic-custom-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575.98px) {
+  .epic-custom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.epic-custom-type {
+  background: rgba(var(--bs-body-bg-rgb), 0.6);
+}
+
+.epic-squad-table th {
+  font-size: 0.75rem;
+}

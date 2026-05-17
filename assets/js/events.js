@@ -1,5 +1,10 @@
 import { calculateTroops } from "./calculator.js";
 import { collapseArmyBonusesAccordion, readBonusState } from "./bonuses.js";
+import { readEpicTargetState } from "./epics.js";
+import {
+  getEpicKillEstimates,
+  getEpicWeakLinkWarnings,
+} from "./epic-combat.js";
 import {
   resetAllResults,
   updateResults,
@@ -46,6 +51,11 @@ export function runCalculation() {
   });
 
   const bonusState = readBonusState();
+  const epicTarget = readEpicTargetState();
+  const epicCombatTypes =
+    epicTarget.mode !== "none" && epicTarget.combatTypes.length > 0
+      ? epicTarget.combatTypes
+      : null;
 
   const results = calculateTroops({
     leadership,
@@ -53,7 +63,30 @@ export function runCalculation() {
     authority,
     selectedUnits,
     bonusState,
+    epicCombatTypes,
   });
+
+  if (epicTarget.mode !== "none" && selectedUnits.length > 0) {
+    const epicWarnings = getEpicWeakLinkWarnings(
+      selectedUnits,
+      results,
+      epicTarget,
+      bonusState,
+    );
+    const epicKills = getEpicKillEstimates(
+      selectedUnits,
+      results,
+      epicTarget,
+      bonusState,
+    );
+    for (const r of results) {
+      const msg = epicWarnings.get(r.id);
+      if (msg) r.epicWarning = msg;
+      const kills = epicKills.get(r.id);
+      if (kills) r.epicKills = kills;
+    }
+  }
+
   updateResults(results);
   renderSummary(results);
 }

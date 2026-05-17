@@ -31,7 +31,7 @@
       {
         "name": "Necromancer",
         "tier": 2,
-        "tags": ["epic", "mounted", "undead"],
+        "tags": ["epic", "ranged", "undead"],
         "strength": 720,
         "hp": 2160,
         "features": { "flying": 0.5 }

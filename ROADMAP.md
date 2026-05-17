@@ -48,17 +48,33 @@
 
 ### 🧠 v1.2.0 — Epics, UI, & Algorithmic Optimization
 
-- [ ] **Master Epic Data Deployment**
+- [x] **Master Epic Data Deployment**
   - Seed the database engine with complete `epics.json` profiles detailing multi-layer squad sequences and recurring wave metrics.
-- [ ] **Target Interface Engineering**
+- [x] **Target Interface Engineering**
   - Build out intuitive frontend dropdown selectors for immediate presets of standard in-game Epic Targets.
   - Construct generic manual override fields allowing players to experiment with non-standard or raw custom Epic Monster statistics.
-- [ ] **The "Smart-Fill" Optimization Module**
+- [x] **The "Smart-Fill" Optimization Module**
   - Implement the core optimization loop to deconstruct enemy row lineups and automatically map your absolute highest-efficiency army output.
-- [ ] **End-User Documentation & Onboarding**
-  - Author a comprehensive, step-by-step "How-To" strategy guide embedded directly into the application UI, complete with visual UI screenshots.
 
 ---
 
-Last Updated: 2026-05-16
-Status: Phase 5 (Active — v1.1.0 shipped | Developing v1.2.0)
+### 🏰 v1.3.0 — Catapults & Citadel Siege
+
+Scope: **Catapults** (siege support alongside the existing march stack).
+
+- [ ] **Catapult bonus damage in the calculator**
+  - Add Catapult Strength % (and related inputs) to Army Bonuses and wire them into effective damage / stacking math for catapult units.
+- [ ] **Citadel catapult calculator**
+  - Given a target (e.g. monster citadel), recommend **how many catapults** to send so walls/structures break down as intended—separate from the leadership-based troop stack balancer.
+
+---
+
+### 📖 v1.4.0 — End-User Documentation & Onboarding
+
+- [ ] **Embedded strategy guide**
+  - Author a comprehensive, step-by-step "How-To" guide in the application UI, complete with visual UI screenshots (beyond the current Help modal).
+
+---
+
+Last Updated: 2026-05-17
+Status: Phase 5 (Active — v1.2.0 shipped | **v1.3.0 planned** — Catapults | v1.4.0 — Documentation)
