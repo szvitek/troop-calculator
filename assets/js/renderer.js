@@ -3,6 +3,7 @@
  */
 
 import { COMBAT_LABELS } from "./epics.js";
+import { isCitadelMode } from "./citadel-ui.js";
 
 let storedColorMap = {};
 
@@ -99,15 +100,35 @@ export function resetAllResults() {
 
 /**
  * Writes calculator results into the DOM.
- * @param {Array<{id: string, count: number, damage: number, warning?: object|null, epicWarning?: string}>} results
+ * @param {Array<{id: string, count: number, damage: number, warning?: object|null, epicWarning?: string, citadelMinAlone?: number, citadelStrike?: number}>} results
+ * @param {{ citadelMode?: boolean, wallHp?: number }} [opts]
  */
-export function updateResults(results) {
+export function updateResults(results, opts = {}) {
+  const citadelMode = opts.citadelMode ?? isCitadelMode();
+
   results.forEach((r) => {
     const countEl = document.getElementById(`count-${r.id}`);
     const dmgEl = document.getElementById(`dmg-${r.id}`);
 
     if (countEl) countEl.textContent = r.count.toLocaleString();
-    if (dmgEl) dmgEl.textContent = r.damage.toLocaleString();
+    if (dmgEl) {
+      if (citadelMode && r.citadelStrike) {
+        const walls =
+          r.citadelWallsCleared != null
+            ? r.citadelWallsCleared
+            : opts.wallHp > 0
+              ? Math.floor(r.damage / opts.wallHp)
+              : 0;
+        dmgEl.textContent = `${r.damage.toLocaleString()} dmg · ${walls.toLocaleString()} walls`;
+        dmgEl.setAttribute(
+          "title",
+          `Strike ${Math.floor(r.citadelStrike).toLocaleString()} per catapult · recommended ${r.count.toLocaleString()}×${r.citadelMinAlone != null ? ` · solo tier needs ${r.citadelMinAlone.toLocaleString()}×` : ""}`,
+        );
+      } else {
+        dmgEl.textContent = r.damage.toLocaleString();
+        dmgEl.removeAttribute("title");
+      }
+    }
 
     const messages = [];
     if (r.warning) {
@@ -146,21 +167,31 @@ function setUnitWarning(unitId, message) {
  * Builds the summary view from calculator results and checked checkbox metadata.
  * Groups selected units by tier (descending) with counts and damage.
  * @param {Array<{id: string, count: number, damage: number}>} results
+ * @param {{ citadelMode?: boolean }} [opts]
  */
-export function renderSummary(results) {
+export function renderSummary(results, opts = {}) {
   const contentEl = document.getElementById("summary-content");
   const emptyEl = document.getElementById("summary-empty");
   if (!contentEl || !emptyEl) return;
+
+  const citadelMode = opts.citadelMode ?? isCitadelMode();
 
   const resultMap = {};
   results.forEach((r) => {
     resultMap[r.id] = r;
   });
 
-  const checked = document.querySelectorAll(".unit-check:checked");
+  let checked = document.querySelectorAll(".unit-check:checked");
+  if (citadelMode) {
+    checked = [...checked].filter((cb) => cb.dataset.category === "catapults");
+  }
+
   if (checked.length === 0) {
     contentEl.innerHTML = "";
     emptyEl.classList.remove("d-none");
+    emptyEl.textContent = citadelMode
+      ? "Select catapult tiers to see siege stack counts."
+      : "Select units from the detail view to see your stack summary.";
     return;
   }
   emptyEl.classList.add("d-none");
@@ -176,12 +207,14 @@ export function renderSummary(results) {
 
     if (!tierGroups[tier]) tierGroups[tier] = [];
     tierGroups[tier].push({
+      id,
       name,
       count: resultMap[id]?.count ?? 0,
       damage: resultMap[id]?.damage ?? 0,
       warning: resultMap[id]?.warning ?? null,
       epicWarning: resultMap[id]?.epicWarning ?? null,
       epicKills: resultMap[id]?.epicKills ?? null,
+      citadelWallsCleared: resultMap[id]?.citadelWallsCleared ?? null,
     });
   });
 
@@ -241,7 +274,17 @@ export function renderSummary(results) {
         u.count.toLocaleString();
 
       const dmgEl = unitClone.querySelector(".summary-unit-damage");
-      dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
+      const result = resultMap[u.id];
+      if (citadelMode) {
+        dmgEl.textContent = "—";
+        dmgEl.setAttribute(
+          "title",
+          "Siege breakdown is in the Citadel siege report below.",
+        );
+      } else {
+        dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
+        dmgEl.removeAttribute("title");
+      }
       dmgEl.style.color = color;
 
       if (showEpicKills && u.epicKills) {

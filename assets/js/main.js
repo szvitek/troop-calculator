@@ -7,6 +7,7 @@ import { initChangelog } from "./changelog.js";
 import { initUmami } from "./analytics.js";
 import { initBonusUI } from "./bonuses.js";
 import { initEpicUI } from "./epic-ui.js";
+import { initCitadelUI } from "./citadel-ui.js";
 
 initUmami();
 
@@ -17,6 +18,7 @@ async function init() {
     const { troops, colorMap } = await loadData();
     renderAllCategories(troops, colorMap, CATEGORY_CONFIGS);
     attachEvents();
+    initCitadelUI(runCalculation);
     initEpicUI(runCalculation);
     initBonusUI(runCalculation);
     initPresets();

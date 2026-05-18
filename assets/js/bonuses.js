@@ -156,6 +156,17 @@ export function sanitizeBonusInputs(raw) {
  * @param {{ category: string, tags?: string[] }} unit
  * @param {ReturnType<typeof readBonusState>} bonusState
  */
+/** Catapult Strength % only (citadel siege — no vs Epic). */
+export function getCatapultSiegeStrengthPercent(bonusState) {
+  return bonusState.catapults ?? 0;
+}
+
+/** Fortification line on the unit card (decimal, e.g. 0.65 = 65%). */
+export function fortificationFeatureBonus(features = {}) {
+  const v = features.fortification;
+  return typeof v === "number" && !Number.isNaN(v) ? v : 0;
+}
+
 export function getStrengthBonusPercent(unit, bonusState) {
   let pct = bonusState.vsEpic;
 
@@ -231,6 +242,7 @@ export function initBonusUI(onChange) {
   mount.innerHTML = "";
 
   const global = document.createElement("div");
+  global.id = "bonus-vs-epic-wrap";
   global.className = "bonus-global mb-3";
   global.innerHTML = `
     <label class="form-label small fw-semibold mb-1" for="bonus-vs-epic">Strength against Epic %</label>

@@ -1,7 +1,12 @@
-v1.2.0 - 2026-05-17
+v1.3.0 - 2026-05-17
 -------------------
-[NEW] Army Bonuses: Catapult Strength % (single value for all tiers); applies to selected catapults with vs Epic and grid bonuses.
 
+[NEW] Citadel siege mode: toggle Epic march / Citadel siege, enter wall count, see opening volley vs citadel walls (10k STR / 30k HP per wall from `citadel-walls.json`).
+[NEW] Catapult strike uses ×20 vs fortification, card Fortification feature, and Catapult Strength % (not vs Epic).
+[NEW] Per-tier min. catapults alone + Leadership-based stack counts for selected catapult tiers.
+[FIX] Leadership/Dominance/Authority inputs with comma separators (e.g. 5,000,000) now parse correctly in citadel and march modes.
+[CHANGE] Citadel siege: recommends a combined catapult mix to break all walls without Leadership; Leadership is optional to compare fieldable stacks.
+[NEW] Army Bonuses: Catapult Strength % (single value for all tiers); applies to selected catapults with vs Epic and grid bonuses.
 
 v1.2.0 - 2026-05-17
 -------------------

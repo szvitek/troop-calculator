@@ -17,6 +17,15 @@ const SHARE_VERSION = 3;
 /** Prefix so pasted codes are recognizable and import can validate. */
 const SHARE_PREFIX = "a2r-preset:";
 
+function parseStatValue(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  const raw = String(el.value).replace(/,/g, "").trim();
+  if (!raw) return 0;
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) && n >= 0 ? n : 0;
+}
+
 function base64UrlEncode(str) {
   const bytes = new TextEncoder().encode(str);
   let binary = "";
@@ -326,12 +335,9 @@ function savePresets(presets) {
 
 function captureState() {
   return {
-    leadership:
-      parseInt(document.getElementById("input-leadership").value, 10) || 0,
-    authority:
-      parseInt(document.getElementById("input-authority").value, 10) || 0,
-    dominance:
-      parseInt(document.getElementById("input-dominance").value, 10) || 0,
+    leadership: parseStatValue("input-leadership"),
+    authority: parseStatValue("input-authority"),
+    dominance: parseStatValue("input-dominance"),
     units: Array.from(document.querySelectorAll(".unit-check:checked")).map(
       (cb) => cb.id,
     ),

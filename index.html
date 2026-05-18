@@ -261,6 +261,47 @@
         </div>
       </div>
 
+      <div class="card mb-3 border-secondary" id="battle-target-mode-card">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <h6 class="mb-0 fw-semibold">Battle target</h6>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Battle target mode">
+              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-epic" autocomplete="off" checked />
+              <label class="btn btn-outline-secondary" for="target-mode-epic">Epic march</label>
+              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-citadel" autocomplete="off" />
+              <label class="btn btn-outline-secondary" for="target-mode-citadel">Citadel siege</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4 border-secondary d-none" id="citadel-target-section">
+        <div class="card-body py-3">
+          <h6 class="fw-semibold mb-2">Citadel walls</h6>
+          <p class="small text-muted mb-2" id="citadel-wall-reference">Loading wall stats…</p>
+          <div class="row g-2 align-items-end">
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label small fw-semibold mb-1" for="citadel-wall-count">Number of walls</label>
+              <input
+                type="number"
+                class="form-control form-control-sm citadel-input"
+                id="citadel-wall-count"
+                min="0"
+                step="1"
+                placeholder="0"
+                inputmode="numeric"
+              />
+              <div class="form-text">Scales by citadel level; STR/HP per wall are fixed.</div>
+            </div>
+          </div>
+          <p class="small text-muted mt-2 mb-0">
+            Select catapult tiers below — the app recommends <strong>how many of each tier together</strong> to break all walls (no Leadership required).
+            Optional <strong>Leadership</strong> compares what you can actually field. Uses <strong>Catapult Strength %</strong> and card <strong>Fortification</strong> (×20 vs walls).
+          </p>
+          <div id="citadel-siege-report" class="alert d-none mt-3 mb-0 citadel-siege-report" role="status"></div>
+        </div>
+      </div>
+
       <div class="card mb-4 border-secondary" id="epic-target-section">
         <div class="card-body py-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
@@ -898,6 +939,49 @@
                 </li>
               </ul>
 
+              <h6 class="fw-bold mt-3">Citadel siege</h6>
+              <p class="small mb-2">
+                Use this mode to plan an opening catapult volley against citadel
+                walls—not Epic marches.
+              </p>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Battle target:</strong> Switch to
+                  <strong>Citadel siege</strong>. The Epic target panel is hidden;
+                  vs Epic bonuses do not apply to catapult strike math here.
+                </li>
+                <li>
+                  <strong>Walls:</strong> Enter how many walls you need to break.
+                  Total HP is wall count × fixed HP per wall (shown under the
+                  input).
+                </li>
+                <li>
+                  <strong>Catapults:</strong> Select one or more tiers in the
+                  Catapults tab. The <strong>Citadel siege</strong> report lists
+                  recommended counts per tier and a combined volley total.
+                  <strong>Leadership</strong> is optional—enter it to compare
+                  what you can actually field vs the recommended mix.
+                </li>
+                <li>
+                  <strong>Damage:</strong> Per-catapult strike uses
+                  <strong>×20 vs fortification</strong>, the
+                  <strong>Fortification</strong> % on the unit card, and
+                  <strong>Catapult Strength %</strong> from Army Bonuses.
+                </li>
+                <li>
+                  <strong>Views:</strong> In citadel mode,
+                  <strong>Detail</strong> shows counts and volley damage per
+                  tier; <strong>Summary</strong> shows counts only—the full
+                  siege breakdown stays in the citadel report.
+                </li>
+                <li>
+                  <strong>Presets:</strong> Saved presets keep selected
+                  catapults, stats, bonuses, and epic target, but
+                  <strong>not</strong> citadel mode or wall count—you still
+                  switch mode and re-enter walls after loading.
+                </li>
+              </ul>
+
               <h6 class="fw-bold mt-3">Detail &amp; Summary views</h6>
               <p class="small mb-2">
                 Use the floating button (bottom-right) to switch views.
@@ -1272,3 +1356,4 @@
     </div>
   </body>
 </html>
+
