@@ -1,0 +1,9 @@
+[
+  {
+    "id": "standard-wall",
+    "name": "Citadel wall",
+    "tags": ["fortification", "engineer corps"],
+    "strength": 10000,
+    "hp": 30000
+  }
+]

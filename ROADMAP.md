@@ -62,19 +62,23 @@
 
 Scope: **Catapults** (siege support alongside the existing march stack).
 
-- [ ] **Catapult bonus damage in the calculator**
+- [x] **Catapult bonus damage in the calculator**
   - Add Catapult Strength % (and related inputs) to Army Bonuses and wire them into effective damage / stacking math for catapult units.
-- [ ] **Citadel catapult calculator**
-  - Given a target (e.g. monster citadel), recommend **how many catapults** to send so walls/structures break down as intended—separate from the leadership-based troop stack balancer.
+- [x] **Citadel catapult calculator**
+  - Given wall count, recommend **how many catapults** to send (per-tier minimum + Leadership stacks) using ×20 fortification damage and opening-volley rules.
 
 ---
 
-### 📖 v1.4.0 — End-User Documentation & Onboarding
+### 📖 v1.4.0 — Polish, Documentation & Onboarding
 
+- [ ] **UI cleanup**
+  - Clean up the UI for a finalized release (citadel siege report, summary vs detail, tooltips, spacing, and other polish from the v1.3.x pass).
+- [ ] **PWA install prompt**
+  - Add an in-app install popup / banner when the browser supports install (`beforeinstallprompt`), so users can add the app to their home screen without hunting the browser menu.
 - [ ] **Embedded strategy guide**
   - Author a comprehensive, step-by-step "How-To" guide in the application UI, complete with visual UI screenshots (beyond the current Help modal).
 
 ---
 
 Last Updated: 2026-05-17
-Status: Phase 5 (Active — v1.2.0 shipped | **v1.3.0 planned** — Catapults | v1.4.0 — Documentation)
+Status: Phase 5 (Active — v1.3.0 shipped — Citadel siege | v1.4.0 — Polish & documentation)

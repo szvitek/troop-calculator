@@ -4,9 +4,13 @@ export const COMBAT_TYPES = ["melee", "ranged", "mounted", "flying"];
 /** Categories that have per-type Strength % rows in the bonus grid. */
 export const BONUS_GRID_CATEGORIES = ["guardsmen", "specialists", "monsters"];
 
+/** Single Strength % input for all catapult units (no Melee/Ranged/Mounted/Flying row). */
+export const BONUS_CATAPULTS_KEY = "catapults-strength";
+
 /** All `data-bonus-key` values used by the army bonus form (for preset import validation). */
 export const BONUS_INPUT_KEYS = [
   "vs-epic",
+  BONUS_CATAPULTS_KEY,
   ...BONUS_GRID_CATEGORIES.flatMap((category) =>
     COMBAT_TYPES.map((combat) => `grid.${category}.${combat}`),
   ),
@@ -19,6 +23,7 @@ const CATEGORY_LABELS = {
   guardsmen: "Guardsman",
   specialists: "Specialist",
   monsters: "Monster",
+  catapults: "Catapult",
 };
 
 const COMBAT_LABELS = {
@@ -64,12 +69,14 @@ export function combatFeatureBonus(features = {}, epicCombatTypes = null) {
  * @param {ParentNode} [root]
  * @returns {{
  *   vsEpic: number,
+ *   catapults: number,
  *   grid: Record<string, Record<string, number>>
  * }}
  */
 export function readBonusState(root = document) {
   const state = {
     vsEpic: 0,
+    catapults: 0,
     grid: Object.fromEntries(
       BONUS_GRID_CATEGORIES.map((c) => [
         c,
@@ -84,6 +91,7 @@ export function readBonusState(root = document) {
     const val = parsePercentInput(el.value);
 
     if (key === "vs-epic") state.vsEpic = val;
+    else if (key === BONUS_CATAPULTS_KEY) state.catapults = val;
     else if (key.startsWith("grid.")) {
       const [, category, combat] = key.split(".");
       if (state.grid[category] && combat in state.grid[category]) {
@@ -148,8 +156,24 @@ export function sanitizeBonusInputs(raw) {
  * @param {{ category: string, tags?: string[] }} unit
  * @param {ReturnType<typeof readBonusState>} bonusState
  */
+/** Catapult Strength % only (citadel siege — no vs Epic). */
+export function getCatapultSiegeStrengthPercent(bonusState) {
+  return bonusState.catapults ?? 0;
+}
+
+/** Fortification line on the unit card (decimal, e.g. 0.65 = 65%). */
+export function fortificationFeatureBonus(features = {}) {
+  const v = features.fortification;
+  return typeof v === "number" && !Number.isNaN(v) ? v : 0;
+}
+
 export function getStrengthBonusPercent(unit, bonusState) {
   let pct = bonusState.vsEpic;
+
+  if (unit.category === "catapults") {
+    pct += bonusState.catapults ?? 0;
+    return pct;
+  }
 
   const combat = getCombatType(unit.tags ?? []);
   if (combat && BONUS_GRID_CATEGORIES.includes(unit.category)) {
@@ -218,6 +242,7 @@ export function initBonusUI(onChange) {
   mount.innerHTML = "";
 
   const global = document.createElement("div");
+  global.id = "bonus-vs-epic-wrap";
   global.className = "bonus-global mb-3";
   global.innerHTML = `
     <label class="form-label small fw-semibold mb-1" for="bonus-vs-epic">Strength against Epic %</label>
@@ -255,6 +280,26 @@ export function initBonusUI(onChange) {
 
     gridWrap.appendChild(col);
   });
+
+  const catapultCol = document.createElement("div");
+  catapultCol.className = "bonus-category-col";
+
+  const catapultTitle = document.createElement("div");
+  catapultTitle.className = "bonus-category-title small fw-bold text-center mb-2";
+  catapultTitle.textContent = CATEGORY_LABELS.catapults;
+  catapultCol.appendChild(catapultTitle);
+
+  const catapultCard = document.createElement("div");
+  catapultCard.className = "card bonus-type-card mb-2";
+  catapultCard.innerHTML = `
+    <div class="card-body p-2">
+      <label class="form-label bonus-mini-label" for="bonus-catapults-strength">Strength %</label>
+      <input type="number" class="form-control form-control-sm bonus-pct-input" id="bonus-catapults-strength"
+        data-bonus-key="${BONUS_CATAPULTS_KEY}" min="0" step="0.01" placeholder="0" inputmode="decimal" />
+    </div>
+  `;
+  catapultCol.appendChild(catapultCard);
+  gridWrap.appendChild(catapultCol);
 
   mount.appendChild(gridWrap);
 
