@@ -125,9 +125,54 @@
     <main class="container">
       <div>
         <h1 class="text-center my-3 mb-1">A2R Toolbox</h1>
-        <p class="text-center text-muted mb-4">
+        <p class="text-center text-muted mb-3">
           Troop Stacking, Epic monsters & Citadel Siege Tools for Total Battle
         </p>
+      </div>
+
+      <div
+        class="mb-4"
+        id="battle-target-mode-card"
+        role="group"
+        aria-label="Toolbox mode"
+      >
+        <div class="row g-2">
+          <div class="col-6">
+            <input
+              type="radio"
+              class="btn-check"
+              name="battle-target-mode"
+              id="target-mode-epic"
+              autocomplete="off"
+              checked
+            />
+            <label
+              class="btn btn-outline-primary w-100 tool-mode-btn"
+              for="target-mode-epic"
+            >
+              <i class="bi bi-bullseye tool-mode-icon" aria-hidden="true"></i>
+              <span class="tool-mode-label">Epic march</span>
+              <span class="tool-mode-hint">Troop stacking</span>
+            </label>
+          </div>
+          <div class="col-6">
+            <input
+              type="radio"
+              class="btn-check"
+              name="battle-target-mode"
+              id="target-mode-citadel"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary w-100 tool-mode-btn"
+              for="target-mode-citadel"
+            >
+              <i class="bi bi-bricks tool-mode-icon" aria-hidden="true"></i>
+              <span class="tool-mode-label">Citadel siege</span>
+              <span class="tool-mode-hint">Catapult walls</span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <!-- Preset Bar: select shrinks; icon group wraps as one unit on narrow widths -->
@@ -191,8 +236,8 @@
         </div>
       </div>
 
-      <!-- Stats Input Row -->
-      <div class="row mb-4">
+      <!-- Stats Input Row (Epic march only) -->
+      <div id="march-stats-row" class="row mb-4 tool-epic-only">
         <!-- Leadership (Red) -->
         <div class="col-md-4 mb-3">
           <div class="form-floating">
@@ -264,52 +309,12 @@
         </div>
       </div>
 
-      <div class="card mb-3 border-secondary" id="battle-target-mode-card">
-        <div class="card-body py-2 px-3">
-          <div
-            class="d-flex flex-wrap align-items-center justify-content-between gap-2"
-          >
-            <h6 class="mb-0 fw-semibold">Battle target</h6>
-            <div
-              class="btn-group btn-group-sm"
-              role="group"
-              aria-label="Battle target mode"
-            >
-              <input
-                type="radio"
-                class="btn-check"
-                name="battle-target-mode"
-                id="target-mode-epic"
-                autocomplete="off"
-                checked
-              />
-              <label class="btn btn-outline-secondary" for="target-mode-epic"
-                >Epic march</label
-              >
-              <input
-                type="radio"
-                class="btn-check"
-                name="battle-target-mode"
-                id="target-mode-citadel"
-                autocomplete="off"
-              />
-              <label class="btn btn-outline-secondary" for="target-mode-citadel"
-                >Citadel siege</label
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div
-        class="card mb-4 border-secondary d-none"
+        class="card mb-4 app-card d-none"
         id="citadel-target-section"
       >
         <div class="card-body py-3">
           <h6 class="fw-semibold mb-2">Citadel walls</h6>
-          <p class="small text-muted mb-2" id="citadel-wall-reference">
-            Loading wall stats…
-          </p>
           <div class="row g-2 align-items-end">
             <div class="col-sm-6 col-md-4">
               <label
@@ -326,18 +331,12 @@
                 placeholder="0"
                 inputmode="numeric"
               />
-              <div class="form-text">
-                Scales by citadel level; STR/HP per wall are fixed.
-              </div>
             </div>
           </div>
           <p class="small text-muted mt-2 mb-0">
-            Select catapult tiers below — the app recommends
-            <strong>how many of each tier together</strong> to break all walls
-            (no Leadership required). Optional
-            <strong>Leadership</strong> compares what you can actually field.
-            Uses <strong>Catapult Strength %</strong> and card
-            <strong>Fortification</strong> (×20 vs walls).
+            Enter a wall count, then pick catapult tiers on the
+            <strong>Catapults</strong> tab. Recommended counts and volley appear
+            on each card.
           </p>
           <div
             id="citadel-siege-report"
@@ -347,7 +346,7 @@
         </div>
       </div>
 
-      <div class="card mb-4 border-secondary" id="epic-target-section">
+      <div class="card mb-4 app-card" id="epic-target-section">
         <div class="card-body py-3">
           <div
             class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
@@ -366,7 +365,7 @@
                 autocomplete="off"
                 checked
               />
-              <label class="btn btn-outline-secondary" for="epic-mode-preset"
+              <label class="btn btn-outline-primary" for="epic-mode-preset"
                 >Standard</label
               >
               <input
@@ -376,7 +375,7 @@
                 id="epic-mode-custom"
                 autocomplete="off"
               />
-              <label class="btn btn-outline-secondary" for="epic-mode-custom"
+              <label class="btn btn-outline-primary" for="epic-mode-custom"
                 >Custom</label
               >
             </div>
@@ -397,24 +396,6 @@
               vs the type that layer counters
               (Flying→Melee→Mounted→Ranged→Flying).
             </p>
-            <div class="row g-2 mb-3">
-              <div class="col-sm-4 col-md-3">
-                <label
-                  class="form-label small fw-semibold mb-1"
-                  for="epic-custom-layer-count"
-                  >Layer count</label
-                >
-                <input
-                  type="number"
-                  class="form-control form-control-sm epic-custom-input"
-                  id="epic-custom-layer-count"
-                  min="1"
-                  step="1"
-                  value="1"
-                />
-                <div class="form-text">Repeat waves or stacked layers.</div>
-              </div>
-            </div>
             <div class="epic-custom-grid" id="epic-custom-grid-mount"></div>
           </div>
           <div id="epic-info-accordion" class="accordion d-none mt-3">
@@ -452,56 +433,18 @@
         </div>
       </div>
 
-      <div class="accordion mb-4" id="armyBonusesAccordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed py-2"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#armyBonusesCollapse"
-              aria-expanded="false"
-              aria-controls="armyBonusesCollapse"
-            >
-              Army Bonuses
-              <span class="text-muted small fw-normal ms-2 d-none d-sm-inline"
-                >optional — match in-game Strength %</span
-              >
-            </button>
-          </h2>
-          <div
-            id="armyBonusesCollapse"
-            class="accordion-collapse collapse"
-            data-bs-parent="#armyBonusesAccordion"
-          >
-            <div class="accordion-body py-2 px-2 px-md-3">
-              <p class="small text-muted mb-2">
-                Enter the <strong>Strength %</strong> values from in-game (whole
-                numbers, e.g. <strong>52</strong> for 52%) — they already
-                reflect <strong>hero talents, research, equipment</strong>, and
-                similar bonuses bundled into your army Strength. Counts use
-                <strong
-                  >effective damage = base × (1 + Strength bonuses + highest
-                  Melee/Ranged/Mounted/Flying feature on the card)</strong
-                >
-                (fortification, beast, siege lines on the card are ignored for
-                epic feature math). All Strength percents add together (they are
-                not multiplied). <strong>Catapult</strong> uses one Strength %
-                for all tiers; <strong>Mercenary</strong> bonus inputs are still
-                planned.
-              </p>
-              <div id="army-bonuses-mount"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <h5 class="mb-3 text-center" id="detail-heading">
-        <i class="bi bi-pencil-square me-1"></i> Detail View
+        <span class="detail-heading-epic"
+          ><i class="bi bi-pencil-square me-1"></i> Detail View</span
+        >
+        <span class="detail-heading-citadel d-none"
+          ><i class="bi bi-bricks me-1"></i> Catapult tiers</span
+        >
       </h5>
       <div id="detail-view">
         <div
-          class="row g-2 sticky-top"
+          id="unit-tabs-nav"
+          class="row g-2 sticky-top tool-epic-only"
           style="
             background-color: transparent;
             backdrop-filter: blur(8px);
@@ -620,6 +563,7 @@
           <div
             class="tab-pane fade show active"
             id="guards-content"
+            data-unit-category="guardsmen"
             role="tabpanel"
             aria-labelledby="guards-tab"
           >
@@ -629,6 +573,7 @@
           <div
             class="tab-pane fade"
             id="specs-content"
+            data-unit-category="specialists"
             role="tabpanel"
             aria-labelledby="specs-tab"
           >
@@ -638,15 +583,28 @@
           <div
             class="tab-pane fade"
             id="catapults-content"
+            data-unit-category="catapults"
             role="tabpanel"
             aria-labelledby="catapults-tab"
           >
+            <p class="small text-muted mb-2 tool-citadel-only citadel-tier-hint">
+              <strong>Recommended:</strong> select <strong>your highest</strong>
+              catapult tier — you get the exact number needed to break all walls
+              (total wall HP ÷ strike per catapult, rounded up).
+              <span class="d-block mt-1"
+                ><strong>Multiple tiers:</strong> uses the same
+                <strong>damage per tier</strong> as epic march stacking (shared
+                volley goal). That coordinated mix can use more catapults than a
+                single tier alone.</span
+              >
+            </p>
             <div id="catapults-container" class="row g-2"></div>
           </div>
 
           <div
             class="tab-pane fade"
             id="monsters-content"
+            data-unit-category="monsters"
             role="tabpanel"
             aria-labelledby="monsters-tab"
           >
@@ -656,6 +614,7 @@
           <div
             class="tab-pane fade"
             id="mercenaries-content"
+            data-unit-category="mercenaries"
             role="tabpanel"
             aria-labelledby="mercenaries-tab"
           >
@@ -664,20 +623,35 @@
         </div>
       </div>
 
-      <h5 class="mb-3 d-none text-center" id="summary-heading">
-        <i class="bi bi-list-check me-1"></i> Summary View
-      </h5>
-      <div id="summary-container" class="d-none mb-3">
-        <p class="text-muted text-center" id="summary-empty">
-          Select units from the detail view to see your stack summary.
-        </p>
-        <div id="summary-content"></div>
+      <div id="epic-march-workspace" class="tool-epic-only">
+        <h5 class="mb-3 d-none text-center" id="summary-heading">
+          <i class="bi bi-list-check me-1"></i> Summary View
+        </h5>
+        <div id="summary-container" class="d-none mb-3">
+          <p class="text-muted text-center" id="summary-empty">
+            Select units from the detail view to see your stack summary.
+          </p>
+          <div id="summary-content"></div>
+        </div>
+      </div>
+
+      <div class="tool-citadel-only" id="citadel-summary-workspace">
+        <h5 class="mb-3 d-none text-center" id="citadel-summary-heading">
+          <i class="bi bi-bricks me-1"></i> Siege summary
+        </h5>
+        <div id="citadel-summary-container" class="d-none mb-3">
+          <p class="text-muted text-center" id="citadel-summary-empty">
+            Select catapult tiers and enter a wall count.
+          </p>
+          <div id="citadel-summary-content"></div>
+        </div>
       </div>
 
       <button
         type="button"
         class="btn btn-primary rounded-circle shadow-lg fab"
         id="view-toggle"
+        aria-label="Switch between detail and summary view"
         style="
           position: fixed;
           bottom: 80px;
@@ -687,7 +661,7 @@
           z-index: 1050;
         "
       >
-        <i class="bi bi-list-check"></i>
+        <i class="bi bi-list-check" aria-hidden="true"></i>
       </button>
 
       <button
@@ -1014,17 +988,16 @@
                   targets are saved with presets and share codes (v3+).
                 </li>
                 <li>
-                  <strong>Army Bonuses (optional):</strong> Expand the accordion
-                  below epic target. Enter in-game
-                  <strong>Strength %</strong> (e.g. <strong>52</strong> for
-                  52%)—start with <strong>Strength against Epic %</strong>, then
-                  the Guardsman / Specialist / Monster grid and
-                  <strong>Catapult</strong> Strength % (these categories get the
-                  bonus math above). Those numbers already include
+                  <strong>Army Bonuses (optional):</strong> On each unit tab,
+                  expand <strong>Army Bonuses</strong> at the top. Enter
+                  <strong>Strength against Epic %</strong> once—it syncs across
+                  all tabs. Then enter that tab’s Strength % grid (Guardsmen,
+                  Specialists, Monsters) or <strong>Catapult</strong> Strength %.
+                  Those numbers already include
                   <strong>hero talents, research, equipment</strong>, etc.; do
-                  not enter them twice. The accordion closes when you switch
-                  views or load a preset. <strong>Mercenary</strong> bonus rows
-                  are planned once their in-game rules are clear.
+                  not enter them twice. Accordions close when you switch views or
+                  load a preset. <strong>Mercenary</strong> bonus rows are
+                  planned once their in-game rules are clear.
                 </li>
               </ul>
 
@@ -1035,34 +1008,31 @@
               </p>
               <ul class="border-start border-2 small">
                 <li>
-                  <strong>Battle target:</strong> Switch to
-                  <strong>Citadel siege</strong>. The Epic target panel is
-                  hidden; vs Epic bonuses do not apply to catapult strike math
-                  here.
+                  <strong>Toolbox mode:</strong> Choose
+                  <strong>Citadel siege</strong> at the top. Leadership,
+                  Authority, Dominance, Epic target, and non-catapult unit tabs
+                  are hidden.
                 </li>
                 <li>
                   <strong>Walls:</strong> Enter how many walls you need to
-                  break. Total HP is wall count × fixed HP per wall (shown under
-                  the input).
+                  break. Goal and combined volley show in the citadel panel and
+                  in <strong>Siege summary</strong> (FAB, bottom-right).
                 </li>
                 <li>
-                  <strong>Catapults:</strong> Select one or more tiers in the
-                  Catapults tab. The <strong>Citadel siege</strong> report lists
-                  recommended counts per tier and a combined volley total.
-                  <strong>Leadership</strong> is optional—enter it to compare
-                  what you can actually field vs the recommended mix.
+                  <strong>Catapults:</strong> On the Catapults tab,
+                  <strong>your highest catapult tier (recommended)</strong> gives
+                  the exact count to break all walls. <strong>Multiple tiers</strong>
+                  use the same damage-per-tier rule as epic march stacking (shared
+                  volley goal), which may recommend more catapults than a single
+                  tier. Per-tier
+                  volley is on each card; use the FAB for <strong>Siege summary</strong>.
                 </li>
                 <li>
                   <strong>Damage:</strong> Per-catapult strike uses
                   <strong>×20 vs fortification</strong>, the
                   <strong>Fortification</strong> % on the unit card, and
-                  <strong>Catapult Strength %</strong> from Army Bonuses.
-                </li>
-                <li>
-                  <strong>Views:</strong> In citadel mode,
-                  <strong>Detail</strong> shows counts and volley damage per
-                  tier; <strong>Summary</strong> shows counts only—the full
-                  siege breakdown stays in the citadel report.
+                  <strong>Catapult Strength %</strong> from the Catapults tab Army
+                  Bonuses accordion.
                 </li>
                 <li>
                   <strong>Presets:</strong> Saved presets keep selected
@@ -1246,7 +1216,7 @@
 
     <!-- The Blueprint -->
     <template id="tier-row-template">
-      <div class="card mb-2 border-danger shadow-sm tier-card">
+      <div class="card mb-2 shadow-sm tier-card app-card">
         <div class="card-body p-2">
           <div class="d-flex flex-wrap align-items-center">
             <!-- Tier Label -->
@@ -1300,7 +1270,7 @@
     </template>
 
     <template id="summary-tier-template">
-      <div class="card mb-2 shadow-sm summary-tier-card">
+      <div class="card mb-2 shadow-sm summary-tier-card app-card">
         <div class="card-body p-2">
           <div class="fw-bold mb-1 summary-tier-label"></div>
           <div class="summary-unit-container"></div>
@@ -1340,7 +1310,7 @@
     </template>
 
     <template id="epic-custom-type-template">
-      <div class="epic-custom-type card">
+      <div class="epic-custom-type card app-card">
         <div class="card-body p-2">
           <div class="small fw-bold mb-2 epic-custom-type-title"></div>
           <label class="form-label epic-mini-label epic-custom-strength-label"
@@ -1381,9 +1351,6 @@
       <div>
         <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
           <span class="fw-semibold epic-info-name"></span>
-          <span
-            class="badge text-bg-secondary ms-1 epic-info-layer-badge d-none"
-          ></span>
         </div>
         <p class="small text-muted mb-2 mb-md-1 epic-info-hint">
           Your stack uses each unit's feature % vs the combat types on this epic
@@ -1414,6 +1381,87 @@
         <td class="text-end epic-squad-hp"></td>
         <td class="small epic-squad-feature"></td>
       </tr>
+    </template>
+
+    <template id="summary-stat-row-template">
+      <div
+        class="d-flex justify-content-between align-items-center summary-row"
+      >
+        <span class="summary-stat-label text-truncate me-2"></span>
+        <span class="summary-stat-value text-nowrap fw-semibold"></span>
+      </div>
+    </template>
+
+    <template id="citadel-siege-report-template">
+      <div>
+        <div class="fw-semibold mb-1">
+          <i class="bi bi-bricks me-1" aria-hidden="true"></i> Citadel siege
+        </div>
+        <div class="small citadel-report-goal"></div>
+        <div class="small mt-1 citadel-report-volley d-none"></div>
+        <div class="small mt-1 citadel-report-shortfall d-none"></div>
+      </div>
+    </template>
+
+    <template id="citadel-siege-report-hint-template">
+      <div>
+        <div class="fw-semibold mb-1">
+          <i class="bi bi-bricks me-1" aria-hidden="true"></i> Citadel siege
+        </div>
+        <div class="small citadel-report-hint"></div>
+      </div>
+    </template>
+
+    <template id="bonus-vs-epic-template">
+      <div class="bonus-vs-epic-field mb-3 tool-epic-only">
+        <label class="form-label small fw-semibold mb-1 bonus-vs-epic-label">
+          Strength against Epic %
+        </label>
+        <input
+          type="number"
+          class="form-control form-control-sm bonus-pct-input bonus-vs-epic-input"
+          data-bonus-key="vs-epic"
+          min="0"
+          step="0.01"
+          placeholder="0"
+          inputmode="decimal"
+          autocomplete="off"
+        />
+        <div class="form-text">
+          Shared across all tabs — enter once, synced everywhere.
+        </div>
+      </div>
+    </template>
+
+    <template id="bonus-catapult-strength-template">
+      <div class="card bonus-type-card">
+        <div class="card-body p-2">
+          <label
+            class="form-label bonus-mini-label"
+            for="bonus-catapults-strength"
+            >Catapult Strength %</label
+          >
+          <input
+            type="number"
+            class="form-control form-control-sm bonus-pct-input"
+            id="bonus-catapults-strength"
+            data-bonus-key="catapults-strength"
+            min="0"
+            step="0.01"
+            placeholder="0"
+            inputmode="decimal"
+          />
+        </div>
+      </div>
+    </template>
+
+    <template id="mercenary-bonus-wip-template">
+      <div class="alert alert-warning py-2 px-3 mb-0 small" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
+        <strong>Mercenary database — work in progress.</strong>
+        In this version, army bonus inputs do not apply to mercenary units. Use
+        base stats from the unit cards until mercenary bonuses are supported.
+      </div>
     </template>
 
     <div

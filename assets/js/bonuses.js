@@ -1,3 +1,5 @@
+import { cloneTemplate } from "./dom.js";
+
 /** Combat types used in the army bonus grid (matches in-game unit cards). */
 export const COMBAT_TYPES = ["melee", "ranged", "mounted", "flying"];
 
@@ -24,6 +26,7 @@ const CATEGORY_LABELS = {
   specialists: "Specialist",
   monsters: "Monster",
   catapults: "Catapult",
+  mercenaries: "Mercenary",
 };
 
 const COMBAT_LABELS = {
@@ -32,6 +35,15 @@ const COMBAT_LABELS = {
   mounted: "Mounted",
   flying: "Flying",
 };
+
+/** @type {Array<{ category: string, tabPaneId: string, type: "grid"|"catapult"|"mercenary" }>} */
+const TAB_BONUS_LAYOUT = [
+  { category: "guardsmen", tabPaneId: "guards-content", type: "grid" },
+  { category: "specialists", tabPaneId: "specs-content", type: "grid" },
+  { category: "catapults", tabPaneId: "catapults-content", type: "catapult" },
+  { category: "monsters", tabPaneId: "monsters-content", type: "grid" },
+  { category: "mercenaries", tabPaneId: "mercenaries-content", type: "mercenary" },
+];
 
 /**
  * @param {string|number} value
@@ -151,11 +163,6 @@ export function sanitizeBonusInputs(raw) {
   return out;
 }
 
-/**
- * Sum of player-entered Strength % bonuses for this unit (as a decimal).
- * @param {{ category: string, tags?: string[] }} unit
- * @param {ReturnType<typeof readBonusState>} bonusState
- */
 /** Catapult Strength % only (citadel siege — no vs Epic). */
 export function getCatapultSiegeStrengthPercent(bonusState) {
   return bonusState.catapults ?? 0;
@@ -168,6 +175,8 @@ export function fortificationFeatureBonus(features = {}) {
 }
 
 export function getStrengthBonusPercent(unit, bonusState) {
+  if (unit.category === "mercenaries") return 0;
+
   let pct = bonusState.vsEpic;
 
   if (unit.category === "catapults") {
@@ -185,10 +194,6 @@ export function getStrengthBonusPercent(unit, bonusState) {
 
 /**
  * Effective per-unit damage for stacking and display.
- * Bonuses from the form and unit card features are **additive** percents:
- *   effectiveDmg = baseDmg × (1 + strengthBonusSum + featureBonus)
- * (Not multiplied — that overshoots in-game damage vs epics.)
- *
  * @param {number} baseDmg
  * @param {{ category: string, tags?: string[], features?: Record<string, number> }} unit
  * @param {ReturnType<typeof readBonusState>|null} bonusState
@@ -201,111 +206,183 @@ export function getEffectiveDmg(baseDmg, unit, bonusState, epicCombatTypes = nul
   return baseDmg * (1 + strPct + featPct);
 }
 
-/** Collapses the Army Bonuses accordion (no-op if already closed). */
-export function collapseArmyBonusesAccordion() {
-  const collapseEl = document.getElementById("armyBonusesCollapse");
-  const btn = document.querySelector("#armyBonusesAccordion .accordion-button");
-  if (!collapseEl || !btn) return;
+function syncLinkedBonusInputs(source) {
+  const key = source.dataset.bonusKey;
+  if (!key) return;
+  document.querySelectorAll(`.bonus-pct-input[data-bonus-key="${key}"]`).forEach((el) => {
+    if (el !== source) el.value = source.value;
+  });
+}
 
-  if (!collapseEl.classList.contains("show")) {
-    btn.classList.add("collapsed");
-    btn.setAttribute("aria-expanded", "false");
-    return;
+function createVsEpicBlock(category) {
+  const fragment = cloneTemplate("bonus-vs-epic-template", (root) => {
+    const id = `bonus-vs-epic-${category}`;
+    const label = root.querySelector(".bonus-vs-epic-label");
+    const input = root.querySelector(".bonus-vs-epic-input");
+    if (label) label.htmlFor = id;
+    if (input) input.id = id;
+  });
+  return fragment?.firstElementChild ?? null;
+}
+
+function createCombatGrid(category) {
+  const grid = document.createElement("div");
+  grid.className = "category-bonus-grid";
+
+  for (const combat of COMBAT_TYPES) {
+    const card = document.createElement("div");
+    card.className = "card bonus-type-card";
+    const id = `bonus-${category}-${combat}`;
+
+    const body = document.createElement("div");
+    body.className = "card-body p-2";
+
+    const title = document.createElement("div");
+    title.className = "small fw-semibold";
+    title.textContent = COMBAT_LABELS[combat];
+
+    const label = document.createElement("label");
+    label.className = "form-label bonus-mini-label";
+    label.htmlFor = `${id}-str`;
+    label.textContent = `${CATEGORY_LABELS[category]} Strength %`;
+
+    const input = document.createElement("input");
+    input.type = "number";
+    input.className = "form-control form-control-sm bonus-pct-input";
+    input.id = `${id}-str`;
+    input.dataset.bonusKey = `grid.${category}.${combat}`;
+    input.min = "0";
+    input.step = "0.01";
+    input.placeholder = "0";
+
+    body.append(title, label, input);
+    card.appendChild(body);
+    grid.appendChild(card);
   }
 
-  bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false }).hide();
+  return grid;
+}
+
+function createMercenaryBonusWipAlert() {
+  const fragment = cloneTemplate("mercenary-bonus-wip-template");
+  return fragment?.firstElementChild ?? null;
+}
+
+function createCatapultStrengthBlock() {
+  const fragment = cloneTemplate("bonus-catapult-strength-template");
+  return fragment?.firstElementChild ?? null;
+}
+
+function buildTabBonusAccordion({ category, tabPaneId, type }) {
+  const pane = document.getElementById(tabPaneId);
+  if (!pane) return;
+
+  const accordionId = `armyBonusesAccordion-${category}`;
+  const collapseId = `armyBonusesCollapse-${category}`;
+  const label = CATEGORY_LABELS[category] ?? category;
+
+  const accordion = document.createElement("div");
+  accordion.className = "accordion mb-3 category-bonuses-accordion";
+  accordion.id = accordionId;
+
+  const item = document.createElement("div");
+  item.className = "accordion-item";
+
+  const header = document.createElement("h2");
+  header.className = "accordion-header";
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "accordion-button collapsed py-2 small";
+  btn.setAttribute("data-bs-toggle", "collapse");
+  btn.setAttribute("data-bs-target", `#${collapseId}`);
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-controls", collapseId);
+  btn.textContent = "Army Bonuses";
+  const sub = document.createElement("span");
+  sub.className = "text-muted fw-normal ms-2 d-none d-sm-inline";
+  sub.textContent = label;
+  btn.appendChild(sub);
+
+  header.appendChild(btn);
+  item.appendChild(header);
+
+  const collapse = document.createElement("div");
+  collapse.id = collapseId;
+  collapse.className = "accordion-collapse collapse category-bonuses-collapse";
+  collapse.setAttribute("data-bs-parent", `#${accordionId}`);
+
+  const body = document.createElement("div");
+  body.className = "accordion-body py-2 px-2";
+
+  if (type === "mercenary") {
+    const wip = createMercenaryBonusWipAlert();
+    if (wip) body.appendChild(wip);
+  } else {
+    const intro = document.createElement("p");
+    intro.className = "small text-muted mb-2";
+    if (type === "catapult") {
+      intro.innerHTML =
+        "Enter in-game <strong>Strength %</strong> (whole numbers, e.g. 52 for 52%). Citadel siege uses Catapult Strength only.";
+    } else {
+      intro.innerHTML =
+        `Enter <strong>${label}</strong> Strength % per combat type from in-game (whole numbers).`;
+    }
+    body.appendChild(intro);
+    const vsEpic = createVsEpicBlock(category);
+    if (vsEpic) body.appendChild(vsEpic);
+
+    if (type === "grid") {
+      body.appendChild(createCombatGrid(category));
+    } else if (type === "catapult") {
+      const catapultBlock = createCatapultStrengthBlock();
+      if (catapultBlock) body.appendChild(catapultBlock);
+    }
+  }
+
+  collapse.appendChild(body);
+  item.appendChild(collapse);
+  accordion.appendChild(item);
+
+  pane.insertBefore(accordion, pane.firstChild);
+
+  collapse.addEventListener("hidden.bs.collapse", () => {
+    btn.classList.add("collapsed");
+    btn.setAttribute("aria-expanded", "false");
+  });
+  collapse.addEventListener("shown.bs.collapse", () => {
+    btn.classList.remove("collapsed");
+    btn.setAttribute("aria-expanded", "true");
+  });
+}
+
+/** Collapses all open per-tab Army Bonuses accordions. */
+export function collapseArmyBonusesAccordion() {
+  document.querySelectorAll(".category-bonuses-collapse.show").forEach((el) => {
+    const instance = bootstrap.Collapse.getInstance(el);
+    if (instance) instance.hide();
+    else {
+      el.classList.remove("show");
+      const btn = document.querySelector(
+        `[data-bs-target="#${el.id}"], [aria-controls="${el.id}"]`,
+      );
+      btn?.classList.add("collapsed");
+      btn?.setAttribute("aria-expanded", "false");
+    }
+  });
 }
 
 /**
- * Builds the army bonus form inside #army-bonuses-mount and wires recalculation.
+ * Builds per-tab army bonus accordions and wires recalculation.
  * @param {() => void} onChange
  */
 export function initBonusUI(onChange) {
-  const mount = document.getElementById("army-bonuses-mount");
-  if (!mount) return;
+  TAB_BONUS_LAYOUT.forEach((layout) => buildTabBonusAccordion(layout));
 
-  const collapseEl = document.getElementById("armyBonusesCollapse");
-  const accordionBtn = document.querySelector(
-    "#armyBonusesAccordion .accordion-button",
-  );
-  if (collapseEl && accordionBtn) {
-    collapseEl.addEventListener("hidden.bs.collapse", () => {
-      accordionBtn.classList.add("collapsed");
-      accordionBtn.setAttribute("aria-expanded", "false");
-    });
-    collapseEl.addEventListener("shown.bs.collapse", () => {
-      accordionBtn.classList.remove("collapsed");
-      accordionBtn.setAttribute("aria-expanded", "true");
-    });
-  }
-
-  mount.innerHTML = "";
-
-  const global = document.createElement("div");
-  global.id = "bonus-vs-epic-wrap";
-  global.className = "bonus-global mb-3";
-  global.innerHTML = `
-    <label class="form-label small fw-semibold mb-1" for="bonus-vs-epic">Strength against Epic %</label>
-    <input type="number" class="form-control form-control-sm bonus-pct-input" id="bonus-vs-epic"
-      data-bonus-key="vs-epic" min="0" step="0.01" placeholder="0" inputmode="decimal" />
-  `;
-  mount.appendChild(global);
-
-  const gridWrap = document.createElement("div");
-  gridWrap.className = "bonus-category-grid";
-
-  BONUS_GRID_CATEGORIES.forEach((category) => {
-    const col = document.createElement("div");
-    col.className = "bonus-category-col";
-
-    const title = document.createElement("div");
-    title.className = "bonus-category-title small fw-bold text-center mb-2";
-    title.textContent = CATEGORY_LABELS[category] ?? category;
-    col.appendChild(title);
-
-    COMBAT_TYPES.forEach((combat) => {
-      const card = document.createElement("div");
-      card.className = "card bonus-type-card mb-2";
-      const id = `bonus-${category}-${combat}`;
-      card.innerHTML = `
-        <div class="card-body p-2">
-          <div class="small fw-semibold">${COMBAT_LABELS[combat]}</div>
-          <label class="form-label bonus-mini-label" for="${id}-str">Strength %</label>
-          <input type="number" class="form-control form-control-sm bonus-pct-input" id="${id}-str"
-            data-bonus-key="grid.${category}.${combat}" min="0" step="0.01" placeholder="0" />
-        </div>
-      `;
-      col.appendChild(card);
-    });
-
-    gridWrap.appendChild(col);
-  });
-
-  const catapultCol = document.createElement("div");
-  catapultCol.className = "bonus-category-col";
-
-  const catapultTitle = document.createElement("div");
-  catapultTitle.className = "bonus-category-title small fw-bold text-center mb-2";
-  catapultTitle.textContent = CATEGORY_LABELS.catapults;
-  catapultCol.appendChild(catapultTitle);
-
-  const catapultCard = document.createElement("div");
-  catapultCard.className = "card bonus-type-card mb-2";
-  catapultCard.innerHTML = `
-    <div class="card-body p-2">
-      <label class="form-label bonus-mini-label" for="bonus-catapults-strength">Strength %</label>
-      <input type="number" class="form-control form-control-sm bonus-pct-input" id="bonus-catapults-strength"
-        data-bonus-key="${BONUS_CATAPULTS_KEY}" min="0" step="0.01" placeholder="0" inputmode="decimal" />
-    </div>
-  `;
-  catapultCol.appendChild(catapultCard);
-  gridWrap.appendChild(catapultCol);
-
-  mount.appendChild(gridWrap);
-
-  mount.querySelectorAll(".bonus-pct-input").forEach((el) => {
+  document.querySelectorAll(".bonus-pct-input").forEach((el) => {
     el.addEventListener("input", () => {
       if (el.value !== "" && parseFloat(el.value) < 0) el.value = "0";
+      syncLinkedBonusInputs(el);
       onChange();
     });
   });

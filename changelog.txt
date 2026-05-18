@@ -2,6 +2,17 @@ v1.4.0 - 2026-05-17
 -------------------
 
 [CHANGE] Rebrand to **A2R Toolbox** (navbar, title, PWA manifest, docs). Subtitle: troop stacking & citadel siege.
+[NEW] **Toolbox mode** selector at the top: **Epic march** (troop stacking) vs **Citadel siege** (catapult walls). Stats row and unit tabs adapt to the active tool.
+[NEW] **Citadel siege summary**: Summary view shows siege overview (goal, combined volley, shortfall) and per-tier catapult rows, same pattern as epic stack summary. One FAB toggles detail/summary in both modes.
+[UX] Citadel **detail** cards show per-unit **volley** (`dmg · walls`); inline citadel report is a compact status alert (goal + volley), not a full per-tier list in the panel.
+[UX] **Army Bonuses** live inside each unit tab (Guardsmen, Specialists, Catapults, Monsters, Mercenaries) instead of one global accordion. **Strength against Epic %** appears on every tab and stays synced.
+[UX] Epic target **Standard / Custom** toggles use primary outline styling to match the app theme.
+[UX] Card borders standardized (`app-card`); tier colors on labels and accents only, not red/white tier outlines.
+[UX] Mercenaries tab: WIP alert — army bonus inputs are hidden; mercenary damage ignores bonus % until data is ready.
+[NEW] Presets and share codes (**v4**) save **Epic march vs Citadel siege** mode and **citadel wall count**; v1–v3 codes still import (defaults: epic mode, no wall goal).
+[UX] Loading a preset always opens **Summary** view for epic and citadel setups.
+[CHANGE] Citadel siege panel copy trimmed (removed wall reference line and redundant helper text).
+[REFACTOR] Citadel reports, bonus blocks, and summary stat rows use HTML `<template>` clones (`dom.js`) instead of string-built markup in JS.
 
 v1.3.0 - 2026-05-17
 -------------------

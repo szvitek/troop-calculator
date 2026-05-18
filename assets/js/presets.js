@@ -1,5 +1,13 @@
 import { runCalculation, showDetailView, showSummaryView } from "./events.js";
 import {
+  TARGET_CITADEL,
+  TARGET_EPIC,
+  applyBattleTargetMode,
+  applyWallCount,
+  readBattleTargetMode,
+  readWallCount,
+} from "./citadel-ui.js";
+import {
   applyBonusInputs,
   captureBonusInputs,
   collapseArmyBonusesAccordion,
@@ -13,7 +21,8 @@ import {
 import { syncEpicTargetDisplay } from "./epic-ui.js";
 
 const STORAGE_KEY = "troop-presets";
-const SHARE_VERSION = 3;
+const SHARE_VERSION = 4;
+const MAX_WALL_COUNT = 1_000_000;
 /** Prefix so pasted codes are recognizable and import can validate. */
 const SHARE_PREFIX = "a2r-preset:";
 
@@ -53,6 +62,30 @@ function clampStat(value) {
   const x = parseInt(String(value), 10);
   if (!Number.isFinite(x) || x < 0) return 0;
   return Math.min(x, MAX_STAT);
+}
+
+function clampWallCount(value) {
+  const x = parseInt(String(value), 10);
+  if (!Number.isFinite(x) || x < 0) return 0;
+  return Math.min(x, MAX_WALL_COUNT);
+}
+
+function normalizeTarget(raw) {
+  return raw === TARGET_CITADEL ? TARGET_CITADEL : TARGET_EPIC;
+}
+
+/** @param {object} preset */
+function normalizeStoredPreset(preset) {
+  return {
+    target: normalizeTarget(preset?.target),
+    leadership: clampStat(preset?.leadership),
+    authority: clampStat(preset?.authority),
+    dominance: clampStat(preset?.dominance),
+    units: Array.isArray(preset?.units) ? preset.units : [],
+    bonuses: preset?.bonuses && typeof preset.bonuses === "object" ? preset.bonuses : {},
+    epic: preset?.epic ?? { mode: "none" },
+    citadel: { wallCount: clampWallCount(preset?.citadel?.wallCount) },
+  };
 }
 
 function sanitizeImportedUnits(units) {
@@ -116,7 +149,7 @@ function parseShareCode(raw) {
   if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
     return { ok: false, error: "Invalid preset data." };
   }
-  if (obj.v !== 1 && obj.v !== 2 && obj.v !== SHARE_VERSION) {
+  if (obj.v !== 1 && obj.v !== 2 && obj.v !== 3 && obj.v !== SHARE_VERSION) {
     return { ok: false, error: "Unsupported share code version." };
   }
 
@@ -124,6 +157,8 @@ function parseShareCode(raw) {
     typeof obj.name === "string" ? obj.name.trim().slice(0, 120) : "";
 
   const preset = {
+    target:
+      obj.v >= 4 && obj.target === TARGET_CITADEL ? TARGET_CITADEL : TARGET_EPIC,
     leadership: clampStat(obj.leadership),
     authority: clampStat(obj.authority),
     dominance: clampStat(obj.dominance),
@@ -134,6 +169,10 @@ function parseShareCode(raw) {
       obj.v >= 3
         ? sanitizeEpicPreset(obj.epic)
         : { mode: "none" },
+    citadel: {
+      wallCount:
+        obj.v >= 4 ? clampWallCount(obj.citadel?.wallCount) : 0,
+    },
   };
 
   return { ok: true, preset, sourceLabel };
@@ -143,12 +182,14 @@ function buildShareCode(presetName, data) {
   const payload = {
     v: SHARE_VERSION,
     name: presetName,
+    target: data.target === TARGET_CITADEL ? TARGET_CITADEL : TARGET_EPIC,
     leadership: data.leadership ?? 0,
     authority: data.authority ?? 0,
     dominance: data.dominance ?? 0,
     units: Array.isArray(data.units) ? data.units : [],
     bonuses: sanitizeBonusInputs(data.bonuses),
     epic: sanitizeEpicPreset(data.epic),
+    citadel: { wallCount: clampWallCount(data.citadel?.wallCount) },
   };
   return `${SHARE_PREFIX}${base64UrlEncode(JSON.stringify(payload))}`;
 }
@@ -335,6 +376,7 @@ function savePresets(presets) {
 
 function captureState() {
   return {
+    target: readBattleTargetMode(),
     leadership: parseStatValue("input-leadership"),
     authority: parseStatValue("input-authority"),
     dominance: parseStatValue("input-dominance"),
@@ -343,16 +385,22 @@ function captureState() {
     ),
     bonuses: captureBonusInputs(),
     epic: captureEpicPresetState(),
+    citadel: { wallCount: readWallCount() },
   };
 }
 
 async function restoreState(preset) {
-  await applyEpicPresetState(preset.epic ?? { mode: "none" });
+  const data = normalizeStoredPreset(preset);
+
+  applyBattleTargetMode(data.target);
+  applyWallCount(data.citadel.wallCount);
+
+  await applyEpicPresetState(data.epic);
   syncEpicTargetDisplay();
 
-  document.getElementById("input-leadership").value = preset.leadership || 0;
-  document.getElementById("input-authority").value = preset.authority || 0;
-  document.getElementById("input-dominance").value = preset.dominance || 0;
+  document.getElementById("input-leadership").value = data.leadership || 0;
+  document.getElementById("input-authority").value = data.authority || 0;
+  document.getElementById("input-dominance").value = data.dominance || 0;
 
   document
     .querySelectorAll(".unit-check")
@@ -364,12 +412,12 @@ async function restoreState(preset) {
       cb.indeterminate = false;
     });
 
-  (preset.units || []).forEach((id) => {
+  data.units.forEach((id) => {
     const cb = document.getElementById(id);
     if (cb) cb.checked = true;
   });
 
-  applyBonusInputs(sanitizeBonusInputs(preset.bonuses));
+  applyBonusInputs(sanitizeBonusInputs(data.bonuses));
 
   syncAllMasters();
   runCalculation();
@@ -435,8 +483,13 @@ function populateDropdown() {
   const names = Object.keys(presets).sort();
 
   const currentValue = select.value;
-  select.innerHTML =
-    '<option value="" selected disabled>-- Load Preset --</option>';
+  select.replaceChildren();
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "-- Load Preset --";
+  placeholder.disabled = true;
+  placeholder.selected = !currentValue || !names.includes(currentValue);
+  select.appendChild(placeholder);
 
   names.forEach((name) => {
     const opt = document.createElement("option");

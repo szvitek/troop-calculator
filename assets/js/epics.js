@@ -139,8 +139,6 @@ export function normalizeSquads(squads) {
  * @property {"none"|"preset"|"custom"} mode
  * @property {string|null} id
  * @property {string|null} name
- * @property {number} layerCount
- * @property {number} repeatingMultiplier
  * @property {CombatType[]} combatTypes
  * @property {ReturnType<typeof normalizeSquads>} squads
  */
@@ -154,8 +152,6 @@ export function readEpicTargetState(root = document) {
     mode: "none",
     id: null,
     name: null,
-    layerCount: 1,
-    repeatingMultiplier: 1,
     combatTypes: [],
     squads: [],
   };
@@ -164,10 +160,6 @@ export function readEpicTargetState(root = document) {
   const customMode = root.querySelector("#epic-mode-custom")?.checked;
 
   if (customMode) {
-    const layerCount = Math.max(
-      1,
-      parseInt(root.querySelector("#epic-custom-layer-count")?.value, 10) || 1,
-    );
     const squads = COMBAT_TYPES.map((combatType) => {
       const strength = parseStat(
         root.querySelector(`#epic-custom-${combatType}-strength`)?.value,
@@ -193,8 +185,6 @@ export function readEpicTargetState(root = document) {
       mode: "custom",
       id: "custom",
       name: "Custom epic",
-      layerCount,
-      repeatingMultiplier: layerCount,
       combatTypes: [...COMBAT_TYPES],
       squads,
     };
@@ -216,8 +206,6 @@ export function readEpicTargetState(root = document) {
     mode: "preset",
     id: enc.id,
     name: enc.encounterName,
-    layerCount: enc.repeatingMultiplier ?? 1,
-    repeatingMultiplier: enc.repeatingMultiplier ?? 1,
     combatTypes,
     squads,
   };
@@ -266,7 +254,6 @@ export function captureEpicPresetState(root = document) {
 
   return {
     mode: "custom",
-    layerCount: state.layerCount,
     layers,
   };
 }
@@ -293,10 +280,6 @@ export function sanitizeEpicPreset(raw, opts = {}) {
   }
 
   if (mode === "custom") {
-    const layerCount = Math.max(
-      1,
-      Math.min(9999, parseInt(String(raw.layerCount), 10) || 1),
-    );
     const layers = {};
     for (const combatType of COMBAT_TYPES) {
       const src = raw.layers?.[combatType];
@@ -306,7 +289,7 @@ export function sanitizeEpicPreset(raw, opts = {}) {
         featurePercent: clampFeaturePercentWhole(src?.featurePercent),
       };
     }
-    return { mode: "custom", layerCount, layers };
+    return { mode: "custom", layers };
   }
 
   return none;
@@ -342,12 +325,10 @@ export async function applyEpicPresetState(epic, root = document) {
   const presetRadio = root.querySelector("#epic-mode-preset");
   const customRadio = root.querySelector("#epic-mode-custom");
   const select = root.querySelector("#epic-preset-select");
-  const layerCountEl = root.querySelector("#epic-custom-layer-count");
 
   if (data.mode === "custom") {
     if (customRadio) customRadio.checked = true;
     if (presetRadio) presetRadio.checked = false;
-    if (layerCountEl) layerCountEl.value = String(data.layerCount);
     if (select) select.value = "";
 
     for (const combatType of COMBAT_TYPES) {

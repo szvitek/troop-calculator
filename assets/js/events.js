@@ -1,15 +1,13 @@
 import { calculateTroops } from "./calculator.js";
 import { collapseArmyBonusesAccordion, readBonusState } from "./bonuses.js";
-import {
-  analyzeCitadelSiege,
-  fieldCatapultsWithLeadership,
-  recommendCitadelMix,
-} from "./citadel-siege.js";
+import { analyzeCitadelSiege, recommendCitadelMix } from "./citadel-siege.js";
 import {
   getCitadelWallTemplate,
   isCitadelMode,
   readWallCount,
   renderCitadelReport,
+  renderCitadelSummary,
+  updateCitadelSummaryCache,
 } from "./citadel-ui.js";
 import { readEpicTargetState } from "./epics.js";
 import {
@@ -66,23 +64,14 @@ function readSelectedUnits() {
 }
 
 function runCitadelCalculation() {
-  const leadership = parseStatInput("input-leadership");
   const selectedUnits = readSelectedUnits();
   const catapults = selectedUnits.filter((u) => u.category === "catapults");
   const bonusState = readBonusState();
   const wall = getCitadelWallTemplate();
   const wallCount = readWallCount();
 
-  const totalWallHp = wall ? readWallCount() * wall.hp : 0;
+  const totalWallHp = wall ? wallCount * wall.hp : 0;
   const results = recommendCitadelMix(catapults, totalWallHp, bonusState);
-  const fieldable =
-    leadership > 0
-      ? fieldCatapultsWithLeadership({
-          leadership,
-          selectedCatapults: catapults,
-          bonusState,
-        })
-      : null;
 
   const report =
     wall && catapults.length > 0
@@ -90,8 +79,6 @@ function runCitadelCalculation() {
           wall,
           wallCount,
           recommendedResults: results,
-          fieldableResults: fieldable,
-          leadership,
         })
       : wall && wallCount > 0 && catapults.length === 0
         ? {
@@ -108,20 +95,22 @@ function runCitadelCalculation() {
           }
         : null;
 
-  if (report?.perUnit) {
-    for (const r of results) {
-      const meta = report.perUnit.find((p) => p.id === r.id);
-      if (!meta) continue;
-      r.citadelMinAlone = meta.minAlone;
-      r.citadelWallsCleared = meta.wallsCleared;
-      r.citadelFieldableCount = meta.fieldableCount;
-      r.citadelFieldableWallsCleared = meta.fieldableWallsCleared;
-    }
-  }
+  const wallsById = new Map(
+    (report?.perUnit ?? []).map((u) => [u.id, u.wallsCleared]),
+  );
+  const resultsWithCitadel = results.map((r) => ({
+    ...r,
+    citadelWallsCleared: wallsById.get(r.id) ?? 0,
+  }));
 
+  updateCitadelSummaryCache(report, resultsWithCitadel);
   renderCitadelReport(report);
-  updateResults(results, { citadelMode: true, wallHp: wall?.hp ?? 0 });
-  renderSummary(results, { citadelMode: true });
+  updateResults(resultsWithCitadel, { citadelMode: true });
+  renderCitadelSummary();
+
+  if (document.getElementById("detail-view")?.classList.contains("d-none")) {
+    document.getElementById("citadel-siege-report")?.classList.add("d-none");
+  }
 }
 
 function runEpicMarchCalculation() {
@@ -273,29 +262,51 @@ export function attachEvents() {
     .forEach((el) => new bootstrap.Tooltip(el));
 }
 
+function setViewToggleState(summaryVisible) {
+  const toggleBtn = document.getElementById("view-toggle");
+  if (!toggleBtn) return;
+  const icon = toggleBtn.querySelector("i");
+  if (icon) {
+    icon.className = summaryVisible ? "bi bi-grid-3x3-gap" : "bi bi-list-check";
+  }
+  const citadel = isCitadelMode();
+  toggleBtn.setAttribute(
+    "aria-label",
+    summaryVisible
+      ? citadel
+        ? "Switch to catapult detail"
+        : "Switch to detail view"
+      : citadel
+        ? "Switch to siege summary"
+        : "Switch to summary view",
+  );
+}
+
 /**
  * Programmatically switches to the summary view if not already visible.
  */
 export function showSummaryView() {
   const detail = document.getElementById("detail-view");
   const detailHeading = document.getElementById("detail-heading");
-  const summary = document.getElementById("summary-container");
-  const summaryHeading = document.getElementById("summary-heading");
-  const toggleBtn = document.getElementById("view-toggle");
+  if (!detail || detail.classList.contains("d-none")) return;
 
-  if (!detail.classList.contains("d-none")) {
-    detail.classList.add("d-none");
-    detailHeading.classList.add("d-none");
-    summary.classList.remove("d-none");
-    summaryHeading.classList.remove("d-none");
+  const citadel = isCitadelMode();
 
-    if (toggleBtn) {
-      const icon = toggleBtn.querySelector("i");
-      icon.className = "bi bi-grid-3x3-gap";
-    }
+  detail.classList.add("d-none");
+  detailHeading?.classList.add("d-none");
 
-    collapseArmyBonusesAccordion();
+  if (citadel) {
+    document.getElementById("citadel-summary-container")?.classList.remove("d-none");
+    document.getElementById("citadel-summary-heading")?.classList.remove("d-none");
+    document.getElementById("citadel-siege-report")?.classList.add("d-none");
+    renderCitadelSummary();
+  } else {
+    document.getElementById("summary-container")?.classList.remove("d-none");
+    document.getElementById("summary-heading")?.classList.remove("d-none");
   }
+
+  setViewToggleState(true);
+  collapseArmyBonusesAccordion();
 }
 
 /**
@@ -304,21 +315,22 @@ export function showSummaryView() {
 export function showDetailView() {
   const detail = document.getElementById("detail-view");
   const detailHeading = document.getElementById("detail-heading");
-  const summary = document.getElementById("summary-container");
-  const summaryHeading = document.getElementById("summary-heading");
-  const toggleBtn = document.getElementById("view-toggle");
+  if (!detail || !detail.classList.contains("d-none")) return;
 
-  if (detail.classList.contains("d-none")) {
-    detail.classList.remove("d-none");
-    detailHeading.classList.remove("d-none");
-    summary.classList.add("d-none");
-    summaryHeading.classList.add("d-none");
+  const citadel = isCitadelMode();
 
-    if (toggleBtn) {
-      const icon = toggleBtn.querySelector("i");
-      icon.className = "bi bi-list-check";
-    }
+  detail.classList.remove("d-none");
+  detailHeading?.classList.remove("d-none");
 
-    collapseArmyBonusesAccordion();
+  if (citadel) {
+    document.getElementById("citadel-summary-container")?.classList.add("d-none");
+    document.getElementById("citadel-summary-heading")?.classList.add("d-none");
+    document.getElementById("citadel-siege-report")?.classList.remove("d-none");
+  } else {
+    document.getElementById("summary-container")?.classList.add("d-none");
+    document.getElementById("summary-heading")?.classList.add("d-none");
   }
+
+  setViewToggleState(false);
+  collapseArmyBonusesAccordion();
 }

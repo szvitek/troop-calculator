@@ -1,5 +1,5 @@
 /* App semver — bump patch (1.2.1) or minor (1.3.0) on release; keep in sync with changelog.txt. */
-const CACHE_VERSION = "1.3.1";
+const CACHE_VERSION = "1.3.2";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -21,6 +21,7 @@ const PRECACHE_URLS = [
   "./assets/js/data.js",
   "./assets/js/renderer.js",
   "./assets/js/events.js",
+  "./assets/js/dom.js",
   "./assets/js/presets.js",
   "./assets/js/calculator.js",
   "./assets/js/changelog.js",

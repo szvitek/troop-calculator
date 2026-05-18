@@ -50,12 +50,6 @@ function renderEpicInfoPanel(state) {
   const content = contentTpl.content.cloneNode(true);
   content.querySelector(".epic-info-name").textContent = state.name ?? "Epic";
 
-  if (state.layerCount > 1) {
-    const badge = content.querySelector(".epic-info-layer-badge");
-    badge.textContent = `×${state.layerCount} layers / waves`;
-    badge.classList.remove("d-none");
-  }
-
   const tbody = content.querySelector(".epic-squad-tbody");
   state.squads.forEach((squad) => {
     const row = rowTpl.content.cloneNode(true);

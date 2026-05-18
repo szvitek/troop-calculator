@@ -34,8 +34,7 @@ export function renderAllCategories(troops, colorMap, configs) {
       masterCheck.dataset.tier = tier.tierId;
       masterCheck.dataset.category = config.name;
 
-      const tierColor = colorMap[tier.tierId] || "#dc3545";
-      clone.querySelector(".tier-card").style.borderColor = tierColor;
+      const tierColor = colorMap[tier.tierId] || "#6c757d";
 
       const labelText = clone.querySelector(".tier-label-text");
       labelText.style.color = tierColor;
@@ -100,7 +99,7 @@ export function resetAllResults() {
 
 /**
  * Writes calculator results into the DOM.
- * @param {Array<{id: string, count: number, damage: number, warning?: object|null, epicWarning?: string, citadelMinAlone?: number, citadelStrike?: number}>} results
+ * @param {Array<{id: string, count: number, damage: number, warning?: object|null, epicWarning?: string, citadelMinAlone?: number, citadelStrike?: number, citadelWallsCleared?: number}>} results
  * @param {{ citadelMode?: boolean, wallHp?: number }} [opts]
  */
 export function updateResults(results, opts = {}) {
@@ -112,18 +111,14 @@ export function updateResults(results, opts = {}) {
 
     if (countEl) countEl.textContent = r.count.toLocaleString();
     if (dmgEl) {
-      if (citadelMode && r.citadelStrike) {
-        const walls =
-          r.citadelWallsCleared != null
-            ? r.citadelWallsCleared
-            : opts.wallHp > 0
-              ? Math.floor(r.damage / opts.wallHp)
-              : 0;
-        dmgEl.textContent = `${r.damage.toLocaleString()} dmg · ${walls.toLocaleString()} walls`;
-        dmgEl.setAttribute(
-          "title",
-          `Strike ${Math.floor(r.citadelStrike).toLocaleString()} per catapult · recommended ${r.count.toLocaleString()}×${r.citadelMinAlone != null ? ` · solo tier needs ${r.citadelMinAlone.toLocaleString()}×` : ""}`,
-        );
+      if (citadelMode) {
+        if (r.count > 0 && r.damage > 0) {
+          const walls = r.citadelWallsCleared ?? 0;
+          dmgEl.textContent = `${Math.floor(r.damage).toLocaleString()} dmg · ${walls.toLocaleString()} walls`;
+        } else {
+          dmgEl.textContent = "0";
+        }
+        dmgEl.removeAttribute("title");
       } else {
         dmgEl.textContent = r.damage.toLocaleString();
         dmgEl.removeAttribute("title");
@@ -167,31 +162,24 @@ function setUnitWarning(unitId, message) {
  * Builds the summary view from calculator results and checked checkbox metadata.
  * Groups selected units by tier (descending) with counts and damage.
  * @param {Array<{id: string, count: number, damage: number}>} results
- * @param {{ citadelMode?: boolean }} [opts]
  */
-export function renderSummary(results, opts = {}) {
+export function renderSummary(results) {
   const contentEl = document.getElementById("summary-content");
   const emptyEl = document.getElementById("summary-empty");
   if (!contentEl || !emptyEl) return;
-
-  const citadelMode = opts.citadelMode ?? isCitadelMode();
 
   const resultMap = {};
   results.forEach((r) => {
     resultMap[r.id] = r;
   });
 
-  let checked = document.querySelectorAll(".unit-check:checked");
-  if (citadelMode) {
-    checked = [...checked].filter((cb) => cb.dataset.category === "catapults");
-  }
+  const checked = document.querySelectorAll(".unit-check:checked");
 
   if (checked.length === 0) {
     contentEl.innerHTML = "";
     emptyEl.classList.remove("d-none");
-    emptyEl.textContent = citadelMode
-      ? "Select catapult tiers to see siege stack counts."
-      : "Select units from the detail view to see your stack summary.";
+    emptyEl.textContent =
+      "Select units from the detail view to see your stack summary.";
     return;
   }
   emptyEl.classList.add("d-none");
@@ -241,7 +229,6 @@ export function renderSummary(results, opts = {}) {
     const color = storedColorMap[tier] || "#6c757d";
     const tierClone = tierTpl.content.cloneNode(true);
 
-    tierClone.querySelector(".summary-tier-card").style.borderColor = color;
     const label = tierClone.querySelector(".summary-tier-label");
     label.style.color = color;
     label.textContent = `Tier ${tier}`;
@@ -274,17 +261,8 @@ export function renderSummary(results, opts = {}) {
         u.count.toLocaleString();
 
       const dmgEl = unitClone.querySelector(".summary-unit-damage");
-      const result = resultMap[u.id];
-      if (citadelMode) {
-        dmgEl.textContent = "—";
-        dmgEl.setAttribute(
-          "title",
-          "Siege breakdown is in the Citadel siege report below.",
-        );
-      } else {
-        dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
-        dmgEl.removeAttribute("title");
-      }
+      dmgEl.textContent = `${u.damage.toLocaleString()} dmg`;
+      dmgEl.removeAttribute("title");
       dmgEl.style.color = color;
 
       if (showEpicKills && u.epicKills) {
