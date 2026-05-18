@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Troop stacking calculator for A2R: leadership, authority, dominance, and unit counts in your browser."
+      content="A2R Toolbox: troop stacking, citadel siege, leadership, authority, dominance, and army presets in your browser."
     />
     <meta name="theme-color" content="#e95420" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
       sizes="16x16"
       href="assets/pwa/favicon-16x16.png"
     />
-    <title>A2R Troop Stacking Calculator</title>
+    <title>A2R Toolbox</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -63,11 +63,11 @@
               aria-hidden="true"
               decoding="async"
             />
-            A2R Troop Stacking Calculator
+            A2R Toolbox
           </a>
           <a
             href="#changelog"
-            class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0 ms-2"
+            class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0"
             id="versionBadge"
           >
             v0.0.0
@@ -124,7 +124,10 @@
     </nav>
     <main class="container">
       <div>
-        <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
+        <h1 class="text-center my-3 mb-1">A2R Toolbox</h1>
+        <p class="text-center text-muted mb-4">
+          Troop Stacking, Epic monsters & Citadel Siege Tools for Total Battle
+        </p>
       </div>
 
       <!-- Preset Bar: select shrinks; icon group wraps as one unit on narrow widths -->
@@ -263,25 +266,57 @@
 
       <div class="card mb-3 border-secondary" id="battle-target-mode-card">
         <div class="card-body py-2 px-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between gap-2"
+          >
             <h6 class="mb-0 fw-semibold">Battle target</h6>
-            <div class="btn-group btn-group-sm" role="group" aria-label="Battle target mode">
-              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-epic" autocomplete="off" checked />
-              <label class="btn btn-outline-secondary" for="target-mode-epic">Epic march</label>
-              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-citadel" autocomplete="off" />
-              <label class="btn btn-outline-secondary" for="target-mode-citadel">Citadel siege</label>
+            <div
+              class="btn-group btn-group-sm"
+              role="group"
+              aria-label="Battle target mode"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="battle-target-mode"
+                id="target-mode-epic"
+                autocomplete="off"
+                checked
+              />
+              <label class="btn btn-outline-secondary" for="target-mode-epic"
+                >Epic march</label
+              >
+              <input
+                type="radio"
+                class="btn-check"
+                name="battle-target-mode"
+                id="target-mode-citadel"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-secondary" for="target-mode-citadel"
+                >Citadel siege</label
+              >
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card mb-4 border-secondary d-none" id="citadel-target-section">
+      <div
+        class="card mb-4 border-secondary d-none"
+        id="citadel-target-section"
+      >
         <div class="card-body py-3">
           <h6 class="fw-semibold mb-2">Citadel walls</h6>
-          <p class="small text-muted mb-2" id="citadel-wall-reference">Loading wall stats…</p>
+          <p class="small text-muted mb-2" id="citadel-wall-reference">
+            Loading wall stats…
+          </p>
           <div class="row g-2 align-items-end">
             <div class="col-sm-6 col-md-4">
-              <label class="form-label small fw-semibold mb-1" for="citadel-wall-count">Number of walls</label>
+              <label
+                class="form-label small fw-semibold mb-1"
+                for="citadel-wall-count"
+                >Number of walls</label
+              >
               <input
                 type="number"
                 class="form-control form-control-sm citadel-input"
@@ -291,42 +326,92 @@
                 placeholder="0"
                 inputmode="numeric"
               />
-              <div class="form-text">Scales by citadel level; STR/HP per wall are fixed.</div>
+              <div class="form-text">
+                Scales by citadel level; STR/HP per wall are fixed.
+              </div>
             </div>
           </div>
           <p class="small text-muted mt-2 mb-0">
-            Select catapult tiers below — the app recommends <strong>how many of each tier together</strong> to break all walls (no Leadership required).
-            Optional <strong>Leadership</strong> compares what you can actually field. Uses <strong>Catapult Strength %</strong> and card <strong>Fortification</strong> (×20 vs walls).
+            Select catapult tiers below — the app recommends
+            <strong>how many of each tier together</strong> to break all walls
+            (no Leadership required). Optional
+            <strong>Leadership</strong> compares what you can actually field.
+            Uses <strong>Catapult Strength %</strong> and card
+            <strong>Fortification</strong> (×20 vs walls).
           </p>
-          <div id="citadel-siege-report" class="alert d-none mt-3 mb-0 citadel-siege-report" role="status"></div>
+          <div
+            id="citadel-siege-report"
+            class="alert d-none mt-3 mb-0 citadel-siege-report"
+            role="status"
+          ></div>
         </div>
       </div>
 
       <div class="card mb-4 border-secondary" id="epic-target-section">
         <div class="card-body py-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
+          >
             <h6 class="mb-0 fw-semibold">Epic target</h6>
-            <div class="btn-group btn-group-sm" role="group" aria-label="Epic source">
-              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-preset" autocomplete="off" checked />
-              <label class="btn btn-outline-secondary" for="epic-mode-preset">Standard</label>
-              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-custom" autocomplete="off" />
-              <label class="btn btn-outline-secondary" for="epic-mode-custom">Custom</label>
+            <div
+              class="btn-group btn-group-sm"
+              role="group"
+              aria-label="Epic source"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="epic-mode"
+                id="epic-mode-preset"
+                autocomplete="off"
+                checked
+              />
+              <label class="btn btn-outline-secondary" for="epic-mode-preset"
+                >Standard</label
+              >
+              <input
+                type="radio"
+                class="btn-check"
+                name="epic-mode"
+                id="epic-mode-custom"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-secondary" for="epic-mode-custom"
+                >Custom</label
+              >
             </div>
           </div>
           <div id="epic-preset-panel">
-            <label class="form-label small fw-semibold mb-1" for="epic-preset-select">Epic encounter</label>
+            <label
+              class="form-label small fw-semibold mb-1"
+              for="epic-preset-select"
+              >Epic encounter</label
+            >
             <select class="form-select form-select-sm" id="epic-preset-select">
               <option value="" selected>— Select epic —</option>
             </select>
           </div>
           <div id="epic-custom-panel" class="d-none">
             <p class="small text-muted mb-2">
-              Event or temporary epics: one layer per combat type. Feature % is vs the type that layer counters (Flying→Melee→Mounted→Ranged→Flying).
+              Event or temporary epics: one layer per combat type. Feature % is
+              vs the type that layer counters
+              (Flying→Melee→Mounted→Ranged→Flying).
             </p>
             <div class="row g-2 mb-3">
               <div class="col-sm-4 col-md-3">
-                <label class="form-label small fw-semibold mb-1" for="epic-custom-layer-count">Layer count</label>
-                <input type="number" class="form-control form-control-sm epic-custom-input" id="epic-custom-layer-count" min="1" step="1" value="1" />
+                <label
+                  class="form-label small fw-semibold mb-1"
+                  for="epic-custom-layer-count"
+                  >Layer count</label
+                >
+                <input
+                  type="number"
+                  class="form-control form-control-sm epic-custom-input"
+                  id="epic-custom-layer-count"
+                  min="1"
+                  step="1"
+                  value="1"
+                />
                 <div class="form-text">Repeat waves or stacked layers.</div>
               </div>
             </div>
@@ -344,7 +429,9 @@
                   aria-controls="epicInfoCollapse"
                   id="epic-info-accordion-btn"
                 >
-                  <span class="epic-info-accordion-label">Epic squad details</span>
+                  <span class="epic-info-accordion-label"
+                    >Epic squad details</span
+                  >
                   <span class="text-muted fw-normal ms-2 d-none d-sm-inline"
                     >optional reference</span
                   >
@@ -355,7 +442,10 @@
                 class="accordion-collapse collapse"
                 data-bs-parent="#epic-info-accordion"
               >
-                <div class="accordion-body py-2 px-0 px-sm-2" id="epic-info-body"></div>
+                <div
+                  class="accordion-body py-2 px-0 px-sm-2"
+                  id="epic-info-body"
+                ></div>
               </div>
             </div>
           </div>
@@ -795,7 +885,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="helpModalLabel">
-                Guide: Troop Stacking
+                A2R Toolbox — Help
               </h5>
               <button
                 type="button"
@@ -856,8 +946,8 @@
                   <strong>Leadership</strong> set, mercenaries scale to match
                   your stack's damage (like monsters). With
                   <strong>no Leadership</strong> but
-                  <strong>Authority</strong> filled in, capacity is split
-                  across selected mercenaries only.
+                  <strong>Authority</strong> filled in, capacity is split across
+                  selected mercenaries only.
                 </li>
                 <li>
                   <strong>Selection:</strong> Pick the units to include. The
@@ -896,10 +986,10 @@
                 </li>
                 <li>
                   <strong>Damage formula:</strong> For
-                  <strong>Guardsmen, Specialists, Monsters, and Catapults</strong>,
-                  Army Bonuses and unit-card features are included:
                   <strong
-                    >base × (1 + Strength bonuses + feature bonus)</strong
+                    >Guardsmen, Specialists, Monsters, and Catapults</strong
+                  >, Army Bonuses and unit-card features are included:
+                  <strong>base × (1 + Strength bonuses + feature bonus)</strong
                   >. Strength percents <strong>add</strong> (they are not
                   multiplied). The feature line uses the
                   <strong
@@ -926,12 +1016,11 @@
                 <li>
                   <strong>Army Bonuses (optional):</strong> Expand the accordion
                   below epic target. Enter in-game
-                  <strong>Strength %</strong> (e.g.
-                  <strong>52</strong> for 52%)—start with
-                  <strong>Strength against Epic %</strong>, then the
-                  Guardsman / Specialist / Monster grid and
-                  <strong>Catapult</strong> Strength % (these categories get
-                  the bonus math above). Those numbers already include
+                  <strong>Strength %</strong> (e.g. <strong>52</strong> for
+                  52%)—start with <strong>Strength against Epic %</strong>, then
+                  the Guardsman / Specialist / Monster grid and
+                  <strong>Catapult</strong> Strength % (these categories get the
+                  bonus math above). Those numbers already include
                   <strong>hero talents, research, equipment</strong>, etc.; do
                   not enter them twice. The accordion closes when you switch
                   views or load a preset. <strong>Mercenary</strong> bonus rows
@@ -947,13 +1036,14 @@
               <ul class="border-start border-2 small">
                 <li>
                   <strong>Battle target:</strong> Switch to
-                  <strong>Citadel siege</strong>. The Epic target panel is hidden;
-                  vs Epic bonuses do not apply to catapult strike math here.
+                  <strong>Citadel siege</strong>. The Epic target panel is
+                  hidden; vs Epic bonuses do not apply to catapult strike math
+                  here.
                 </li>
                 <li>
-                  <strong>Walls:</strong> Enter how many walls you need to break.
-                  Total HP is wall count × fixed HP per wall (shown under the
-                  input).
+                  <strong>Walls:</strong> Enter how many walls you need to
+                  break. Total HP is wall count × fixed HP per wall (shown under
+                  the input).
                 </li>
                 <li>
                   <strong>Catapults:</strong> Select one or more tiers in the
@@ -1094,14 +1184,14 @@
                       ></i
                       >Epic kill warning:</strong
                     >
-                    When an epic target
-                    is set and a unit shows this warning, that stack may not
-                    deal enough damage to kill at least one enemy on any layer.
-                    Try removing your <strong>lowest-damage</strong> units (or
-                    tiers) until every remaining stack can secure kills—or swap
-                    in <strong>stronger units</strong>, or use a
-                    <strong>captain with higher Leadership</strong> so your
-                    main tiers can carry more troops.
+                    When an epic target is set and a unit shows this warning,
+                    that stack may not deal enough damage to kill at least one
+                    enemy on any layer. Try removing your
+                    <strong>lowest-damage</strong> units (or tiers) until every
+                    remaining stack can secure kills—or swap in
+                    <strong>stronger units</strong>, or use a
+                    <strong>captain with higher Leadership</strong> so your main
+                    tiers can carry more troops.
                   </li>
                   <li>
                     <strong>Mercenaries:</strong> You can add more than the
@@ -1263,7 +1353,9 @@
             step="1"
             placeholder="0"
           />
-          <label class="form-label epic-mini-label epic-custom-hp-label">HP</label>
+          <label class="form-label epic-mini-label epic-custom-hp-label"
+            >HP</label
+          >
           <input
             type="number"
             class="form-control form-control-sm epic-custom-input epic-custom-hp-input mb-1"
@@ -1356,4 +1448,3 @@
     </div>
   </body>
 </html>
-

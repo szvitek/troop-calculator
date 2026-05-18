@@ -1,4 +1,4 @@
-# PROJECT ROADMAP: Troop Calculator
+# PROJECT ROADMAP: A2R Toolbox
 
 ## [PHASE 1] The Foundation
 
@@ -71,6 +71,8 @@ Scope: **Catapults** (siege support alongside the existing march stack).
 
 ### 📖 v1.4.0 — Polish, Documentation & Onboarding
 
+- [x] **Rebrand to A2R Toolbox**
+  - App title, navbar, manifest, README, and help modal title; subtitle for troop stacking & citadel siege.
 - [ ] **UI cleanup**
   - Clean up the UI for a finalized release (citadel siege report, summary vs detail, tooltips, spacing, and other polish from the v1.3.x pass).
 - [ ] **PWA install prompt**
@@ -81,4 +83,4 @@ Scope: **Catapults** (siege support alongside the existing march stack).
 ---
 
 Last Updated: 2026-05-17
-Status: Phase 5 (Active — v1.3.0 shipped — Citadel siege | v1.4.0 — Polish & documentation)
+Status: Phase 5 (Active — v1.4.0 in progress)

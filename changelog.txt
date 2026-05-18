@@ -1,3 +1,8 @@
+v1.4.0 - 2026-05-17
+-------------------
+
+[CHANGE] Rebrand to **A2R Toolbox** (navbar, title, PWA manifest, docs). Subtitle: troop stacking & citadel siege.
+
 v1.3.0 - 2026-05-17
 -------------------
 
