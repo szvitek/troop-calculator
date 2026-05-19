@@ -42,7 +42,11 @@ const TAB_BONUS_LAYOUT = [
   { category: "specialists", tabPaneId: "specs-content", type: "grid" },
   { category: "catapults", tabPaneId: "catapults-content", type: "catapult" },
   { category: "monsters", tabPaneId: "monsters-content", type: "grid" },
-  { category: "mercenaries", tabPaneId: "mercenaries-content", type: "mercenary" },
+  {
+    category: "mercenaries",
+    tabPaneId: "mercenaries-content",
+    type: "mercenary",
+  },
 ];
 
 /**
@@ -69,8 +73,7 @@ export function getCombatType(tags = []) {
  * @param {string[]|null} [epicCombatTypes] Types present on the target epic
  */
 export function combatFeatureBonus(features = {}, epicCombatTypes = null) {
-  const types =
-    epicCombatTypes?.length > 0 ? epicCombatTypes : COMBAT_TYPES;
+  const types = epicCombatTypes?.length > 0 ? epicCombatTypes : COMBAT_TYPES;
   const vals = types
     .map((key) => features[key])
     .filter((v) => typeof v === "number" && !Number.isNaN(v));
@@ -199,7 +202,12 @@ export function getStrengthBonusPercent(unit, bonusState) {
  * @param {ReturnType<typeof readBonusState>|null} bonusState
  * @param {string[]|null} [epicCombatTypes]
  */
-export function getEffectiveDmg(baseDmg, unit, bonusState, epicCombatTypes = null) {
+export function getEffectiveDmg(
+  baseDmg,
+  unit,
+  bonusState,
+  epicCombatTypes = null,
+) {
   if (!bonusState) return baseDmg;
   const strPct = getStrengthBonusPercent(unit, bonusState);
   const featPct = combatFeatureBonus(unit.features ?? {}, epicCombatTypes);
@@ -209,9 +217,11 @@ export function getEffectiveDmg(baseDmg, unit, bonusState, epicCombatTypes = nul
 function syncLinkedBonusInputs(source) {
   const key = source.dataset.bonusKey;
   if (!key) return;
-  document.querySelectorAll(`.bonus-pct-input[data-bonus-key="${key}"]`).forEach((el) => {
-    if (el !== source) el.value = source.value;
-  });
+  document
+    .querySelectorAll(`.bonus-pct-input[data-bonus-key="${key}"]`)
+    .forEach((el) => {
+      if (el !== source) el.value = source.value;
+    });
 }
 
 function createVsEpicBlock(category) {
@@ -282,7 +292,7 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
   const label = CATEGORY_LABELS[category] ?? category;
 
   const accordion = document.createElement("div");
-  accordion.className = "accordion mb-3 category-bonuses-accordion";
+  accordion.className = "accordion mb-3 category-bonuses-accordion row g-2";
   accordion.id = accordionId;
 
   const item = document.createElement("div");
@@ -325,8 +335,7 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
       intro.innerHTML =
         "Enter in-game <strong>Strength %</strong> (whole numbers, e.g. 52 for 52%). Citadel siege uses Catapult Strength only.";
     } else {
-      intro.innerHTML =
-        `Enter <strong>${label}</strong> Strength % per combat type from in-game (whole numbers).`;
+      intro.innerHTML = `Enter <strong>${label}</strong> Strength % per combat type from in-game (whole numbers).`;
     }
     body.appendChild(intro);
     const vsEpic = createVsEpicBlock(category);
