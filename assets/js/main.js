@@ -8,8 +8,10 @@ import { initUmami } from "./analytics.js";
 import { initBonusUI } from "./bonuses.js";
 import { initEpicUI } from "./epic-ui.js";
 import { initCitadelUI } from "./citadel-ui.js";
+import { initPwaInstallPrompt } from "./pwa-install.js";
 
 initUmami();
+initPwaInstallPrompt();
 
 async function init() {
   initTheme();

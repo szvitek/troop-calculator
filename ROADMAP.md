@@ -73,9 +73,9 @@ Scope: **Catapults** (siege support alongside the existing march stack).
 
 - [x] **Rebrand to A2R Toolbox**
   - App title, navbar, manifest, README, and help modal title; subtitle for troop stacking & citadel siege.
-- [ ] **UI cleanup**
+- [x] **UI cleanup**
   - Clean up the UI for a finalized release (citadel siege report, summary vs detail, tooltips, spacing, and other polish from the v1.3.x pass).
-- [ ] **PWA install prompt**
+- [x] **PWA install prompt**
   - Add an in-app install popup / banner when the browser supports install (`beforeinstallprompt`), so users can add the app to their home screen without hunting the browser menu.
 - [ ] **Embedded strategy guide**
   - Author a comprehensive, step-by-step "How-To" guide in the application UI, complete with visual UI screenshots (beyond the current Help modal).

@@ -170,6 +170,14 @@
   font-size: 1rem;
 }
 
+.pwa-install-card {
+  max-width: 28rem;
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.45) !important;
+  background: rgba(var(--bs-body-bg-rgb), 0.86);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 @media (max-width: 575.98px) {
   #preset-bar .preset-icon-btn {
     width: 1.75rem;

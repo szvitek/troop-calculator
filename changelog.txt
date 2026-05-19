@@ -1,4 +1,4 @@
-v1.3.4 - 2026-05-19
+v1.3.5 - 2026-05-19
 -------------------
 
 [CHANGE] Rebrand to **A2R Toolbox** (navbar, title, PWA manifest, docs). Subtitle: troop stacking & citadel siege.
@@ -19,6 +19,7 @@ v1.3.4 - 2026-05-19
 [CHANGE] Citadel siege panel and help copy trimmed (removed wall reference line, redundant helper text, and stale preset wording).
 [REFACTOR] Citadel reports, bonus blocks, and summary stat rows use HTML `<template>` clones (`dom.js`) instead of string-built markup in JS.
 [PWA] Service worker precache updated for new shared JS and icon assets.
+[PWA] Install prompt banner added: browsers that support install show a dismissible **Install app** prompt and hide it after install or dismissal.
 
 v1.3.0 - 2026-05-18
 -------------------

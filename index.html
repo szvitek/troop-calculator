@@ -1477,6 +1477,60 @@
     </template>
 
     <div
+      class="position-fixed bottom-0 start-0 end-0 px-3 pb-3 d-none"
+      id="pwa-install-banner"
+      style="z-index: 1070"
+    >
+      <div
+        class="pwa-install-card card shadow-lg border-0 mx-auto"
+        role="region"
+        aria-label="Install A2R Toolbox"
+      >
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start gap-3">
+            <img
+              src="assets/pwa/favicon-32x32.png"
+              width="32"
+              height="32"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+              class="flex-shrink-0 rounded"
+            />
+            <div class="flex-grow-1 min-w-0">
+              <div class="fw-semibold">Install A2R Toolbox</div>
+              <div class="small text-muted" id="pwa-install-copy">
+                Add it to your device for a faster app-like experience.
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close flex-shrink-0"
+              id="pwa-install-dismiss"
+              aria-label="Dismiss install prompt"
+            ></button>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              id="pwa-install-later"
+            >
+              Not now
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-primary"
+              id="pwa-install-button"
+            >
+              Install app
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
       class="toast-container position-fixed top-0 start-0 w-100 px-3 pt-3"
       id="preset-toast-container"
       style="z-index: 1080"
