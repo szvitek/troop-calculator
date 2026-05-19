@@ -150,7 +150,13 @@
               class="btn btn-outline-primary w-100 tool-mode-btn"
               for="target-mode-epic"
             >
-              <i class="bi bi-bullseye tool-mode-icon" aria-hidden="true"></i>
+              <svg
+                class="gi-svg gi-tool-mode me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/daemon-skull.svg#gi"></use>
+              </svg>
               <span class="tool-mode-label">Epic march</span>
               <span class="tool-mode-hint">Troop stacking</span>
             </label>
@@ -167,7 +173,13 @@
               class="btn btn-outline-primary w-100 tool-mode-btn"
               for="target-mode-citadel"
             >
-              <i class="bi bi-bricks tool-mode-icon" aria-hidden="true"></i>
+              <svg
+                class="gi-svg gi-tool-mode me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/castle.svg#gi"></use>
+              </svg>
               <span class="tool-mode-label">Citadel siege</span>
               <span class="tool-mode-hint">Catapult walls</span>
             </label>
@@ -431,17 +443,17 @@
       </div>
 
       <h5 class="mb-3 text-center" id="detail-heading">
-        <span class="detail-heading-epic"
-          ><i class="bi bi-pencil-square me-1"></i> Detail View</span
-        >
-        <span class="detail-heading-citadel d-none"
-          ><i class="bi bi-bricks me-1"></i> Catapult tiers</span
-        >
+        <span class="detail-heading-epic">
+          <i class="bi bi-pencil-square me-1"></i> Epic Details
+        </span>
+        <span class="detail-heading-citadel d-none">
+          <i class="bi bi-pencil-square me-1"></i> Siege Details
+        </span>
       </h5>
       <div id="detail-view">
         <div
           id="unit-tabs-nav"
-          class="row g-2 sticky-top tool-epic-only"
+          class="sticky-top tool-epic-only"
           style="
             background-color: transparent;
             backdrop-filter: blur(8px);
@@ -564,7 +576,7 @@
             role="tabpanel"
             aria-labelledby="guards-tab"
           >
-            <div id="guardsmen-container" class="row g-2"></div>
+            <div id="guardsmen-container"></div>
           </div>
 
           <div
@@ -574,7 +586,7 @@
             role="tabpanel"
             aria-labelledby="specs-tab"
           >
-            <div id="specialists-container" class="row g-2"></div>
+            <div id="specialists-container"></div>
           </div>
 
           <div
@@ -597,7 +609,7 @@
                 single tier alone.</span
               >
             </p>
-            <div id="catapults-container" class="row g-2"></div>
+            <div id="catapults-container"></div>
           </div>
 
           <div
@@ -607,7 +619,7 @@
             role="tabpanel"
             aria-labelledby="monsters-tab"
           >
-            <div id="monsters-container" class="row g-2"></div>
+            <div id="monsters-container"></div>
           </div>
 
           <div
@@ -617,14 +629,14 @@
             role="tabpanel"
             aria-labelledby="mercenaries-tab"
           >
-            <div id="mercenaries-container" class="row g-2"></div>
+            <div id="mercenaries-container"></div>
           </div>
         </div>
       </div>
 
       <div id="epic-march-workspace" class="tool-epic-only">
         <h5 class="mb-3 d-none text-center" id="summary-heading">
-          <i class="bi bi-list-check me-1"></i> Summary View
+          <i class="bi bi-list-check me-1"></i> Epic Summary
         </h5>
         <div id="summary-container" class="d-none mb-3">
           <p class="text-muted text-center" id="summary-empty">
@@ -636,7 +648,7 @@
 
       <div class="tool-citadel-only" id="citadel-summary-workspace">
         <h5 class="mb-3 d-none text-center" id="citadel-summary-heading">
-          <i class="bi bi-bricks me-1"></i> Siege summary
+          <i class="bi bi-list-check me-1"></i> Siege Summary
         </h5>
         <div id="citadel-summary-container" class="d-none mb-3">
           <p class="text-muted text-center" id="citadel-summary-empty">
@@ -848,7 +860,7 @@
       </div>
 
       <div
-        class="modal fade"
+        class="modal modal-xl fade"
         id="helpModal"
         tabindex="-1"
         aria-labelledby="helpModalLabel"
@@ -1175,7 +1187,7 @@
         </div>
       </div>
 
-      <div class="accordion mb-4 row g-2" id="changelog">
+      <div class="accordion mb-4" id="changelog">
         <div class="accordion-item bg-transparent">
           <h2 class="accordion-header" id="headingOne">
             <button

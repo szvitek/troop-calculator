@@ -39,7 +39,8 @@ export function readWallCount(root = document) {
 export function applyWallCount(count, root = document) {
   const el = root.querySelector("#citadel-wall-count");
   if (!el) return;
-  const n = Number.isFinite(count) && count > 0 ? Math.min(count, MAX_WALL_COUNT) : 0;
+  const n =
+    Number.isFinite(count) && count > 0 ? Math.min(count, MAX_WALL_COUNT) : 0;
   el.value = n > 0 ? String(n) : "";
 }
 
@@ -79,6 +80,12 @@ function showCatapultTabOnly(root = document) {
   bootstrap.Tab.getOrCreateInstance(tabBtn).show();
 }
 
+function showGuardsTab(root = document) {
+  const tabBtn = root.querySelector("#guards-tab");
+  if (!tabBtn || !window.bootstrap?.Tab) return;
+  bootstrap.Tab.getOrCreateInstance(tabBtn).show();
+}
+
 function forceDetailView(root = document) {
   const detail = root.querySelector("#detail-view");
   const detailHeading = root.querySelector("#detail-heading");
@@ -105,11 +112,12 @@ export function syncToolModeUI(root = document) {
     document.body.dataset.activeTool = tool;
   }
 
-  root.querySelector("#epic-target-section")?.classList.toggle("d-none", citadel);
-  root.querySelector("#citadel-target-section")?.classList.toggle(
-    "d-none",
-    !citadel,
-  );
+  root
+    .querySelector("#epic-target-section")
+    ?.classList.toggle("d-none", citadel);
+  root
+    .querySelector("#citadel-target-section")
+    ?.classList.toggle("d-none", !citadel);
   root.querySelectorAll(".tool-epic-only").forEach((el) => {
     el.classList.toggle("d-none", citadel);
   });
@@ -117,22 +125,51 @@ export function syncToolModeUI(root = document) {
     el.classList.toggle("d-none", !citadel);
   });
 
-  root.querySelector(".detail-heading-epic")?.classList.toggle("d-none", citadel);
+  root
+    .querySelector(".detail-heading-epic")
+    ?.classList.toggle("d-none", citadel);
   root
     .querySelector(".detail-heading-citadel")
     ?.classList.toggle("d-none", !citadel);
 
-  root.querySelectorAll("#unitTabsContent [data-unit-category]").forEach((pane) => {
-    const isCatapult = pane.dataset.unitCategory === "catapults";
-    pane.classList.toggle("d-none", citadel && !isCatapult);
-  });
+  root
+    .querySelectorAll("#unitTabsContent [data-unit-category]")
+    .forEach((pane) => {
+      const isCatapult = pane.dataset.unitCategory === "catapults";
+      pane.classList.toggle("d-none", citadel && !isCatapult);
+    });
+
+  const detail = root.querySelector("#detail-view");
+  const inSummaryView = detail?.classList.contains("d-none");
 
   if (citadel) {
-    forceDetailView(root);
     showCatapultTabOnly(root);
+    if (inSummaryView) {
+      root.querySelector("#summary-container")?.classList.add("d-none");
+      root.querySelector("#summary-heading")?.classList.add("d-none");
+      root
+        .querySelector("#citadel-summary-container")
+        ?.classList.remove("d-none");
+      root
+        .querySelector("#citadel-summary-heading")
+        ?.classList.remove("d-none");
+      root.querySelector("#citadel-siege-report")?.classList.add("d-none");
+      renderCitadelSummary(root);
+    } else {
+      forceDetailView(root);
+    }
   } else {
+    showGuardsTab(root);
     root.querySelector("#citadel-summary-container")?.classList.add("d-none");
     root.querySelector("#citadel-summary-heading")?.classList.add("d-none");
+    root.querySelector("#citadel-siege-report")?.classList.add("d-none");
+
+    root
+      .querySelector("#summary-container")
+      ?.classList.toggle("d-none", !inSummaryView);
+    root
+      .querySelector("#summary-heading")
+      ?.classList.toggle("d-none", !inSummaryView);
   }
 }
 
@@ -151,7 +188,9 @@ function getCatapultTierColor(tier) {
   const master = document.querySelector(
     `.tier-master-check[data-tier="${tier}"][data-category="catapults"]`,
   );
-  const label = master?.closest(".tier-card")?.querySelector(".tier-label-text");
+  const label = master
+    ?.closest(".tier-card")
+    ?.querySelector(".tier-label-text");
   const color = label?.style?.color;
   return color && color !== "transparent" ? color : "#6c757d";
 }
@@ -163,7 +202,12 @@ function parseCatapultTier(unitId) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function appendSummaryStatRow(container, label, value, { valueClass = "" } = {}) {
+function appendSummaryStatRow(
+  container,
+  label,
+  value,
+  { valueClass = "" } = {},
+) {
   const fragment = cloneTemplate("summary-stat-row-template", (root) => {
     const labelEl = root.querySelector(".summary-stat-label");
     const valueEl = root.querySelector(".summary-stat-value");
@@ -281,9 +325,7 @@ export function renderCitadelSummary(root = document) {
               : 0),
         }));
 
-  const units = tierRows.filter(
-    (u) => u.count > 0 && (u.stackDamage ?? 0) > 0,
-  );
+  const units = tierRows.filter((u) => u.count > 0 && (u.stackDamage ?? 0) > 0);
 
   const tierGroups = {};
   for (const unit of units) {
@@ -333,13 +375,16 @@ export function renderCitadelReport(report, root = document) {
   if (report.needsCatapults) {
     mount.classList.remove("d-none");
     mount.className = "alert alert-warning py-2 px-3 mb-0 citadel-siege-report";
-    const fragment = cloneTemplate("citadel-siege-report-hint-template", (root) => {
-      const hint = root.querySelector(".citadel-report-hint");
-      if (hint) {
-        hint.innerHTML =
-          "Select at least one <strong>catapult</strong> tier below.";
-      }
-    });
+    const fragment = cloneTemplate(
+      "citadel-siege-report-hint-template",
+      (root) => {
+        const hint = root.querySelector(".citadel-report-hint");
+        if (hint) {
+          hint.innerHTML =
+            "Select at least one <strong>catapult</strong> tier below.";
+        }
+      },
+    );
     mount.replaceChildren(fragment ?? []);
     return;
   }
@@ -389,7 +434,6 @@ export function renderCitadelReport(report, root = document) {
   });
   mount.replaceChildren(fragment ?? []);
 }
-
 
 export function initCitadelUI(onChange) {
   const section = document.getElementById("citadel-target-section");

@@ -64,7 +64,7 @@
 
 .tier-card:has(.unit-check:checked) {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 }
 
 /* Count readout styling */
@@ -356,4 +356,15 @@
 
 .epic-squad-table th {
   font-size: 0.75rem;
+}
+
+#epic-march-workspace,
+#citadel-summary-workspace {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.gi-tool-mode {
+  width: 32px;
+  height: 32px;
 }

@@ -292,7 +292,7 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
   const label = CATEGORY_LABELS[category] ?? category;
 
   const accordion = document.createElement("div");
-  accordion.className = "accordion mb-3 category-bonuses-accordion row g-2";
+  accordion.className = "accordion mb-3 category-bonuses-accordion";
   accordion.id = accordionId;
 
   const item = document.createElement("div");

@@ -1,5 +1,5 @@
 /* App semver — bump patch (1.2.1) or minor (1.3.0) on release; keep in sync with changelog.txt. */
-const CACHE_VERSION = "1.3.2";
+const CACHE_VERSION = "1.3.4";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -44,6 +44,8 @@ const PRECACHE_URLS = [
   "./assets/icons/dragon-head.svg",
   "./assets/icons/gladius.svg",
   "./assets/icons/william-tell-skull.svg",
+  "./assets/icons/daemon-skull.svg",
+  "./assets/icons/castle.svg",
   "./assets/pwa/icon-192.png",
   "./assets/pwa/icon-512.png",
   "./assets/pwa/screenshot-desktop.png",

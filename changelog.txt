@@ -1,4 +1,4 @@
-v1.4.0 - 2026-05-17
+v1.3.4 - 2026-05-19
 -------------------
 
 [CHANGE] Rebrand to **A2R Toolbox** (navbar, title, PWA manifest, docs). Subtitle: troop stacking & citadel siege.
@@ -8,13 +8,19 @@ v1.4.0 - 2026-05-17
 [UX] **Army Bonuses** live inside each unit tab (Guardsmen, Specialists, Catapults, Monsters, Mercenaries) instead of one global accordion. **Strength against Epic %** appears on every tab and stays synced.
 [UX] Epic target **Standard / Custom** toggles use primary outline styling to match the app theme.
 [UX] Card borders standardized (`app-card`); tier colors on labels and accents only, not red/white tier outlines.
+[UX] Layout alignment tightened: removed unnecessary Bootstrap row gutters from non-grid sections so cards, accordions, and unit rows stay inside the main container.
+[UX] Checkbox selection no longer lifts tier cards vertically; selected cards keep a subtle shadow without layout jitter.
+[UX] Help modal widened on desktop (`modal-xl`) for a more comfortable guide/readme layout.
+[UX] Epic/Citadel mode icons refreshed with Game Icons; Detail/Summary headings now use consistent view icons across both tools.
 [UX] Mercenaries tab: WIP alert — army bonus inputs are hidden; mercenary damage ignores bonus % until data is ready.
 [NEW] Presets and share codes (**v4**) save **Epic march vs Citadel siege** mode and **citadel wall count**; v1–v3 codes still import (defaults: epic mode, no wall goal).
 [UX] Loading a preset always opens **Summary** view for epic and citadel setups.
-[CHANGE] Citadel siege panel copy trimmed (removed wall reference line and redundant helper text).
+[FIX] Mode switching keeps the selected Detail/Summary view, switches Citadel to Catapults, and returns Epic mode to Guards.
+[CHANGE] Citadel siege panel and help copy trimmed (removed wall reference line, redundant helper text, and stale preset wording).
 [REFACTOR] Citadel reports, bonus blocks, and summary stat rows use HTML `<template>` clones (`dom.js`) instead of string-built markup in JS.
+[PWA] Service worker precache updated for new shared JS and icon assets.
 
-v1.3.0 - 2026-05-17
+v1.3.0 - 2026-05-18
 -------------------
 
 [NEW] Citadel siege mode: toggle Epic march / Citadel siege, enter wall count, see opening volley vs citadel walls (10k STR / 30k HP per wall from `citadel-walls.json`).
