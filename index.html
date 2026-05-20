@@ -248,108 +248,6 @@
         </div>
       </div>
 
-      <div class="accordion mb-3 global-modifiers-accordion" id="globalModifiersAccordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed py-2 small"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#globalModifiersCollapse"
-              aria-expanded="false"
-              aria-controls="globalModifiersCollapse"
-            >
-              Global Modifiers
-              <span class="text-muted fw-normal ms-2 d-none d-sm-inline">
-                Epic bonus · Dragon march adjustment
-              </span>
-            </button>
-          </h2>
-          <div
-            id="globalModifiersCollapse"
-            class="accordion-collapse collapse"
-            data-bs-parent="#globalModifiersAccordion"
-          >
-            <div class="accordion-body py-2 px-2">
-              <p class="small text-muted mb-2">
-                Shared modifiers that affect calculations across tabs. Unit
-                cards already include active city bonuses; uncheck dragon when
-                the target does not allow it in the march.
-              </p>
-              <div class="global-modifier-grid">
-                <div class="card bonus-special-card">
-                  <div class="card-body p-2">
-                    <label
-                      class="form-label bonus-mini-label"
-                      for="bonus-vs-epic-global"
-                    >
-                      Strength against Epic %
-                    </label>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm bonus-pct-input"
-                      id="bonus-vs-epic-global"
-                      data-bonus-key="vs-epic"
-                      min="0"
-                      step="0.01"
-                      placeholder="0"
-                      inputmode="decimal"
-                      autocomplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div class="card bonus-special-card">
-                  <div class="card-body p-2">
-                    <div class="form-check form-switch">
-                      <input
-                        class="form-check-input bonus-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id="bonus-dragon-included"
-                        data-bonus-key="dragon-included"
-                        checked
-                      />
-                      <label
-                        class="form-check-label small fw-semibold"
-                        for="bonus-dragon-included"
-                      >
-                        Dragon included in march
-                      </label>
-                    </div>
-                    <div class="form-text">
-                      Uncheck for targets where dragon cannot join.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card bonus-special-card">
-                  <div class="card-body p-2">
-                    <label
-                      class="form-label bonus-mini-label"
-                      for="bonus-dragon-strength"
-                    >
-                      Dragon Strength to Army %
-                    </label>
-                    <input
-                      type="number"
-                      class="form-control form-control-sm bonus-pct-input"
-                      id="bonus-dragon-strength"
-                      data-bonus-key="dragon-strength"
-                      min="0"
-                      step="0.01"
-                      placeholder="0"
-                      inputmode="decimal"
-                      autocomplete="off"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- Stats Input Row (Epic march only) -->
       <div id="march-stats-row" class="row mb-4 tool-epic-only">
         <!-- Leadership (Red) -->
@@ -483,38 +381,6 @@
             </p>
             <div class="epic-custom-grid" id="epic-custom-grid-mount"></div>
           </div>
-          <div id="epic-info-accordion" class="accordion d-none mt-3">
-            <div class="accordion-item border-0">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed py-2 small"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#epicInfoCollapse"
-                  aria-expanded="false"
-                  aria-controls="epicInfoCollapse"
-                  id="epic-info-accordion-btn"
-                >
-                  <span class="epic-info-accordion-label"
-                    >Epic squad details</span
-                  >
-                  <span class="text-muted fw-normal ms-2 d-none d-sm-inline"
-                    >optional reference</span
-                  >
-                </button>
-              </h2>
-              <div
-                id="epicInfoCollapse"
-                class="accordion-collapse collapse"
-                data-bs-parent="#epic-info-accordion"
-              >
-                <div
-                  class="accordion-body py-2 px-0 px-sm-2"
-                  id="epic-info-body"
-                ></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -641,6 +507,108 @@
                 </button>
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div class="accordion mb-3 global-modifiers-accordion" id="globalModifiersAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed py-2 small"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#globalModifiersCollapse"
+                aria-expanded="false"
+                aria-controls="globalModifiersCollapse"
+              >
+                Global Modifiers
+                <span class="text-muted fw-normal ms-2 d-none d-sm-inline">
+                  Epic bonus · Dragon march adjustment
+                </span>
+              </button>
+            </h2>
+            <div
+              id="globalModifiersCollapse"
+              class="accordion-collapse collapse"
+              data-bs-parent="#globalModifiersAccordion"
+            >
+              <div class="accordion-body py-2 px-2">
+                <p class="small text-muted mb-2">
+                  Shared modifiers that affect calculations across tabs. Unit
+                  cards already include active city bonuses; uncheck dragon when
+                  the target does not allow it in the march.
+                </p>
+                <div class="global-modifier-grid">
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <label
+                        class="form-label bonus-mini-label"
+                        for="bonus-vs-epic-global"
+                      >
+                        Strength against Epic %
+                      </label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm bonus-pct-input"
+                        id="bonus-vs-epic-global"
+                        data-bonus-key="vs-epic"
+                        min="0"
+                        step="0.01"
+                        placeholder="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input bonus-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="bonus-dragon-included"
+                          data-bonus-key="dragon-included"
+                          checked
+                        />
+                        <label
+                          class="form-check-label small fw-semibold"
+                          for="bonus-dragon-included"
+                        >
+                          Dragon included in march
+                        </label>
+                      </div>
+                      <div class="form-text">
+                        Uncheck for targets where dragon cannot join.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <label
+                        class="form-label bonus-mini-label"
+                        for="bonus-dragon-strength"
+                      >
+                        Dragon Strength to Army %
+                      </label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm bonus-pct-input"
+                        id="bonus-dragon-strength"
+                        data-bonus-key="dragon-strength"
+                        min="0"
+                        step="0.01"
+                        placeholder="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1070,9 +1038,7 @@
                   <strong>Epic target (optional):</strong> Pick a preset
                   encounter to fill the editable layer stats, or enter event
                   epic values directly. This steers feature % and unlocks epic
-                  kill estimates.
-                  Expand <strong>Epic squad details</strong> for enemy strength,
-                  HP, and features. Epic target stats are saved with presets and
+                  kill estimates. Epic target stats are saved with presets and
                   share codes.
                 </li>
                 <li>
@@ -1440,42 +1406,6 @@
           />
         </div>
       </div>
-    </template>
-
-    <template id="epic-info-content-template">
-      <div>
-        <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
-          <span class="fw-semibold epic-info-name"></span>
-        </div>
-        <p class="small text-muted mb-2 mb-md-1 epic-info-hint">
-          Your stack uses each unit's feature % vs the combat types on this epic
-          (Flying → Melee → Mounted → Ranged → Flying).
-        </p>
-        <div class="table-responsive">
-          <table class="table table-sm table-striped mb-0 epic-squad-table">
-            <thead>
-              <tr>
-                <th>Unit</th>
-                <th>Type</th>
-                <th class="text-end">Strength</th>
-                <th class="text-end">HP</th>
-                <th>Feature</th>
-              </tr>
-            </thead>
-            <tbody class="epic-squad-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </template>
-
-    <template id="epic-squad-row-template">
-      <tr>
-        <td class="text-nowrap epic-squad-unit"></td>
-        <td class="epic-squad-type"></td>
-        <td class="text-end epic-squad-strength"></td>
-        <td class="text-end epic-squad-hp"></td>
-        <td class="small epic-squad-feature"></td>
-      </tr>
     </template>
 
     <template id="summary-stat-row-template">

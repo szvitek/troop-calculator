@@ -1,75 +1,10 @@
 import {
   COMBAT_LABELS,
   COMBAT_TYPES,
-  RPS_EPIC_BEATS,
   RPS_EPIC_BEATS_LABEL,
   loadEpicsCatalog,
   populateCustomEpicInputsFromPreset,
-  readEpicTargetState,
 } from "./epics.js";
-
-function formatNum(n) {
-  if (!n) return "—";
-  return Number(n).toLocaleString();
-}
-
-function squadFeatureText(squad) {
-  if (!squad.combatType || !squad.features) return "—";
-  const vs = RPS_EPIC_BEATS[squad.combatType];
-  const v = vs ? squad.features[vs] : undefined;
-  if (typeof v !== "number") return "—";
-  return `vs ${COMBAT_LABELS[vs]} ${(v * 100).toFixed(0)}%`;
-}
-
-/**
- * @param {ReturnType<typeof readEpicTargetState>} state
- */
-function renderEpicInfoPanel(state) {
-  const accordion = document.getElementById("epic-info-accordion");
-  const body = document.getElementById("epic-info-body");
-  const btn = document.getElementById("epic-info-accordion-btn");
-  const contentTpl = document.getElementById("epic-info-content-template");
-  const rowTpl = document.getElementById("epic-squad-row-template");
-  if (!accordion || !body || !contentTpl || !rowTpl) return;
-
-  if (state.mode === "none") {
-    accordion.classList.add("d-none");
-    body.replaceChildren();
-    return;
-  }
-
-  accordion.classList.remove("d-none");
-  if (btn) {
-    const label = btn.querySelector(".epic-info-accordion-label");
-    if (label) {
-      label.textContent = state.name
-        ? `Epic squad details — ${state.name}`
-        : "Epic squad details";
-    }
-  }
-
-  const content = contentTpl.content.cloneNode(true);
-  content.querySelector(".epic-info-name").textContent = state.name ?? "Epic";
-
-  const tbody = content.querySelector(".epic-squad-tbody");
-  state.squads.forEach((squad) => {
-    const row = rowTpl.content.cloneNode(true);
-    row.querySelector(".epic-squad-unit").textContent = squad.name ?? "";
-    row.querySelector(".epic-squad-type").textContent = squad.combatType
-      ? COMBAT_LABELS[squad.combatType]
-      : "—";
-    row.querySelector(".epic-squad-strength").textContent = formatNum(
-      squad.strength,
-    );
-    row.querySelector(".epic-squad-hp").textContent = formatNum(squad.hp);
-    row.querySelector(".epic-squad-feature").textContent =
-      squadFeatureText(squad);
-    tbody.appendChild(row);
-  });
-
-  body.replaceChildren();
-  body.appendChild(content);
-}
 
 function wireCustomTypeCard(clone, combatType) {
   const vsLabel = RPS_EPIC_BEATS_LABEL[combatType];
@@ -147,7 +82,6 @@ export function initEpicUI(onChange) {
     .catch((err) => console.error("Failed to load epics:", err));
 
   function refresh() {
-    renderEpicInfoPanel(readEpicTargetState());
     onChange();
   }
 
@@ -172,11 +106,4 @@ export function initEpicUI(onChange) {
     if (select) select.value = "";
     refresh();
   });
-
-  renderEpicInfoPanel(readEpicTargetState());
-}
-
-/** Updates epic mode panels and squad-details accordion after preset load. */
-export function syncEpicTargetDisplay() {
-  renderEpicInfoPanel(readEpicTargetState());
 }

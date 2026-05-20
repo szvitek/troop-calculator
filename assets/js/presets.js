@@ -18,7 +18,6 @@ import {
   captureEpicPresetState,
   sanitizeEpicPreset,
 } from "./epics.js";
-import { syncEpicTargetDisplay } from "./epic-ui.js";
 
 const STORAGE_KEY = "troop-presets";
 const SHARE_VERSION = 4;
@@ -416,7 +415,6 @@ async function restoreState(preset) {
   applyWallCount(data.citadel.wallCount);
 
   await applyEpicPresetState(data.epic);
-  syncEpicTargetDisplay();
 
   document.getElementById("input-leadership").value = data.leadership || 0;
   document.getElementById("input-authority").value = data.authority || 0;
@@ -449,7 +447,6 @@ async function restoreState(preset) {
 /** Clears stat inputs and unit checks, resets preset dropdown to placeholder, recalculates, shows detail view. */
 async function resetFormToEmpty() {
   await applyEpicPresetState({ mode: "none" });
-  syncEpicTargetDisplay();
 
   for (const id of [
     "input-leadership",

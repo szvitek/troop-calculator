@@ -335,14 +335,6 @@
   box-shadow: none;
 }
 
-#epic-info-accordion .accordion-button {
-  font-weight: 600;
-}
-
-#epic-info-accordion .accordion-button:not(.collapsed) {
-  box-shadow: none;
-}
-
 /* Summary: highest stack damage (frontline risk) */
 .summary-row-highest-dmg {
   background: rgba(var(--bs-warning-rgb), 0.12);
@@ -382,10 +374,6 @@
 
 .epic-custom-type {
   background: rgba(var(--bs-body-bg-rgb), 0.6);
-}
-
-.epic-squad-table th {
-  font-size: 0.75rem;
 }
 
 #epic-march-workspace,
