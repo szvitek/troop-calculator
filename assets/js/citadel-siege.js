@@ -1,6 +1,7 @@
 import {
   fortificationFeatureBonus,
   getCatapultSiegeStrengthPercent,
+  getDragonAdjustedBaseDmg,
 } from "./bonuses.js";
 
 /** In-game rule: catapult strength vs fortifications (not shown on unit card). */
@@ -14,9 +15,10 @@ export const FORTIFICATION_STRENGTH_MULT = 20;
  */
 export function strikeVsWall(baseDmg, unit, bonusState) {
   if (unit.category !== "catapults") return 0;
+  const adjustedBaseDmg = getDragonAdjustedBaseDmg(baseDmg, bonusState);
   const strPct = getCatapultSiegeStrengthPercent(bonusState);
   const featPct = fortificationFeatureBonus(unit.features ?? {});
-  return baseDmg * FORTIFICATION_STRENGTH_MULT * (1 + strPct + featPct);
+  return adjustedBaseDmg * FORTIFICATION_STRENGTH_MULT * (1 + strPct + featPct);
 }
 
 /**

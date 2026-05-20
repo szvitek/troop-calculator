@@ -299,17 +299,39 @@
   gap: 0.75rem;
 }
 
+.global-modifier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
 @media (min-width: 576px) {
   .category-bonus-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .global-modifier-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
+.global-modifiers-accordion .accordion-button,
 .category-bonuses-accordion .accordion-button {
   font-weight: 600;
 }
 
+.global-modifiers-accordion .accordion-button:not(.collapsed),
 .category-bonuses-accordion .accordion-button:not(.collapsed) {
+  box-shadow: none;
+}
+
+.global-modifiers-accordion .accordion-button:focus,
+.category-bonuses-accordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+.global-modifiers-accordion .accordion-item,
+.category-bonuses-accordion .accordion-item {
   box-shadow: none;
 }
 

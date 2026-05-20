@@ -205,23 +205,36 @@ function syncPresetActionButtons() {
   exp.disabled = !hasSelection;
 }
 
-/** True if at least one of Leadership / Authority / Dominance has non-empty input. */
-function areStatInputsPopulated() {
+/** True if the current form has meaningful data worth saving as a preset. */
+function isPresetInputPopulated() {
   for (const id of [
     "input-leadership",
     "input-authority",
     "input-dominance",
+    "citadel-wall-count",
   ]) {
     const el = document.getElementById(id);
     if (el && el.value.trim() !== "") return true;
   }
+  if (document.querySelector(".unit-check:checked")) return true;
+  if (
+    [...document.querySelectorAll(".bonus-pct-input")].some(
+      (el) => el.value.trim() !== "",
+    )
+  ) {
+    return true;
+  }
+  const dragonIncluded = document.querySelector(
+    '.bonus-check-input[data-bonus-key="dragon-included"]',
+  );
+  if (dragonIncluded && !dragonIncluded.checked) return true;
   return false;
 }
 
 function syncSavePresetButton() {
   const saveBtn = document.getElementById("preset-save");
   if (!saveBtn) return;
-  saveBtn.disabled = !areStatInputsPopulated();
+  saveBtn.disabled = !isPresetInputPopulated();
 }
 
 function showExportFallback(code) {
@@ -534,7 +547,19 @@ export function initPresets() {
     if (
       e.target.id === "input-leadership" ||
       e.target.id === "input-authority" ||
-      e.target.id === "input-dominance"
+      e.target.id === "input-dominance" ||
+      e.target.id === "citadel-wall-count" ||
+      e.target.classList.contains("bonus-pct-input")
+    ) {
+      syncSavePresetButton();
+    }
+  });
+
+  document.addEventListener("change", (e) => {
+    if (
+      e.target.classList.contains("unit-check") ||
+      e.target.classList.contains("tier-master-check") ||
+      e.target.classList.contains("bonus-check-input")
     ) {
       syncSavePresetButton();
     }

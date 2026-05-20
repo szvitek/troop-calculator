@@ -248,6 +248,108 @@
         </div>
       </div>
 
+      <div class="accordion mb-3 global-modifiers-accordion" id="globalModifiersAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed py-2 small"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#globalModifiersCollapse"
+              aria-expanded="false"
+              aria-controls="globalModifiersCollapse"
+            >
+              Global Modifiers
+              <span class="text-muted fw-normal ms-2 d-none d-sm-inline">
+                Epic bonus · Dragon march adjustment
+              </span>
+            </button>
+          </h2>
+          <div
+            id="globalModifiersCollapse"
+            class="accordion-collapse collapse"
+            data-bs-parent="#globalModifiersAccordion"
+          >
+            <div class="accordion-body py-2 px-2">
+              <p class="small text-muted mb-2">
+                Shared modifiers that affect calculations across tabs. Unit
+                cards already include active city bonuses; uncheck dragon when
+                the target does not allow it in the march.
+              </p>
+              <div class="global-modifier-grid">
+                <div class="card bonus-special-card">
+                  <div class="card-body p-2">
+                    <label
+                      class="form-label bonus-mini-label"
+                      for="bonus-vs-epic-global"
+                    >
+                      Strength against Epic %
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm bonus-pct-input"
+                      id="bonus-vs-epic-global"
+                      data-bonus-key="vs-epic"
+                      min="0"
+                      step="0.01"
+                      placeholder="0"
+                      inputmode="decimal"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+
+                <div class="card bonus-special-card">
+                  <div class="card-body p-2">
+                    <div class="form-check form-switch">
+                      <input
+                        class="form-check-input bonus-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="bonus-dragon-included"
+                        data-bonus-key="dragon-included"
+                        checked
+                      />
+                      <label
+                        class="form-check-label small fw-semibold"
+                        for="bonus-dragon-included"
+                      >
+                        Dragon included in march
+                      </label>
+                    </div>
+                    <div class="form-text">
+                      Uncheck for targets where dragon cannot join.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card bonus-special-card">
+                  <div class="card-body p-2">
+                    <label
+                      class="form-label bonus-mini-label"
+                      for="bonus-dragon-strength"
+                    >
+                      Dragon Strength to Army %
+                    </label>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm bonus-pct-input"
+                      id="bonus-dragon-strength"
+                      data-bonus-key="dragon-strength"
+                      min="0"
+                      step="0.01"
+                      placeholder="0"
+                      inputmode="decimal"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Stats Input Row (Epic march only) -->
       <div id="march-stats-row" class="row mb-4 tool-epic-only">
         <!-- Leadership (Red) -->
@@ -973,7 +1075,8 @@
                   <strong>Damage formula:</strong> For
                   <strong
                     >Guardsmen, Specialists, Monsters, and Catapults</strong
-                  >, Army Bonuses and unit-card features are included:
+                  >, Global Modifiers, Army Bonuses, and unit-card features are
+                  included:
                   <strong>base × (1 + Strength bonuses + feature bonus)</strong
                   >. Strength percents <strong>add</strong> (they are not
                   multiplied). The feature line uses the
@@ -996,15 +1099,21 @@
                   type). This steers feature % and unlocks epic kill estimates.
                   Expand <strong>Epic squad details</strong> for enemy strength,
                   HP, and features (reference only). Standard and Custom epic
-                  targets are saved with presets and share codes (v3+).
+                  targets are saved with presets and share codes.
+                </li>
+                <li>
+                  <strong>Global Modifiers (optional):</strong> Enter shared
+                  values once: <strong>Strength against Epic %</strong>,
+                  <strong>Dragon Strength to Army %</strong>, and whether dragon
+                  is included in this march. If dragon is unchecked, its strength
+                  bonus is removed from card strength.
                 </li>
                 <li>
                   <strong>Army Bonuses (optional):</strong> On each unit tab,
-                  expand <strong>Army Bonuses</strong> at the top. Enter
-                  <strong>Strength against Epic %</strong> once—it syncs across
-                  all tabs. Then enter that tab’s Strength % grid (Guardsmen,
-                  Specialists, Monsters) or <strong>Catapult</strong> Strength
-                  %. Those numbers already include
+                  expand <strong>Army Bonuses</strong> at the top. Enter that
+                  tab’s Strength % grid (Guardsmen, Specialists, Monsters) or
+                  <strong>Catapult</strong> Strength %. Those numbers already
+                  include
                   <strong>hero talents, research, equipment</strong>, etc.; do
                   not enter them twice. Accordions close when you switch views
                   or load a preset. <strong>Mercenary</strong> bonus rows are
@@ -1043,14 +1152,14 @@
                   <strong>Damage:</strong> Per-catapult strike uses
                   <strong>×20 vs fortification</strong>, the
                   <strong>Fortification</strong> % on the unit card, and
-                  <strong>Catapult Strength %</strong> from the Catapults tab
-                  Army Bonuses accordion.
+                  <strong>Catapult Strength %</strong> from the Catapults tab.
+                  If dragon is not included, the Global Modifiers dragon
+                  adjustment also applies to catapult strength.
                 </li>
                 <li>
                   <strong>Presets:</strong> Saved presets keep selected
-                  catapults, stats, bonuses, and epic target, but
-                  <strong>not</strong> citadel mode or wall count—you still
-                  switch mode and re-enter walls after loading.
+                  catapults, stats, global modifiers, bonuses, citadel mode, and
+                  wall count.
                 </li>
               </ul>
 
@@ -1097,9 +1206,9 @@
 
               <h6 class="fw-bold mt-3">Presets</h6>
               <p class="small mb-2">
-                Presets store stat inputs, selected units,
-                <strong>Army Bonuses</strong>, and the active
-                <strong>epic target</strong> in this browser only (<strong
+                Presets store the active mode, stat inputs, selected units,
+                <strong>Global Modifiers</strong>, <strong>Army Bonuses</strong>,
+                epic target, and citadel wall count in this browser only (<strong
                   >local storage</strong
                 >)—nothing is uploaded.
               </p>
@@ -1114,8 +1223,8 @@
                   <strong>Detail</strong> view. Saved presets are unchanged.
                 </li>
                 <li>
-                  <strong>Save:</strong> Enabled once at least one of
-                  Leadership, Authority, or Dominance has a value. Use
+                  <strong>Save:</strong> Enabled once the form has values worth
+                  saving (stats, walls, selected units, or modifiers). Use
                   <em>Update</em> to overwrite the selected preset or save under
                   a new name.
                 </li>
@@ -1126,10 +1235,10 @@
                 <li>
                   <strong>Export / Import:</strong>
                   <strong>Export</strong> needs a preset selected; copies an
-                  <code>a2r-preset:</code> share code (v3 includes bonuses and
-                  epic target). <strong>Import</strong> adds
-                  <em>Imported: …</em> and loads it. Older v1/v2 codes import
-                  without bonuses and/or epic.
+                  <code>a2r-preset:</code> share code (v4 includes mode, wall
+                  count, modifiers, bonuses, and epic target).
+                  <strong>Import</strong> adds <em>Imported: …</em> and loads it.
+                  Older codes still import with sensible defaults.
                 </li>
               </ul>
 
@@ -1421,27 +1530,6 @@
           <i class="bi bi-bricks me-1" aria-hidden="true"></i> Citadel siege
         </div>
         <div class="small citadel-report-hint"></div>
-      </div>
-    </template>
-
-    <template id="bonus-vs-epic-template">
-      <div class="bonus-vs-epic-field mb-3 tool-epic-only">
-        <label class="form-label small fw-semibold mb-1 bonus-vs-epic-label">
-          Strength against Epic %
-        </label>
-        <input
-          type="number"
-          class="form-control form-control-sm bonus-pct-input bonus-vs-epic-input"
-          data-bonus-key="vs-epic"
-          min="0"
-          step="0.01"
-          placeholder="0"
-          inputmode="decimal"
-          autocomplete="off"
-        />
-        <div class="form-text">
-          Shared across all tabs — enter once, synced everywhere.
-        </div>
       </div>
     </template>
 

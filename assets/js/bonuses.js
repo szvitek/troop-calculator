@@ -9,9 +9,15 @@ export const BONUS_GRID_CATEGORIES = ["guardsmen", "specialists", "monsters"];
 /** Single Strength % input for all catapult units (no Melee/Ranged/Mounted/Flying row). */
 export const BONUS_CATAPULTS_KEY = "catapults-strength";
 
+export const BONUS_VS_EPIC_KEY = "vs-epic";
+export const BONUS_DRAGON_INCLUDED_KEY = "dragon-included";
+export const BONUS_DRAGON_STRENGTH_KEY = "dragon-strength";
+
 /** All `data-bonus-key` values used by the army bonus form (for preset import validation). */
 export const BONUS_INPUT_KEYS = [
-  "vs-epic",
+  BONUS_VS_EPIC_KEY,
+  BONUS_DRAGON_INCLUDED_KEY,
+  BONUS_DRAGON_STRENGTH_KEY,
   BONUS_CATAPULTS_KEY,
   ...BONUS_GRID_CATEGORIES.flatMap((category) =>
     COMBAT_TYPES.map((combat) => `grid.${category}.${combat}`),
@@ -49,6 +55,9 @@ const TAB_BONUS_LAYOUT = [
   },
 ];
 
+let categoryBonusesPreferOpen = false;
+let syncingCategoryBonusState = false;
+
 /**
  * @param {string|number} value
  * @returns {number} Decimal bonus (e.g. 52 → 0.52)
@@ -84,13 +93,20 @@ export function combatFeatureBonus(features = {}, epicCombatTypes = null) {
  * @param {ParentNode} [root]
  * @returns {{
  *   vsEpic: number,
+ *   dragonIncluded: boolean,
+ *   dragonStrength: number,
  *   catapults: number,
  *   grid: Record<string, Record<string, number>>
  * }}
  */
 export function readBonusState(root = document) {
+  const dragonIncludedEl = root.querySelector(
+    `.bonus-check-input[data-bonus-key="${BONUS_DRAGON_INCLUDED_KEY}"]`,
+  );
   const state = {
     vsEpic: 0,
+    dragonIncluded: dragonIncludedEl ? dragonIncludedEl.checked : true,
+    dragonStrength: 0,
     catapults: 0,
     grid: Object.fromEntries(
       BONUS_GRID_CATEGORIES.map((c) => [
@@ -105,7 +121,8 @@ export function readBonusState(root = document) {
     if (!key) return;
     const val = parsePercentInput(el.value);
 
-    if (key === "vs-epic") state.vsEpic = val;
+    if (key === BONUS_VS_EPIC_KEY) state.vsEpic = val;
+    else if (key === BONUS_DRAGON_STRENGTH_KEY) state.dragonStrength = val;
     else if (key === BONUS_CATAPULTS_KEY) state.catapults = val;
     else if (key.startsWith("grid.")) {
       const [, category, combat] = key.split(".");
@@ -124,10 +141,11 @@ export function readBonusState(root = document) {
  */
 export function captureBonusInputs(root = document) {
   const bonuses = {};
-  root.querySelectorAll(".bonus-pct-input").forEach((el) => {
+  root.querySelectorAll(".bonus-pct-input, .bonus-check-input").forEach((el) => {
     const key = el.dataset.bonusKey;
     if (!key) return;
-    bonuses[key] = el.value.trim();
+    bonuses[key] =
+      el.type === "checkbox" ? (el.checked ? "1" : "0") : el.value.trim();
   });
   return bonuses;
 }
@@ -137,13 +155,20 @@ export function captureBonusInputs(root = document) {
  * @param {ParentNode} [root]
  */
 export function applyBonusInputs(bonuses = {}, root = document) {
-  root.querySelectorAll(".bonus-pct-input").forEach((el) => {
+  root.querySelectorAll(".bonus-pct-input, .bonus-check-input").forEach((el) => {
     const key = el.dataset.bonusKey;
     if (!key) return;
-    el.value =
-      bonuses && Object.prototype.hasOwnProperty.call(bonuses, key)
-        ? String(bonuses[key])
-        : "";
+    if (el.type === "checkbox") {
+      el.checked =
+        key === BONUS_DRAGON_INCLUDED_KEY
+          ? !bonuses || bonuses[key] !== "0"
+          : bonuses && bonuses[key] === "1";
+    } else {
+      el.value =
+        bonuses && Object.prototype.hasOwnProperty.call(bonuses, key)
+          ? String(bonuses[key])
+          : "";
+    }
   });
 }
 
@@ -157,6 +182,10 @@ export function sanitizeBonusInputs(raw) {
   const out = {};
   for (const [key, value] of Object.entries(raw)) {
     if (!allowed.has(key)) continue;
+    if (key === BONUS_DRAGON_INCLUDED_KEY) {
+      out[key] = String(value) === "0" ? "0" : "1";
+      continue;
+    }
     const s = String(value).trim().slice(0, MAX_BONUS_INPUT_CHARS);
     if (!s) continue;
     const n = parseFloat(s.replace(/%/g, ""));
@@ -169,6 +198,14 @@ export function sanitizeBonusInputs(raw) {
 /** Catapult Strength % only (citadel siege — no vs Epic). */
 export function getCatapultSiegeStrengthPercent(bonusState) {
   return bonusState.catapults ?? 0;
+}
+
+export function getDragonAdjustedBaseDmg(baseDmg, bonusState) {
+  const dragonStrength = bonusState?.dragonStrength ?? 0;
+  if (!bonusState || bonusState.dragonIncluded || dragonStrength <= 0) {
+    return baseDmg;
+  }
+  return baseDmg / (1 + dragonStrength);
 }
 
 /** Fortification line on the unit card (decimal, e.g. 0.65 = 65%). */
@@ -209,9 +246,10 @@ export function getEffectiveDmg(
   epicCombatTypes = null,
 ) {
   if (!bonusState) return baseDmg;
+  const adjustedBaseDmg = getDragonAdjustedBaseDmg(baseDmg, bonusState);
   const strPct = getStrengthBonusPercent(unit, bonusState);
   const featPct = combatFeatureBonus(unit.features ?? {}, epicCombatTypes);
-  return baseDmg * (1 + strPct + featPct);
+  return adjustedBaseDmg * (1 + strPct + featPct);
 }
 
 function syncLinkedBonusInputs(source) {
@@ -222,17 +260,6 @@ function syncLinkedBonusInputs(source) {
     .forEach((el) => {
       if (el !== source) el.value = source.value;
     });
-}
-
-function createVsEpicBlock(category) {
-  const fragment = cloneTemplate("bonus-vs-epic-template", (root) => {
-    const id = `bonus-vs-epic-${category}`;
-    const label = root.querySelector(".bonus-vs-epic-label");
-    const input = root.querySelector(".bonus-vs-epic-input");
-    if (label) label.htmlFor = id;
-    if (input) input.id = id;
-  });
-  return fragment?.firstElementChild ?? null;
 }
 
 function createCombatGrid(category) {
@@ -320,7 +347,6 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
   const collapse = document.createElement("div");
   collapse.id = collapseId;
   collapse.className = "accordion-collapse collapse category-bonuses-collapse";
-  collapse.setAttribute("data-bs-parent", `#${accordionId}`);
 
   const body = document.createElement("div");
   body.className = "accordion-body py-2 px-2";
@@ -338,8 +364,6 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
       intro.innerHTML = `Enter <strong>${label}</strong> Strength % per combat type from in-game (whole numbers).`;
     }
     body.appendChild(intro);
-    const vsEpic = createVsEpicBlock(category);
-    if (vsEpic) body.appendChild(vsEpic);
 
     if (type === "grid") {
       body.appendChild(createCombatGrid(category));
@@ -358,15 +382,46 @@ function buildTabBonusAccordion({ category, tabPaneId, type }) {
   collapse.addEventListener("hidden.bs.collapse", () => {
     btn.classList.add("collapsed");
     btn.setAttribute("aria-expanded", "false");
+    if (!syncingCategoryBonusState) categoryBonusesPreferOpen = false;
   });
   collapse.addEventListener("shown.bs.collapse", () => {
     btn.classList.remove("collapsed");
     btn.setAttribute("aria-expanded", "true");
+    if (!syncingCategoryBonusState) categoryBonusesPreferOpen = true;
   });
+}
+
+function syncActiveCategoryBonusAccordion() {
+  const activePane = document.querySelector(
+    "#unitTabsContent .tab-pane.active .category-bonuses-collapse",
+  );
+  if (!activePane) return;
+
+  const isOpen = activePane.classList.contains("show");
+  if (categoryBonusesPreferOpen === isOpen) return;
+
+  syncingCategoryBonusState = true;
+  const doneEvent = categoryBonusesPreferOpen
+    ? "shown.bs.collapse"
+    : "hidden.bs.collapse";
+  activePane.addEventListener(
+    doneEvent,
+    () => {
+      syncingCategoryBonusState = false;
+    },
+    { once: true },
+  );
+
+  const instance = bootstrap.Collapse.getOrCreateInstance(activePane, {
+    toggle: false,
+  });
+  if (categoryBonusesPreferOpen) instance.show();
+  else instance.hide();
 }
 
 /** Collapses all open per-tab Army Bonuses accordions. */
 export function collapseArmyBonusesAccordion() {
+  categoryBonusesPreferOpen = false;
   document.querySelectorAll(".category-bonuses-collapse.show").forEach((el) => {
     const instance = bootstrap.Collapse.getInstance(el);
     if (instance) instance.hide();
@@ -388,10 +443,20 @@ export function collapseArmyBonusesAccordion() {
 export function initBonusUI(onChange) {
   TAB_BONUS_LAYOUT.forEach((layout) => buildTabBonusAccordion(layout));
 
+  document.querySelectorAll('#unitTabs button[data-bs-toggle="pill"]').forEach((el) => {
+    el.addEventListener("shown.bs.tab", syncActiveCategoryBonusAccordion);
+  });
+
   document.querySelectorAll(".bonus-pct-input").forEach((el) => {
     el.addEventListener("input", () => {
       if (el.value !== "" && parseFloat(el.value) < 0) el.value = "0";
       syncLinkedBonusInputs(el);
+      onChange();
+    });
+  });
+
+  document.querySelectorAll(".bonus-check-input").forEach((el) => {
+    el.addEventListener("change", () => {
       onChange();
     });
   });
