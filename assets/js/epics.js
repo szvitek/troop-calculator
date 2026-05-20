@@ -156,57 +156,42 @@ export function readEpicTargetState(root = document) {
     squads: [],
   };
 
-  const presetMode = root.querySelector("#epic-mode-preset")?.checked;
-  const customMode = root.querySelector("#epic-mode-custom")?.checked;
-
-  if (customMode) {
-    const squads = COMBAT_TYPES.map((combatType) => {
-      const strength = parseStat(
-        root.querySelector(`#epic-custom-${combatType}-strength`)?.value,
-      );
-      const hp = parseStat(
-        root.querySelector(`#epic-custom-${combatType}-hp`)?.value,
-      );
-      const featPct = parseFeaturePercent(
-        root.querySelector(`#epic-custom-${combatType}-feature`)?.value,
-      );
-      return {
-        name: `${COMBAT_LABELS[combatType]} layer`,
-        tier: null,
-        combatType,
-        strength,
-        hp,
-        features: buildEpicLayerFeatures(combatType, featPct),
-        tags: ["epic", combatType],
-      };
-    });
-
-    return {
-      mode: "custom",
-      id: "custom",
-      name: "Custom epic",
-      combatTypes: [...COMBAT_TYPES],
-      squads,
-    };
-  }
-
-  if (!presetMode) return none;
-
   const select = root.querySelector("#epic-preset-select");
-  const id = select?.value?.trim() || "";
-  if (!id) return none;
+  const selectedId = select?.value?.trim() || "";
+  const selectedName =
+    selectedId && select?.selectedOptions?.[0]
+      ? select.selectedOptions[0].textContent.trim()
+      : "";
 
-  const enc = getEpicById(id);
-  if (!enc) return none;
+  const squads = COMBAT_TYPES.map((combatType) => {
+    const strength = parseStat(
+      root.querySelector(`#epic-custom-${combatType}-strength`)?.value,
+    );
+    const hp = parseStat(
+      root.querySelector(`#epic-custom-${combatType}-hp`)?.value,
+    );
+    const featPct = parseFeaturePercent(
+      root.querySelector(`#epic-custom-${combatType}-feature`)?.value,
+    );
+    return {
+      name: `${COMBAT_LABELS[combatType]} layer`,
+      tier: null,
+      combatType,
+      strength,
+      hp,
+      features: buildEpicLayerFeatures(combatType, featPct),
+      tags: ["epic", combatType],
+    };
+  });
 
-  const squads = normalizeSquads(enc.squads ?? []);
-  const combatTypes = getCombatTypesFromSquads(enc.squads ?? []);
+  const hasStats = squads.some((s) => s.strength > 0 || s.hp > 0);
+  if (!hasStats) return none;
 
   return {
-    mode: "preset",
-    id: enc.id,
-    name: enc.encounterName,
-    combatTypes,
+    mode: "custom",
+    id: selectedId || "custom",
+    name: selectedName || "Custom epic",
+    combatTypes: [...COMBAT_TYPES],
     squads,
   };
 }
@@ -226,6 +211,17 @@ function clampFeaturePercentWhole(value) {
   return Math.min(n, MAX_FEATURE_PERCENT);
 }
 
+function cleanFeaturePercentWhole(value) {
+  const n = clampFeaturePercentWhole(value);
+  if (n === 0) return 0;
+  return Number(n.toFixed(6));
+}
+
+function formatFeaturePercentInput(value) {
+  const n = cleanFeaturePercentWhole(value);
+  return n > 0 ? String(n) : "";
+}
+
 /**
  * Serializable epic target for presets / share codes.
  * @param {ParentNode} [root]
@@ -233,9 +229,6 @@ function clampFeaturePercentWhole(value) {
 export function captureEpicPresetState(root = document) {
   const state = readEpicTargetState(root);
   if (state.mode === "none") return { mode: "none" };
-  if (state.mode === "preset") {
-    return { mode: "preset", presetId: state.id };
-  }
 
   const layers = {};
   for (const combatType of COMBAT_TYPES) {
@@ -243,7 +236,7 @@ export function captureEpicPresetState(root = document) {
     const vs = RPS_EPIC_BEATS[combatType];
     let featurePercent = 0;
     if (squad?.features && vs && typeof squad.features[vs] === "number") {
-      featurePercent = squad.features[vs] * 100;
+      featurePercent = cleanFeaturePercentWhole(squad.features[vs] * 100);
     }
     layers[combatType] = {
       strength: squad?.strength ?? 0,
@@ -252,10 +245,64 @@ export function captureEpicPresetState(root = document) {
     };
   }
 
-  return {
+  const out = {
     mode: "custom",
     layers,
   };
+  if (state.id && state.id !== "custom") {
+    out.sourcePresetId = state.id;
+  }
+  return out;
+}
+
+/**
+ * @param {string} presetId
+ * @param {ParentNode} [root]
+ */
+export function populateCustomEpicInputsFromPreset(presetId, root = document) {
+  const enc = getEpicById(presetId);
+  if (!enc) return false;
+
+  const squads = normalizeSquads(enc.squads ?? []);
+  for (const combatType of COMBAT_TYPES) {
+    const squad = squads.find((s) => s.combatType === combatType);
+    const vs = RPS_EPIC_BEATS[combatType];
+    const featurePercent =
+      squad?.features && vs && typeof squad.features[vs] === "number"
+        ? cleanFeaturePercentWhole(squad.features[vs] * 100)
+        : 0;
+
+    const strEl = root.querySelector(`#epic-custom-${combatType}-strength`);
+    const hpEl = root.querySelector(`#epic-custom-${combatType}-hp`);
+    const featEl = root.querySelector(`#epic-custom-${combatType}-feature`);
+    if (strEl) strEl.value = squad?.strength > 0 ? String(squad.strength) : "";
+    if (hpEl) hpEl.value = squad?.hp > 0 ? String(squad.hp) : "";
+    if (featEl) {
+      featEl.value = formatFeaturePercentInput(featurePercent);
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @param {Record<CombatType, { strength: number, hp: number, featurePercent: number }>} layers
+ * @param {ParentNode} [root]
+ */
+function applyCustomEpicLayers(layers, root = document) {
+  for (const combatType of COMBAT_TYPES) {
+    const layer = layers[combatType];
+    const strEl = root.querySelector(`#epic-custom-${combatType}-strength`);
+    const hpEl = root.querySelector(`#epic-custom-${combatType}-hp`);
+    const featEl = root.querySelector(`#epic-custom-${combatType}-feature`);
+    if (strEl) {
+      strEl.value = layer.strength > 0 ? String(layer.strength) : "";
+    }
+    if (hpEl) hpEl.value = layer.hp > 0 ? String(layer.hp) : "";
+    if (featEl) {
+      featEl.value = formatFeaturePercentInput(layer.featurePercent);
+    }
+  }
 }
 
 /**
@@ -286,10 +333,21 @@ export function sanitizeEpicPreset(raw, opts = {}) {
       layers[combatType] = {
         strength: clampEpicStat(src?.strength),
         hp: clampEpicStat(src?.hp),
-        featurePercent: clampFeaturePercentWhole(src?.featurePercent),
+        featurePercent: cleanFeaturePercentWhole(src?.featurePercent),
       };
     }
-    return { mode: "custom", layers };
+    const sourcePresetId =
+      typeof raw.sourcePresetId === "string"
+        ? raw.sourcePresetId.trim().slice(0, 120)
+        : "";
+    const out = { mode: "custom", layers };
+    if (
+      sourcePresetId &&
+      (!opts.validateCatalog || !epicsCatalog.length || getEpicById(sourcePresetId))
+    ) {
+      out.sourcePresetId = sourcePresetId;
+    }
+    return out;
   }
 
   return none;
@@ -322,40 +380,34 @@ export async function applyEpicPresetState(epic, root = document) {
   ensureEpicPresetDropdown(root);
   const data = sanitizeEpicPreset(epic, { validateCatalog: true });
 
-  const presetRadio = root.querySelector("#epic-mode-preset");
-  const customRadio = root.querySelector("#epic-mode-custom");
   const select = root.querySelector("#epic-preset-select");
 
   if (data.mode === "custom") {
-    if (customRadio) customRadio.checked = true;
-    if (presetRadio) presetRadio.checked = false;
-    if (select) select.value = "";
-
-    for (const combatType of COMBAT_TYPES) {
-      const layer = data.layers[combatType];
-      const strEl = root.querySelector(`#epic-custom-${combatType}-strength`);
-      const hpEl = root.querySelector(`#epic-custom-${combatType}-hp`);
-      const featEl = root.querySelector(`#epic-custom-${combatType}-feature`);
-      if (strEl) {
-        strEl.value = layer.strength > 0 ? String(layer.strength) : "";
-      }
-      if (hpEl) hpEl.value = layer.hp > 0 ? String(layer.hp) : "";
-      if (featEl) {
-        featEl.value =
-          layer.featurePercent > 0 ? String(layer.featurePercent) : "";
-      }
+    if (select) {
+      const hasSourceOpt =
+        data.sourcePresetId &&
+        [...select.options].some((o) => o.value === data.sourcePresetId);
+      select.value = hasSourceOpt ? data.sourcePresetId : "";
     }
+    applyCustomEpicLayers(data.layers, root);
     return;
   }
-
-  if (customRadio) customRadio.checked = false;
-  if (presetRadio) presetRadio.checked = true;
 
   if (data.mode === "preset" && select) {
     const hasOpt = [...select.options].some((o) => o.value === data.presetId);
     select.value = hasOpt ? data.presetId : "";
+    if (hasOpt) populateCustomEpicInputsFromPreset(data.presetId, root);
     return;
   }
 
   if (select) select.value = "";
+  applyCustomEpicLayers(
+    Object.fromEntries(
+      COMBAT_TYPES.map((combatType) => [
+        combatType,
+        { strength: 0, hp: 0, featurePercent: 0 },
+      ]),
+    ),
+    root,
+  );
 }

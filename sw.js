@@ -1,5 +1,5 @@
 /* App semver — bump patch (1.2.1) or minor (1.3.0) on release; keep in sync with changelog.txt. */
-const CACHE_VERSION = "1.3.6";
+const CACHE_VERSION = "1.3.7";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [

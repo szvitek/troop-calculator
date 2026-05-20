@@ -85,9 +85,9 @@ Scope: **Catapults** (siege support alongside the existing march stack).
   - Keep **Dragon Health to Army %** out of the UI until survivability/health logic exists, to avoid a dead input.
   - Save and restore global modifiers in presets/share codes so players enter them once.
 - [ ] **Epic Target & Kill Threshold Improvements**
-  - Merge the current Standard/Custom epic target flow: selecting a standard epic should populate editable custom inputs.
-  - Treat the editable epic inputs as the calculation source of truth, so players can quickly adjust standard presets for non-standard event epics.
-  - Preserve preset/share-code support for the selected or edited epic target data.
+  - [x] Merge the current Standard/Custom epic target flow: selecting a standard epic should populate editable custom inputs.
+  - [x] Treat the editable epic inputs as the calculation source of truth, so players can quickly adjust standard presets for non-standard event epics.
+  - [x] Preserve preset/share-code support for the selected or edited epic target data.
   - Add kill threshold metadata to the existing results: units needed to secure one epic unit kill, kills secured by the suggested stack, and minimum units needed for the shown kill count.
   - Display these kill-threshold insights in Summary view as informational badges/tooltips (for example: “1 kill · min 10 units · save 8” or “0 kills · needs 10 units”).
   - Keep the current greedy/balanced recommendation unchanged for now; use the Summary insight to help players manually avoid sending units that do not cross the next kill threshold.

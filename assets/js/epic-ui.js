@@ -4,6 +4,7 @@ import {
   RPS_EPIC_BEATS,
   RPS_EPIC_BEATS_LABEL,
   loadEpicsCatalog,
+  populateCustomEpicInputsFromPreset,
   readEpicTargetState,
 } from "./epics.js";
 
@@ -109,12 +110,10 @@ function buildCustomEpicGrid() {
   });
 }
 
-function syncEpicPanels() {
-  const preset = document.getElementById("epic-mode-preset")?.checked;
-  const presetPanel = document.getElementById("epic-preset-panel");
-  const customPanel = document.getElementById("epic-custom-panel");
-  if (presetPanel) presetPanel.classList.toggle("d-none", !preset);
-  if (customPanel) customPanel.classList.toggle("d-none", preset);
+function clearCustomEpicInputs() {
+  document.querySelectorAll(".epic-custom-input").forEach((el) => {
+    el.value = "";
+  });
 }
 
 /**
@@ -148,14 +147,17 @@ export function initEpicUI(onChange) {
     .catch((err) => console.error("Failed to load epics:", err));
 
   function refresh() {
-    syncEpicPanels();
     renderEpicInfoPanel(readEpicTargetState());
     onChange();
   }
 
-  document.getElementById("epic-mode-preset")?.addEventListener("change", refresh);
-  document.getElementById("epic-mode-custom")?.addEventListener("change", refresh);
-  document.getElementById("epic-preset-select")?.addEventListener("change", refresh);
+  document.getElementById("epic-preset-select")?.addEventListener("change", (e) => {
+    const id = e.target.value;
+    if (id) populateCustomEpicInputsFromPreset(id);
+    else clearCustomEpicInputs();
+    refresh();
+    document.dispatchEvent(new Event("a2r:preset-sync"));
+  });
 
   section.addEventListener("input", (e) => {
     if (!e.target.classList.contains("epic-custom-input")) return;
@@ -166,15 +168,15 @@ export function initEpicUI(onChange) {
     ) {
       e.target.value = "0";
     }
+    const select = document.getElementById("epic-preset-select");
+    if (select) select.value = "";
     refresh();
   });
 
-  syncEpicPanels();
   renderEpicInfoPanel(readEpicTargetState());
 }
 
 /** Updates epic mode panels and squad-details accordion after preset load. */
 export function syncEpicTargetDisplay() {
-  syncEpicPanels();
   renderEpicInfoPanel(readEpicTargetState());
 }

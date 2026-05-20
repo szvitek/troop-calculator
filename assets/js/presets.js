@@ -224,6 +224,13 @@ function isPresetInputPopulated() {
   ) {
     return true;
   }
+  if (
+    [...document.querySelectorAll(".epic-custom-input")].some(
+      (el) => el.value.trim() !== "",
+    )
+  ) {
+    return true;
+  }
   const dragonIncluded = document.querySelector(
     '.bonus-check-input[data-bonus-key="dragon-included"]',
   );
@@ -549,7 +556,8 @@ export function initPresets() {
       e.target.id === "input-authority" ||
       e.target.id === "input-dominance" ||
       e.target.id === "citadel-wall-count" ||
-      e.target.classList.contains("bonus-pct-input")
+      e.target.classList.contains("bonus-pct-input") ||
+      e.target.classList.contains("epic-custom-input")
     ) {
       syncSavePresetButton();
     }
@@ -559,11 +567,13 @@ export function initPresets() {
     if (
       e.target.classList.contains("unit-check") ||
       e.target.classList.contains("tier-master-check") ||
-      e.target.classList.contains("bonus-check-input")
+      e.target.classList.contains("bonus-check-input") ||
+      e.target.id === "epic-preset-select"
     ) {
       syncSavePresetButton();
     }
   });
+  document.addEventListener("a2r:preset-sync", syncSavePresetButton);
 
   select.addEventListener("change", () => {
     const name = select.value;

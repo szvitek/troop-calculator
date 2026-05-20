@@ -1,4 +1,4 @@
-import { getStrengthBonusPercent } from "./bonuses.js";
+import { getDragonAdjustedBaseDmg, getStrengthBonusPercent } from "./bonuses.js";
 import { COMBAT_LABELS } from "./epics.js";
 
 /**
@@ -9,13 +9,14 @@ import { COMBAT_LABELS } from "./epics.js";
  * @param {ReturnType<import("./bonuses.js").readBonusState>} bonusState
  */
 export function strikeDamageVsLayer(baseDmg, unit, layerCombatType, bonusState) {
+  const adjustedBaseDmg = getDragonAdjustedBaseDmg(baseDmg, bonusState);
   const strPct = getStrengthBonusPercent(unit, bonusState);
   let featPct = 0;
   if (layerCombatType && unit.features) {
     const v = unit.features[layerCombatType];
     if (typeof v === "number" && !Number.isNaN(v)) featPct = v;
   }
-  return baseDmg * (1 + strPct + featPct);
+  return adjustedBaseDmg * (1 + strPct + featPct);
 }
 
 /**

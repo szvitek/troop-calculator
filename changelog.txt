@@ -9,7 +9,7 @@ v1.3.5 - 2026-05-20
 [NEW] **Global Modifiers** section added for shared strength values: **Strength against Epic %**, **Dragon included in march**, and **Dragon Strength to Army %**.
 [FIX] Dragon Strength to Army can be removed from card strength when dragon is not allowed or not included in the march; this affects both Epic march and Citadel siege calculations.
 [UX] Category **Army Bonuses** accordions now share open/closed preference across unit tabs, so switching categories keeps the bonuses panel behavior consistent.
-[UX] Epic target **Standard / Custom** toggles use primary outline styling to match the app theme.
+[UX] Epic target presets now fill the editable layer fields; those fields are the calculation source of truth for both standard and event epics.
 [UX] Card borders standardized (`app-card`); tier colors on labels and accents only, not red/white tier outlines.
 [UX] Layout alignment tightened: removed unnecessary Bootstrap row gutters from non-grid sections so cards, accordions, and unit rows stay inside the main container.
 [UX] Checkbox selection no longer lifts tier cards vertically; selected cards keep a subtle shadow without layout jitter.
