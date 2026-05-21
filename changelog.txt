@@ -1,4 +1,4 @@
-v1.4.0 - 2026-05-21
+v1.4.0 - 2026-05-22
 -------------------
 
 [CHANGE] Rebrand to **A2R Toolbox** (navbar, title, PWA manifest, docs). Subtitle: troop stacking & citadel siege.
@@ -26,6 +26,7 @@ v1.4.0 - 2026-05-21
 [UX] Mercenaries tab: WIP alert — army bonus inputs are hidden; mercenary damage ignores bonus % until data is ready.
 [NEW] Presets and share codes (**v4**) save **Epic march vs Citadel siege** mode and **citadel wall count**; v1–v3 codes still import (defaults: epic mode, no wall goal).
 [FIX] Reset now clears the Citadel wall count along with stats, units, bonuses, and epic target fields.
+[FIX] Modal focus handling tightened to avoid browser accessibility warnings when dialogs close.
 [UX] Loading a preset always opens **Summary** view for epic and citadel setups.
 [FIX] Mode switching keeps the selected Detail/Summary view, switches Citadel to Catapults, and returns Epic mode to Guards.
 [CHANGE] Citadel siege panel and help copy trimmed (removed wall reference line, redundant helper text, and stale preset wording).
