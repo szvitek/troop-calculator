@@ -376,8 +376,7 @@
             <p class="small text-muted mb-2">
               Selecting a preset fills these editable values. For event or
               temporary epics, adjust the layer stats here. Feature % is vs the
-              type that layer counters
-              (Flying→Melee→Mounted→Ranged→Flying).
+              type that layer counters (Flying→Melee→Mounted→Ranged→Flying).
             </p>
             <div class="epic-custom-grid" id="epic-custom-grid-mount"></div>
           </div>
@@ -510,7 +509,10 @@
           </div>
         </div>
 
-        <div class="accordion mb-3 global-modifiers-accordion" id="globalModifiersAccordion">
+        <div
+          class="accordion mb-3 global-modifiers-accordion"
+          id="globalModifiersAccordion"
+        >
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button
@@ -926,198 +928,335 @@
               </button>
             </div>
             <div class="modal-body">
-              <h6 class="fw-bold">What is Stacking?</h6>
-              <p>
-                Troop stacking is a technique in Total Battle where you send
-                multiple tiers of troops together to maximize damage while
-                minimizing losses. By using lower-tier troops to fill your
-                capacity, retraining becomes significantly cheaper.
+              <h6 class="fw-bold">Quick Start</h6>
+              <p class="small mb-2">
+                A2R Toolbox helps plan two jobs: Epic marches with balanced
+                troop stacks, and Citadel siege volleys with catapults. Enter
+                your capacity, bonuses, and target, then pick units in Detail
+                view. Use the floating button to switch between Detail and
+                Summary.
+              </p>
+              <p class="small text-muted mb-3">
+                The screenshots below follow the same order a player would use
+                the app.
               </p>
 
-              <p>
-                <strong>
-                  The goal is to outnumber the layers of the Epic monster to
-                  secure more guaranteed hits. Use stacking for repeated Epic
-                  attacks to ensure consistent results and stable rewards.
-                </strong>
+              <h6 class="fw-bold mt-3">Troop Stacking</h6>
+              <p class="small mb-2">
+                Troop stacking means sending several unit tiers together instead
+                of only your strongest tier. The app balances selected units so
+                each stack aims for similar effective damage. This helps spread
+                losses, reduce retraining cost, and make repeated epic attacks
+                more consistent.
               </p>
 
-              <p>
-                If you go "all-in" with only your strongest tier, you might
-                occasionally see higher rewards, but it isn't guaranteed because
-                of how the
-                <a
-                  href="https://www.youtube.com/watch?v=8rdVjHNRXn0"
-                  target="_blank"
-                  class="text-info text-decoration-none fw-bold"
-                >
-                  <i class="bi bi-youtube"></i> combat system
-                </a>
-                works. You will also lose more units, and retraining best-tier
-                units requires more silver.
-                <strong>
-                  Stacking is a sustainable approach that saves resources and
-                  ensures you get consistent rewards.
-                </strong>
-              </p>
+              <h6 class="fw-bold mt-3">Epic March Steps</h6>
+              <ol class="border-start border-2 small">
+                <li>
+                  Prepare your Hero and ensure you remove any equipment that
+                  might alter unit statistics.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/prepare-hero.png"
+                      alt="Hero preparation screen before planning an epic march"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      As shown above, economy armor doesn't affect unit stats,
+                      so it doesn't need to be removed.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Remove any Captains you aren't using for the attack. Their
+                  passive presence in the city can alter unit stats and cause
+                  calculation errors.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/remove-captains.png"
+                      alt="Removing unused captains before testing epic march values"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Remove Captains that are not joining the march.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Enter your <strong>Leadership</strong>. Include
+                  <strong>Dominance</strong> and/or <strong>Authority</strong>
+                  thresholds if you plan to deploy Monsters or Mercenaries.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/enter-leadership.png"
+                      alt="Leadership value entered in the app"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Leadership sets the main capacity for Guardsmen,
+                      Specialists, and Catapults.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Select the <strong>Epic type</strong> you want to fight from
+                  the dropdown menu. If your specific target isn't listed (such
+                  as seasonal kingdom or special event targets), you can enter
+                  its stats manually.
+                  <span class="d-block text-muted mt-1">
+                    Tip: some non-standard epic monsters reuse the same stats as
+                    standard epics, so check the dropdown first before typing
+                    custom values.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/select-epic-target.png"
+                      alt="Selecting an epic target and reviewing editable layer stats"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Selecting a preset fills the editable layer stats.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Configure your Global Modifiers for shared stat increases.
+                  This includes your account's total Strength vs Epics % (from
+                  artifacts like the Ghostflame Lantern) and your Dragon
+                  Strength to Army %.
+                  <span class="d-block text-muted mt-1">
+                    <strong>
+                      Enter your full Dragon Strength here even if the dragon
+                      cannot join the march;
+                    </strong>
+                    The engine will automatically remove it from the final
+                    calculation if you uncheck the Dragon included box.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/epic-global-bonuses.png"
+                      alt="Global modifiers used for an epic march"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Global Modifiers apply across unit tabs.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Select the units you want to include in your stack, then open
+                  the <strong>Army Bonuses</strong> accordion for that tab.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/select-units-and-bonuses.png"
+                      alt="Selecting units and entering Army Bonuses"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Input the total Strength % value found on your in-game
+                      unit's statistics screen.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Save your configuration as a preset using a descriptive name.
+                  This allows you to instantly reload your exact troop
+                  selections and modifiers before repeated attacks.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/save-preset.png"
+                      alt="Saving a preset for repeated epic attacks"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Presets keep your selected units, stats, bonuses, and epic
+                      target.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <strong>Verified Accuracy:</strong> You don't need to manually
+                  calculate anything — the engine handles it all. Below is a
+                  real-world comparison proving how closely the app's optimized
+                  distribution matches actual results.
+                  <div class="help-figure-pair">
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/epic-app-estimates.png"
+                        alt="Epic march estimates shown in the app"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>App estimate.</figcaption>
+                    </figure>
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/epic-in-game-results.jpg"
+                        alt="Epic march results shown in game"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>Actual In-game result.</figcaption>
+                    </figure>
+                  </div>
+                </li>
+              </ol>
 
-              <h6 class="fw-bold">How the calculator works</h6>
-              <ul class="border-start border-2">
+              <h6 class="fw-bold mt-3">Citadel Siege Steps</h6>
+              <ol class="border-start border-2 small">
                 <li>
-                  <strong>Leadership:</strong> March capacity for
-                  <strong>Guardsmen</strong>, <strong>Specialists</strong>, and
-                  <strong>Catapults</strong>. This sets the "damage goal" those
-                  units balance toward.
+                  Set up your Hero using the same guidelines as Epic marches
+                  (remove combat gear that modifies troop stats).
+                  <span class="d-block text-muted mt-1">
+                    Tip: Global Strength vs Epics % modifiers are automatically
+                    ignored by the engine in Citadel Mode.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/prepare-hero.png"
+                      alt="Hero preparation before planning a citadel siege"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Only remove gear that modifies troop stats.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Authority:</strong> How many
-                  <strong>Mercenaries</strong> you can bring. With
-                  <strong>Leadership</strong> set, mercenaries scale to match
-                  your stack's damage (like monsters). With
-                  <strong>no Leadership</strong> but
-                  <strong>Authority</strong> filled in, capacity is split across
-                  selected mercenaries only.
+                  Select <strong>Citadel siege</strong> from the top toggle,
+                  then enter the total number of defense walls you need to
+                  break.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/citadel-walls.png"
+                      alt="Citadel wall count entered in the app"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Specify the exact number of walls you need to break.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Selection:</strong> Pick the units to include. The
-                  calculator balances the stack so every selected tier deals the
-                  same <strong>effective damage</strong> per soldier.
-                </li>
-                <li>
-                  <strong>Monsters &amp; Dominance:</strong>
-                  <ul>
-                    <li>
-                      <strong>Mirror mode:</strong> With
-                      <strong>Leadership</strong> entered, monsters scale to
-                      match your guards' damage.
-                    </li>
-                    <li>
-                      <strong>Pure monster mode:</strong> With
-                      <strong>no Leadership</strong> but
-                      <strong>Dominance</strong> entered, capacity is split
-                      across selected monsters only.
-                    </li>
-                  </ul>
-                  <small class="text-muted">
-                    <em>
-                      The
-                      <i
-                        class="bi bi-exclamation-triangle-fill text-warning"
-                        aria-hidden="true"
-                      ></i>
-                      icon appears when you enter
-                      <strong>Dominance</strong> or
-                      <strong>Authority</strong> and the balanced stack needs
-                      more capacity than you have—it shows the maximum that
-                      still keeps the mix in balance.
-                    </em>
-                  </small>
-                </li>
-                <li>
-                  <strong>Damage formula:</strong> For
+                  Configure your Global Modifiers.
                   <strong
-                    >Guardsmen, Specialists, Monsters, and Catapults</strong
-                  >, Global Modifiers, Army Bonuses, and unit-card features are
-                  included:
-                  <strong>base × (1 + Strength bonuses + feature bonus)</strong
-                  >. Strength percents <strong>add</strong> (they are not
-                  multiplied). The feature line uses the
-                  <strong
-                    >highest Melee / Ranged / Mounted / Flying % on the unit
-                    card</strong
-                  >
-                  that applies—when an <strong>Epic target</strong> is set, only
-                  types present on that epic count. Fortification, beast, siege,
-                  and similar lines are ignored.
-                  <strong>Mercenaries</strong> use base damage only for now—we
-                  do not have enough in-game data to apply mercenary bonuses
-                  reliably (mercenary bonus inputs are planned for a future
-                  update).
+                    >Enter your full Dragon Strength % here even if it is
+                    <u>not</u> joining the current march</strong
+                  >. The engine will automatically ignore Epic multipliers and
+                  calculate your raw Citadel siege stats
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/global-bonuses-and-units.png"
+                      alt="Global bonuses, selected catapults, and catapult bonuses"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Global modifiers apply across tabs. Strength vs Epics is
+                      automatically omitted.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Epic target (optional):</strong> Pick a preset
-                  encounter to fill the editable layer stats, or enter event
-                  epic values directly. This steers feature % and unlocks epic
-                  kill estimates. Epic target stats are saved with presets and
-                  share codes.
+                  Compare the app estimates with the actual in-game results.
+                  <div class="help-figure-pair">
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/citadel-app-estimates.png"
+                        alt="Citadel siege estimates shown in the app"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>App estimate.</figcaption>
+                    </figure>
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/citadel-in-game-results.jpg"
+                        alt="Citadel siege results shown in game"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>Actual In-game result.</figcaption>
+                    </figure>
+                  </div>
+                </li>
+              </ol>
+
+              <h6 class="fw-bold mt-3">Bonuses</h6>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Global Modifiers</strong> Shared across all unit tabs.
+                  This includes your Strength against Epic %, the Dragon
+                  included in march toggle, and your Dragon Strength to Army %.
                 </li>
                 <li>
-                  <strong>Global Modifiers (optional):</strong> Enter shared
-                  values once: <strong>Strength against Epic %</strong>,
-                  <strong>Dragon Strength to Army %</strong>, and whether dragon
-                  is included in this march. If dragon is unchecked, its strength
-                  bonus is removed from card strength.
+                  <strong>Strength against Epic %:</strong> Use this to input
+                  bonuses from sources like the Ghostflame Lantern artifact. You
+                  can find this total value on any unit's in-game statistics
+                  screen.
                 </li>
                 <li>
-                  <strong>Army Bonuses (optional):</strong> On each unit tab,
-                  expand <strong>Army Bonuses</strong> at the top. Enter that
-                  tab’s Strength % grid (Guardsmen, Specialists, Monsters) or
-                  <strong>Catapult</strong> Strength %. Those numbers already
-                  include
-                  <strong>hero talents, research, equipment</strong>, etc.; do
-                  not enter them twice. Accordions close when you switch views
-                  or load a preset. <strong>Mercenary</strong> bonus rows are
-                  planned once their in-game rules are clear.
+                  <strong>Army Bonuses</strong> The raw Strength % values
+                  specific to the active troop tab. This number should reflect
+                  your total in-game stats, which already bundle your talents,
+                  research, equipment, and permanent account bonuses together.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Citadel siege</h6>
-              <p class="small mb-2">
-                Use this mode to plan an opening catapult volley against citadel
-                walls—not Epic marches.
-              </p>
+              <h6 class="fw-bold mt-3">What The App Does Not Do Yet</h6>
               <ul class="border-start border-2 small">
                 <li>
-                  <strong>Toolbox mode:</strong> Choose
-                  <strong>Citadel siege</strong> at the top. Leadership,
-                  Authority, Dominance, Epic target, and non-catapult unit tabs
-                  are hidden.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Full Battle Simulation:
+                  </strong>
+                  The engine estimates damage and kill thresholds, but it is not
+                  a 100% complete simulator.
                 </li>
                 <li>
-                  <strong>Walls:</strong> Enter how many walls you need to
-                  break. Goal and combined volley show in the citadel panel and
-                  in <strong>Siege summary</strong> (FAB, bottom-right).
+                  <strong class="text-primary d-block d-sm-inline">
+                    Mercenary Bonus Rules:
+                  </strong>
+                  Special mercenary multipliers are not fully modeled yet.
+                  Mercenaries currently calculate using their base damage values
+                  until more reliable in-game data becomes available.
                 </li>
                 <li>
-                  <strong>Catapults:</strong> On the Catapults tab,
-                  <strong>your highest catapult tier (recommended)</strong>
-                  gives the exact count to break all walls.
-                  <strong>Multiple tiers</strong> use the same damage-per-tier
-                  rule as epic march stacking (shared volley goal), which may
-                  recommend more catapults than a single tier. Per-tier volley
-                  is on each card; use the FAB for
-                  <strong>Siege summary</strong>.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Defensive Stats &amp; Survivability:
+                  </strong>
+                  Health mechanics, defense ratings, and
+                  <strong>Dragon Health to Army %</strong> are not yet factored
+                  into the current distribution algorithms.
                 </li>
                 <li>
-                  <strong>Damage:</strong> Per-catapult strike uses
-                  <strong>×20 vs fortification</strong>, the
-                  <strong>Fortification</strong> % on the unit card, and
-                  <strong>Catapult Strength %</strong> from the Catapults tab.
-                  If dragon is not included, the Global Modifiers dragon
-                  adjustment also applies to catapult strength.
-                </li>
-                <li>
-                  <strong>Presets:</strong> Saved presets keep selected
-                  catapults, stats, global modifiers, bonuses, citadel mode, and
-                  wall count.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Double-Damage Chances:
+                  </strong>
+                  Unit double-damage chances are not currently simulated.
+                  Because of this, "lucky hits" in-game can result in slightly
+                  better performance than the app's conservative estimates.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Detail &amp; Summary views</h6>
-              <p class="small mb-2">
-                Use the floating button (bottom-right) to switch views.
-                Calculations update whenever stats, units, bonuses, or epic
-                target change.
-              </p>
+              <h6 class="fw-bold mt-3">Summary View</h6>
               <ul class="border-start border-2 small">
                 <li>
-                  <strong>Detail:</strong> Select units by category and tier;
-                  see troop counts and total stack damage on each card.
+                  <strong>Detail:</strong> select units by category and tier;
+                  each card shows the current count and stack damage.
                 </li>
                 <li>
-                  <strong>Summary:</strong> All selected units grouped by tier
-                  (highest tier first). Within each tier, rows are sorted by
-                  stack damage (highest first).
+                  <strong>Summary:</strong> selected units are grouped by tier
+                  and sorted by stack damage so the most important stacks are
+                  easy to review.
                 </li>
                 <li>
                   <strong
@@ -1127,36 +1266,34 @@
                     ></i>
                     Dice icon:</strong
                   >
-                  Marks stacks tied for the
-                  <strong>highest total damage</strong> in your army (~50%
-                  chance that stack is eliminated first in battle). This is a
-                  rule-of-thumb, not a combat simulation.
+                  marks stacks tied for the highest total damage in your army.
+                  Those stacks have the highest chance to be eliminated first.
                 </li>
                 <li>
-                  <strong>Epic selected:</strong> Summary shows estimated
-                  <strong>kills</strong> per stack (best layer by stack damage).
+                  When an epic target is selected, Summary can show estimated
+                  kills and a
                   <i
                     class="bi bi-exclamation-triangle-fill text-warning"
                     aria-hidden="true"
                   ></i>
-                  warns if a stack may not reach one enemy HP on any layer.
-                  Check your battle journal if numbers look off.
+                  warning if a stack may not reach one enemy HP. warning if a
+                  stack's damage is too low to defeat a single enemy unit.
                 </li>
               </ul>
 
               <h6 class="fw-bold mt-3">Presets</h6>
               <p class="small mb-2">
                 Presets store the active mode, stat inputs, selected units,
-                <strong>Global Modifiers</strong>, <strong>Army Bonuses</strong>,
-                epic target, and citadel wall count in this browser only (<strong
-                  >local storage</strong
+                <strong>Global Modifiers</strong>,
+                <strong>Army Bonuses</strong>, epic target, and citadel wall
+                count in this browser only (<strong>local storage</strong
                 >)—nothing is uploaded.
               </p>
+              <p class="small mb-2">
+                Use the preset dropdown to load a saved setup. The action
+                buttons are ordered the same way as the toolbar:
+              </p>
               <ul class="border-start border-2 small mb-0">
-                <li>
-                  <strong>Load:</strong> Pick a name in the dropdown to apply it
-                  and open <strong>Summary</strong> view.
-                </li>
                 <li>
                   <strong>Reset:</strong> Clears stats and unit selections,
                   returns the dropdown to <em>-- Load Preset --</em>, and opens
@@ -1173,63 +1310,54 @@
                   confirmation.
                 </li>
                 <li>
-                  <strong>Export / Import:</strong>
-                  <strong>Export</strong> needs a preset selected; copies an
+                  <strong>Export:</strong> Needs a preset selected; copies an
                   <code>a2r-preset:</code> share code (v4 includes mode, wall
                   count, modifiers, bonuses, and epic target).
-                  <strong>Import</strong> adds <em>Imported: …</em> and loads it.
-                  Older codes still import with sensible defaults.
+                </li>
+                <li>
+                  <strong>Import:</strong> Adds <em>Imported: ...</em> and loads
+                  it. Older codes still import with sensible defaults.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Pro-Tips</h6>
-              <div class="p-3 rounded border shadow-sm">
-                <ul class="ps-3 mb-0">
-                  <li>
-                    <strong>Below G3?</strong> Just send your best troops and
-                    mercenaries; don't worry about stacking yet.
-                  </li>
-                  <li>
-                    <strong>Optimal Stack:</strong> Select your 2–3 best
-                    Guardsman tiers. Adding monsters from the same tiers is a
-                    great way to increase damage without increasing Leadership
-                    costs.
-                  </li>
-                  <li>
-                    <div class="alert alert-warning py-2 shadow-sm my-2">
-                      <small>
-                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                        <strong>Note on Damage:</strong> Adding more types of
-                        troops lowers the total damage of each individual slot.
-                        The goal is for <strong>every type of unit</strong> to
-                        secure kills. Check your in-game journal; if a tier
-                        shows 0 kills, try selecting fewer types or tiers.
-                      </small>
-                    </div>
-                  </li>
-                  <li>
-                    <strong
-                      ><i
-                        class="bi bi-exclamation-triangle-fill text-warning me-1"
-                        aria-hidden="true"
-                      ></i
-                      >Epic kill warning:</strong
-                    >
-                    When an epic target is set and a unit shows this warning,
-                    that stack may not deal enough damage to kill at least one
-                    enemy on any layer. Try removing your
-                    <strong>lowest-damage</strong> units (or tiers) until every
-                    remaining stack can secure kills—or swap in
-                    <strong>stronger units</strong>, or use a
-                    <strong>captain with higher Leadership</strong> so your main
-                    tiers can carry more troops.
-                  </li>
-                  <li>
-                    <strong>Mercenaries:</strong> You can add more than the
-                    recommended amount. If you're lucky, they can secure extra
-                    kills, but it is not guaranteed.
-                  </li>
-                </ul>
+              <h6 class="fw-bold mt-3">Pro Tips</h6>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Below G3?</strong> Just send your best troops and
+                  mercenaries; stacking matters more as your account grows.
+                </li>
+                <li>
+                  <strong>Start simple:</strong> pick your 2-3 best Guardsman
+                  tiers first. Add monsters from matching tiers when you want
+                  more damage without spending Leadership.
+                </li>
+                <li>
+                  Adding too many unit types lowers the damage of each stack. If
+                  a stack shows no epic kills, try fewer tiers or stronger
+                  units.
+                </li>
+                <li>
+                  You can add more than the recommended amount of troops. If
+                  you're lucky, they can secure extra kills, but it is not
+                  guaranteed.
+                </li>
+              </ul>
+
+              <div class="alert alert-info small mt-3 mb-0">
+                <p class="mb-2">
+                  <strong>Disclaimer:</strong> All calculations provided are
+                  high-accuracy estimates. Actual in-game outcomes may vary
+                  slightly because <em>Total Battle</em> utilizes hidden,
+                  precise internal variables and random combat mechanics.
+                </p>
+                <hr class="my-2 opacity-25" />
+                <p class="mb-0 text-dark">
+                  I have poured my personal game knowledge and development
+                  effort into building an app that is intuitive, reliable, and
+                  genuinely helpful. My goal is to help fellow players optimize
+                  their troop distribution, save valuable resources, and achieve
+                  the best possible results on the battlefield.
+                </p>
               </div>
             </div>
           </div>

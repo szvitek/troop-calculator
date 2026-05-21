@@ -1,5 +1,5 @@
 /* App semver — bump patch (1.2.1) or minor (1.3.0) on release; keep in sync with changelog.txt. */
-const CACHE_VERSION = "1.3.8";
+const CACHE_VERSION = "1.4.0";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -51,6 +51,19 @@ const PRECACHE_URLS = [
   "./assets/pwa/icon-512.png",
   "./assets/pwa/screenshot-desktop.png",
   "./assets/pwa/screenshot-mobile.png",
+  "./assets/images/citadel-app-estimates.png",
+  "./assets/images/citadel-in-game-results.jpg",
+  "./assets/images/citadel-walls.png",
+  "./assets/images/enter-leadership.png",
+  "./assets/images/epic-app-estimates.png",
+  "./assets/images/epic-global-bonuses.png",
+  "./assets/images/epic-in-game-results.jpg",
+  "./assets/images/global-bonuses-and-units.png",
+  "./assets/images/prepare-hero.png",
+  "./assets/images/remove-captains.png",
+  "./assets/images/save-preset.png",
+  "./assets/images/select-epic-target.png",
+  "./assets/images/select-units-and-bonuses.png",
   "./changelog.txt",
 ];
 

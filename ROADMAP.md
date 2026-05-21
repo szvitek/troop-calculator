@@ -92,10 +92,14 @@ Scope: **Catapults** (siege support alongside the existing march stack).
   - Display these kill-threshold insights in Summary view as informational badges/tooltips (for example: “1 kill · min 10 units · save 8” or “0 kills · needs 10 units”).
   - Keep the current greedy/balanced recommendation unchanged for now; use the Summary insight to help players manually avoid sending units that do not cross the next kill threshold.
   - Later consider a dedicated kill-optimized mode only after validating the threshold behavior against in-game battle journals.
-- [ ] **Embedded strategy guide**
+- [x] **Embedded strategy guide**
   - Author a comprehensive, step-by-step "How-To" guide in the application UI, complete with visual UI screenshots (beyond the current Help modal).
 
 ---
 
-Last Updated: 2026-05-17
-Status: Phase 5 (Active — v1.4.0 in progress)
+## 🔮 [PHASE 6] Future Horizons
+
+- [ ] Researching and implementing new features
+
+Last Updated: 2026-05-21
+Status: Released — v1.4.0

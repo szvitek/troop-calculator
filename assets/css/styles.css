@@ -47,6 +47,29 @@
   color: #888;
 }
 
+.help-figure {
+  margin: 0.5rem 0 1rem;
+}
+
+.help-figure figcaption {
+  color: var(--bs-secondary-color);
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+}
+
+.help-figure-pair {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .help-figure-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Shared card border for sections, tier rows, summaries, epic custom types */
 .app-card,
 .tier-card,
