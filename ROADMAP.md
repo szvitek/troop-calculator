@@ -1,4 +1,4 @@
-# PROJECT ROADMAP: Troop Calculator
+# PROJECT ROADMAP: A2R Toolbox
 
 ## [PHASE 1] The Foundation
 
@@ -71,14 +71,35 @@ Scope: **Catapults** (siege support alongside the existing march stack).
 
 ### 📖 v1.4.0 — Polish, Documentation & Onboarding
 
-- [ ] **UI cleanup**
+- [x] **Rebrand to A2R Toolbox**
+  - App title, navbar, manifest, README, and help modal title; subtitle for troop stacking & citadel siege.
+- [x] **UI cleanup**
   - Clean up the UI for a finalized release (citadel siege report, summary vs detail, tooltips, spacing, and other polish from the v1.3.x pass).
-- [ ] **PWA install prompt**
+- [x] **PWA install prompt**
   - Add an in-app install popup / banner when the browser supports install (`beforeinstallprompt`), so users can add the app to their home screen without hunting the browser menu.
-- [ ] **Embedded strategy guide**
+- [x] **Global Stat Modifiers**
+  - Move **Strength against Epic %** out of the per-tab Army Bonuses accordions into a shared **Global Modifiers** section.
+  - Add **Dragon Strength to Army %** as a global input, because unit cards include dragon bonuses while some marches/siege targets may not allow the dragon.
+  - Add a checked-by-default **Dragon included in march** toggle for both **Epic march** and **Citadel siege** modes.
+  - When the dragon toggle is unchecked, remove the entered Dragon Strength to Army % from card strength before effective damage calculations.
+  - Keep **Dragon Health to Army %** out of the UI until survivability/health logic exists, to avoid a dead input.
+  - Save and restore global modifiers in presets/share codes so players enter them once.
+- [ ] **Epic Target & Kill Threshold Improvements**
+  - [x] Merge the current Standard/Custom epic target flow: selecting a standard epic should populate editable custom inputs.
+  - [x] Treat the editable epic inputs as the calculation source of truth, so players can quickly adjust standard presets for non-standard event epics.
+  - [x] Preserve preset/share-code support for the selected or edited epic target data.
+  - Add kill threshold metadata to the existing results: units needed to secure one epic unit kill, kills secured by the suggested stack, and minimum units needed for the shown kill count.
+  - Display these kill-threshold insights in Summary view as informational badges/tooltips (for example: “1 kill · min 10 units · save 8” or “0 kills · needs 10 units”).
+  - Keep the current greedy/balanced recommendation unchanged for now; use the Summary insight to help players manually avoid sending units that do not cross the next kill threshold.
+  - Later consider a dedicated kill-optimized mode only after validating the threshold behavior against in-game battle journals.
+- [x] **Embedded strategy guide**
   - Author a comprehensive, step-by-step "How-To" guide in the application UI, complete with visual UI screenshots (beyond the current Help modal).
 
 ---
 
-Last Updated: 2026-05-17
-Status: Phase 5 (Active — v1.3.0 shipped — Citadel siege | v1.4.0 — Polish & documentation)
+## 🔮 [PHASE 6] Future Horizons
+
+- [ ] Researching and implementing new features
+
+Last Updated: 2026-05-21
+Status: Released — v1.4.0

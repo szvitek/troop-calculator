@@ -16,7 +16,10 @@ export function strikeVsWall(baseDmg, unit, bonusState) {
   if (unit.category !== "catapults") return 0;
   const strPct = getCatapultSiegeStrengthPercent(bonusState);
   const featPct = fortificationFeatureBonus(unit.features ?? {});
-  return baseDmg * FORTIFICATION_STRENGTH_MULT * (1 + strPct + featPct);
+  return Math.max(
+    0,
+    Math.floor(baseDmg * FORTIFICATION_STRENGTH_MULT * (1 + strPct + featPct)),
+  );
 }
 
 /**

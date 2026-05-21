@@ -1,7 +1,7 @@
 {
-  "name": "A2R Troop Stacking Calculator",
-  "short_name": "A2R Calc",
-  "description": "Calculate leadership, authority, dominance, and troop stacks locally in your browser.",
+  "name": "A2R Toolbox",
+  "short_name": "A2R Toolbox",
+  "description": "Troop stacking, citadel siege, and army presets for Total Battle — runs locally in your browser.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

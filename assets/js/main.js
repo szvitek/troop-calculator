@@ -8,8 +8,21 @@ import { initUmami } from "./analytics.js";
 import { initBonusUI } from "./bonuses.js";
 import { initEpicUI } from "./epic-ui.js";
 import { initCitadelUI } from "./citadel-ui.js";
+import { initPwaInstallPrompt } from "./pwa-install.js";
 
 initUmami();
+initPwaInstallPrompt();
+
+function initModalFocusGuards() {
+  document.querySelectorAll(".modal").forEach((modalEl) => {
+    modalEl.addEventListener("hide.bs.modal", () => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && modalEl.contains(active)) {
+        active.blur();
+      }
+    });
+  });
+}
 
 async function init() {
   initTheme();
@@ -22,6 +35,7 @@ async function init() {
     initEpicUI(runCalculation);
     initBonusUI(runCalculation);
     initPresets();
+    initModalFocusGuards();
   } catch (err) {
     console.error("Failed to load configuration:", err);
   }

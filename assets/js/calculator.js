@@ -1,5 +1,28 @@
 import { getEffectiveDmg } from "./bonuses.js";
 
+const INTEGER_TOLERANCE_MULTIPLIER = 16;
+
+function battleDamagePerUnit(value) {
+  return Math.max(0, Math.floor(value));
+}
+
+function snapNearInteger(value) {
+  const rounded = Math.round(value);
+  const tolerance =
+    Number.EPSILON *
+    INTEGER_TOLERANCE_MULTIPLIER *
+    Math.max(1, Math.abs(value));
+  return Math.abs(value - rounded) <= tolerance ? rounded : value;
+}
+
+function floorCount(value) {
+  return Math.floor(snapNearInteger(value));
+}
+
+function ceilCount(value) {
+  return Math.ceil(snapNearInteger(value));
+}
+
 /**
  * Pure calculation engine -- zero DOM access.
  * Takes plain data in, returns results out.
@@ -24,11 +47,8 @@ export function calculateTroops({
   if (selectedUnits.length === 0) return [];
 
   const units = selectedUnits.map((u) => {
-    const effectiveDmg = getEffectiveDmg(
-      u.baseDmg,
-      u,
-      bonusState,
-      epicCombatTypes,
+    const effectiveDmg = battleDamagePerUnit(
+      getEffectiveDmg(u.baseDmg, u, bonusState, epicCombatTypes),
     );
     return { ...u, effectiveDmg };
   });
@@ -60,14 +80,14 @@ export function calculateTroops({
 
     if (u.resource === "leadership") {
       if (dmgGoal > 0) {
-        count = Math.floor(dmgGoal / dmg);
+        count = floorCount(dmgGoal / dmg);
       }
     } else if (u.resource === "dominance") {
       if (dmgGoal > 0) {
-        count = Math.ceil(dmgGoal / dmg);
+        count = ceilCount(dmgGoal / dmg);
 
         if (dominance > 0 && totalDomRatio > 0) {
-          const maxAllowed = Math.floor(
+          const maxAllowed = floorCount(
             (dominance * (u.unitWeight / dmg / totalDomRatio)) / u.unitWeight,
           );
           if (count > maxAllowed) {
@@ -75,14 +95,14 @@ export function calculateTroops({
           }
         }
       } else if (dominance > 0 && totalDomRatio > 0) {
-        count = Math.floor(dominance / totalDomRatio / dmg);
+        count = floorCount(dominance / totalDomRatio / dmg);
       }
     } else if (u.resource === "authority") {
       if (dmgGoal > 0) {
-        count = Math.ceil(dmgGoal / dmg);
+        count = ceilCount(dmgGoal / dmg);
 
         if (authority > 0 && totalAuthRatio > 0) {
-          const maxAllowed = Math.floor(
+          const maxAllowed = floorCount(
             (authority * (u.unitWeight / dmg / totalAuthRatio)) / u.unitWeight,
           );
           if (count > maxAllowed) {
@@ -90,14 +110,14 @@ export function calculateTroops({
           }
         }
       } else if (authority > 0 && totalAuthRatio > 0) {
-        count = Math.floor(authority / totalAuthRatio / dmg);
+        count = floorCount(authority / totalAuthRatio / dmg);
       }
     }
 
     return {
       id: u.id,
       count,
-      damage: Math.floor(count * dmg),
+      damage: count * dmg,
       effectiveDmg: dmg,
       warning,
     };

@@ -1,5 +1,5 @@
 /* App semver — bump patch (1.2.1) or minor (1.3.0) on release; keep in sync with changelog.txt. */
-const CACHE_VERSION = "1.3.0";
+const CACHE_VERSION = "1.4.0";
 const CACHE_NAME = `troop-calc-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -21,10 +21,12 @@ const PRECACHE_URLS = [
   "./assets/js/data.js",
   "./assets/js/renderer.js",
   "./assets/js/events.js",
+  "./assets/js/dom.js",
   "./assets/js/presets.js",
   "./assets/js/calculator.js",
   "./assets/js/changelog.js",
   "./assets/js/analytics.js",
+  "./assets/js/pwa-install.js",
   "./assets/js/bonuses.js",
   "./assets/js/epics.js",
   "./assets/js/epic-ui.js",
@@ -43,10 +45,25 @@ const PRECACHE_URLS = [
   "./assets/icons/dragon-head.svg",
   "./assets/icons/gladius.svg",
   "./assets/icons/william-tell-skull.svg",
+  "./assets/icons/daemon-skull.svg",
+  "./assets/icons/castle.svg",
   "./assets/pwa/icon-192.png",
   "./assets/pwa/icon-512.png",
   "./assets/pwa/screenshot-desktop.png",
   "./assets/pwa/screenshot-mobile.png",
+  "./assets/images/citadel-app-estimates.png",
+  "./assets/images/citadel-in-game-results.jpg",
+  "./assets/images/citadel-walls.png",
+  "./assets/images/enter-leadership.png",
+  "./assets/images/epic-app-estimates.png",
+  "./assets/images/epic-global-bonuses.png",
+  "./assets/images/epic-in-game-results.jpg",
+  "./assets/images/global-bonuses-and-units.png",
+  "./assets/images/prepare-hero.png",
+  "./assets/images/remove-captains.png",
+  "./assets/images/save-preset.png",
+  "./assets/images/select-epic-target.png",
+  "./assets/images/select-units-and-bonuses.png",
   "./changelog.txt",
 ];
 

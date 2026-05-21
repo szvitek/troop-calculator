@@ -47,6 +47,37 @@
   color: #888;
 }
 
+.help-figure {
+  margin: 0.5rem 0 1rem;
+}
+
+.help-figure figcaption {
+  color: var(--bs-secondary-color);
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+}
+
+.help-figure-pair {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .help-figure-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Shared card border for sections, tier rows, summaries, epic custom types */
+.app-card,
+.tier-card,
+.summary-tier-card,
+.epic-custom-type.card {
+  border: 1px solid var(--bs-border-color) !important;
+}
+
 /* Card lift animation when a unit is checked */
 .tier-card {
   transition:
@@ -56,7 +87,7 @@
 
 .tier-card:has(.unit-check:checked) {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
 }
 
 /* Count readout styling */
@@ -162,6 +193,14 @@
   font-size: 1rem;
 }
 
+.pwa-install-card {
+  max-width: 28rem;
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.45) !important;
+  background: rgba(var(--bs-body-bg-rgb), 0.86);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 @media (max-width: 575.98px) {
   #preset-bar .preset-icon-btn {
     width: 1.75rem;
@@ -171,6 +210,74 @@
   #preset-bar .preset-icon-btn i {
     font-size: 0.9rem;
   }
+}
+
+/* Toolbox mode: Epic march / Citadel siege */
+#battle-target-mode-card .tool-mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.85rem 0.5rem;
+  min-height: 5.25rem;
+  line-height: 1.25;
+}
+
+#battle-target-mode-card .tool-mode-icon {
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+#battle-target-mode-card .tool-mode-label {
+  font-size: 0.95rem;
+}
+
+#battle-target-mode-card .tool-mode-hint {
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+#battle-target-mode-card .btn-check:not(:checked) + .tool-mode-btn {
+  color: var(--bs-secondary-color);
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+}
+
+#battle-target-mode-card .btn-check:checked + .tool-mode-btn {
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
+}
+
+[data-active-tool="citadel"] #catapults-content {
+  display: block !important;
+  opacity: 1;
+}
+
+[data-active-tool="citadel"] .unit-dmg-output {
+  font-size: 0.7rem;
+}
+
+[data-active-tool="citadel"] .dmg-label {
+  font-size: 0;
+}
+
+[data-active-tool="citadel"] .dmg-label::after {
+  content: "VOLLEY";
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #888;
+}
+
+[data-bs-theme="dark"][data-active-tool="citadel"] .dmg-label::after {
+  color: #adb5bd;
+}
+
+[data-active-tool="citadel"] .category-bonus-grid {
+  display: block;
+  max-width: 11rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Summary View */
@@ -209,41 +316,45 @@
   background: rgba(var(--bs-body-bg-rgb), 0.6);
 }
 
-.bonus-category-grid {
+.category-bonus-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
-@media (min-width: 992px) {
-  .bonus-category-grid {
+.global-modifier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 576px) {
+  .category-bonus-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
 
-@media (max-width: 991.98px) {
-  .bonus-category-grid {
-    grid-template-columns: 1fr;
+  .global-modifier-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-.bonus-category-title {
-  letter-spacing: 0.02em;
-}
-
-#armyBonusesAccordion .accordion-button {
+.global-modifiers-accordion .accordion-button,
+.category-bonuses-accordion .accordion-button {
   font-weight: 600;
 }
 
-#armyBonusesAccordion .accordion-button:not(.collapsed) {
+.global-modifiers-accordion .accordion-button:not(.collapsed),
+.category-bonuses-accordion .accordion-button:not(.collapsed) {
   box-shadow: none;
 }
 
-#epic-info-accordion .accordion-button {
-  font-weight: 600;
+.global-modifiers-accordion .accordion-button:focus,
+.category-bonuses-accordion .accordion-button:focus {
+  box-shadow: none;
 }
 
-#epic-info-accordion .accordion-button:not(.collapsed) {
+.global-modifiers-accordion .accordion-item,
+.category-bonuses-accordion .accordion-item {
   box-shadow: none;
 }
 
@@ -288,6 +399,13 @@
   background: rgba(var(--bs-body-bg-rgb), 0.6);
 }
 
-.epic-squad-table th {
-  font-size: 0.75rem;
+#epic-march-workspace,
+#citadel-summary-workspace {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.gi-tool-mode {
+  width: 32px;
+  height: 32px;
 }

@@ -15,7 +15,7 @@ export function strikeDamageVsLayer(baseDmg, unit, layerCombatType, bonusState) 
     const v = unit.features[layerCombatType];
     if (typeof v === "number" && !Number.isNaN(v)) featPct = v;
   }
-  return baseDmg * (1 + strPct + featPct);
+  return Math.max(0, Math.floor(baseDmg * (1 + strPct + featPct)));
 }
 
 /**

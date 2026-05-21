@@ -1,12 +1,12 @@
-# A2R Troop Stacking Calculator
+# A2R Toolbox
 
-A mobile-friendly, **installable PWA** for calculating optimal troop ratios in Total Battle.
+A mobile-friendly, **installable PWA** for Total Battle army planning: **troop stacking** (Epic marches) and **citadel siege** catapult math.
 
 ---
 
 ### 💡 Simple by Design
 
-This tool is built to be a fast, streamlined reference for players learning the fundamentals of troop stacking.
+This toolbox is built to be a fast, streamlined reference for troop stacking and citadel wall breaks.
 
 - **Installable PWA:** Add this app to your mobile device's Home Screen on iOS and Android to use it just like a native app with fast, offline asset caching.
 - **Army Bonuses (Optional):** Open the **Army Bonuses** accordion and enter the **Strength %** values shown in-game. These numbers already include **hero talents, research, equipment**, and other account buffs rolled into your army’s profile—simply copy what the game displays.
@@ -16,7 +16,7 @@ This tool is built to be a fast, streamlined reference for players learning the 
 
 ## 💡 Why use this?
 
-In high-level play, **Troop Stacking** is critical. This tool allows you to:
+In high-level play, **Troop Stacking** is critical. The toolbox lets you:
 
 - Rapidly calculate leadership overhead when mixing different unit tiers.
 - Experiment with stacks to find the "sweet spot" before committing resources in-game.

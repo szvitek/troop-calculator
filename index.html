@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Troop stacking calculator for A2R: leadership, authority, dominance, and unit counts in your browser."
+      content="A2R Toolbox: troop stacking, citadel siege, leadership, authority, dominance, and army presets in your browser."
     />
     <meta name="theme-color" content="#e95420" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
       sizes="16x16"
       href="assets/pwa/favicon-16x16.png"
     />
-    <title>A2R Troop Stacking Calculator</title>
+    <title>A2R Toolbox</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -63,11 +63,11 @@
               aria-hidden="true"
               decoding="async"
             />
-            A2R Troop Stacking Calculator
+            A2R Toolbox
           </a>
           <a
             href="#changelog"
-            class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0 ms-2"
+            class="badge rounded-pill bg-secondary text-decoration-none flex-shrink-0"
             id="versionBadge"
           >
             v0.0.0
@@ -124,7 +124,67 @@
     </nav>
     <main class="container">
       <div>
-        <h1 class="text-center my-4">A2R Troop Stacking Calculator</h1>
+        <h1 class="text-center my-3 mb-1">A2R Toolbox</h1>
+        <p class="text-center text-muted mb-3">
+          Troop Stacking, Epic monsters & Citadel Siege Tools for Total Battle
+        </p>
+      </div>
+
+      <div
+        class="mb-4"
+        id="battle-target-mode-card"
+        role="group"
+        aria-label="Toolbox mode"
+      >
+        <div class="row g-2">
+          <div class="col-6">
+            <input
+              type="radio"
+              class="btn-check"
+              name="battle-target-mode"
+              id="target-mode-epic"
+              autocomplete="off"
+              checked
+            />
+            <label
+              class="btn btn-outline-primary w-100 tool-mode-btn"
+              for="target-mode-epic"
+            >
+              <svg
+                class="gi-svg gi-tool-mode me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/daemon-skull.svg#gi"></use>
+              </svg>
+              <span class="tool-mode-label">Epic march</span>
+              <span class="tool-mode-hint">Troop stacking</span>
+            </label>
+          </div>
+          <div class="col-6">
+            <input
+              type="radio"
+              class="btn-check"
+              name="battle-target-mode"
+              id="target-mode-citadel"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary w-100 tool-mode-btn"
+              for="target-mode-citadel"
+            >
+              <svg
+                class="gi-svg gi-tool-mode me-1"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="assets/icons/castle.svg#gi"></use>
+              </svg>
+              <span class="tool-mode-label">Citadel siege</span>
+              <span class="tool-mode-hint">Catapult walls</span>
+            </label>
+          </div>
+        </div>
       </div>
 
       <!-- Preset Bar: select shrinks; icon group wraps as one unit on narrow widths -->
@@ -188,8 +248,8 @@
         </div>
       </div>
 
-      <!-- Stats Input Row -->
-      <div class="row mb-4">
+      <!-- Stats Input Row (Epic march only) -->
+      <div id="march-stats-row" class="row mb-4 tool-epic-only">
         <!-- Leadership (Red) -->
         <div class="col-md-4 mb-3">
           <div class="form-floating">
@@ -261,27 +321,16 @@
         </div>
       </div>
 
-      <div class="card mb-3 border-secondary" id="battle-target-mode-card">
-        <div class="card-body py-2 px-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-            <h6 class="mb-0 fw-semibold">Battle target</h6>
-            <div class="btn-group btn-group-sm" role="group" aria-label="Battle target mode">
-              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-epic" autocomplete="off" checked />
-              <label class="btn btn-outline-secondary" for="target-mode-epic">Epic march</label>
-              <input type="radio" class="btn-check" name="battle-target-mode" id="target-mode-citadel" autocomplete="off" />
-              <label class="btn btn-outline-secondary" for="target-mode-citadel">Citadel siege</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4 border-secondary d-none" id="citadel-target-section">
+      <div class="card mb-4 app-card d-none" id="citadel-target-section">
         <div class="card-body py-3">
           <h6 class="fw-semibold mb-2">Citadel walls</h6>
-          <p class="small text-muted mb-2" id="citadel-wall-reference">Loading wall stats…</p>
           <div class="row g-2 align-items-end">
             <div class="col-sm-6 col-md-4">
-              <label class="form-label small fw-semibold mb-1" for="citadel-wall-count">Number of walls</label>
+              <label
+                class="form-label small fw-semibold mb-1"
+                for="citadel-wall-count"
+                >Number of walls</label
+              >
               <input
                 type="number"
                 class="form-control form-control-sm citadel-input"
@@ -291,127 +340,61 @@
                 placeholder="0"
                 inputmode="numeric"
               />
-              <div class="form-text">Scales by citadel level; STR/HP per wall are fixed.</div>
             </div>
           </div>
           <p class="small text-muted mt-2 mb-0">
-            Select catapult tiers below — the app recommends <strong>how many of each tier together</strong> to break all walls (no Leadership required).
-            Optional <strong>Leadership</strong> compares what you can actually field. Uses <strong>Catapult Strength %</strong> and card <strong>Fortification</strong> (×20 vs walls).
+            Enter a wall count, then pick catapult tiers on the
+            <strong>Catapults</strong> tab. Recommended counts and volley appear
+            on each card.
           </p>
-          <div id="citadel-siege-report" class="alert d-none mt-3 mb-0 citadel-siege-report" role="status"></div>
+          <div
+            id="citadel-siege-report"
+            class="alert d-none mt-3 mb-0 citadel-siege-report"
+            role="status"
+          ></div>
         </div>
       </div>
 
-      <div class="card mb-4 border-secondary" id="epic-target-section">
+      <div class="card mb-4 app-card" id="epic-target-section">
         <div class="card-body py-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
+          >
             <h6 class="mb-0 fw-semibold">Epic target</h6>
-            <div class="btn-group btn-group-sm" role="group" aria-label="Epic source">
-              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-preset" autocomplete="off" checked />
-              <label class="btn btn-outline-secondary" for="epic-mode-preset">Standard</label>
-              <input type="radio" class="btn-check" name="epic-mode" id="epic-mode-custom" autocomplete="off" />
-              <label class="btn btn-outline-secondary" for="epic-mode-custom">Custom</label>
-            </div>
           </div>
           <div id="epic-preset-panel">
-            <label class="form-label small fw-semibold mb-1" for="epic-preset-select">Epic encounter</label>
+            <label
+              class="form-label small fw-semibold mb-1"
+              for="epic-preset-select"
+              >Epic encounter</label
+            >
             <select class="form-select form-select-sm" id="epic-preset-select">
               <option value="" selected>— Select epic —</option>
             </select>
           </div>
-          <div id="epic-custom-panel" class="d-none">
+          <div id="epic-custom-panel" class="mt-3">
             <p class="small text-muted mb-2">
-              Event or temporary epics: one layer per combat type. Feature % is vs the type that layer counters (Flying→Melee→Mounted→Ranged→Flying).
+              Selecting a preset fills these editable values. For event or
+              temporary epics, adjust the layer stats here. Feature % is vs the
+              type that layer counters (Flying→Melee→Mounted→Ranged→Flying).
             </p>
-            <div class="row g-2 mb-3">
-              <div class="col-sm-4 col-md-3">
-                <label class="form-label small fw-semibold mb-1" for="epic-custom-layer-count">Layer count</label>
-                <input type="number" class="form-control form-control-sm epic-custom-input" id="epic-custom-layer-count" min="1" step="1" value="1" />
-                <div class="form-text">Repeat waves or stacked layers.</div>
-              </div>
-            </div>
             <div class="epic-custom-grid" id="epic-custom-grid-mount"></div>
-          </div>
-          <div id="epic-info-accordion" class="accordion d-none mt-3">
-            <div class="accordion-item border-0">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button collapsed py-2 small"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#epicInfoCollapse"
-                  aria-expanded="false"
-                  aria-controls="epicInfoCollapse"
-                  id="epic-info-accordion-btn"
-                >
-                  <span class="epic-info-accordion-label">Epic squad details</span>
-                  <span class="text-muted fw-normal ms-2 d-none d-sm-inline"
-                    >optional reference</span
-                  >
-                </button>
-              </h2>
-              <div
-                id="epicInfoCollapse"
-                class="accordion-collapse collapse"
-                data-bs-parent="#epic-info-accordion"
-              >
-                <div class="accordion-body py-2 px-0 px-sm-2" id="epic-info-body"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion mb-4" id="armyBonusesAccordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button
-              class="accordion-button collapsed py-2"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#armyBonusesCollapse"
-              aria-expanded="false"
-              aria-controls="armyBonusesCollapse"
-            >
-              Army Bonuses
-              <span class="text-muted small fw-normal ms-2 d-none d-sm-inline"
-                >optional — match in-game Strength %</span
-              >
-            </button>
-          </h2>
-          <div
-            id="armyBonusesCollapse"
-            class="accordion-collapse collapse"
-            data-bs-parent="#armyBonusesAccordion"
-          >
-            <div class="accordion-body py-2 px-2 px-md-3">
-              <p class="small text-muted mb-2">
-                Enter the <strong>Strength %</strong> values from in-game (whole
-                numbers, e.g. <strong>52</strong> for 52%) — they already
-                reflect <strong>hero talents, research, equipment</strong>, and
-                similar bonuses bundled into your army Strength. Counts use
-                <strong
-                  >effective damage = base × (1 + Strength bonuses + highest
-                  Melee/Ranged/Mounted/Flying feature on the card)</strong
-                >
-                (fortification, beast, siege lines on the card are ignored for
-                epic feature math). All Strength percents add together (they are
-                not multiplied). <strong>Catapult</strong> uses one Strength %
-                for all tiers; <strong>Mercenary</strong> bonus inputs are still
-                planned.
-              </p>
-              <div id="army-bonuses-mount"></div>
-            </div>
           </div>
         </div>
       </div>
 
       <h5 class="mb-3 text-center" id="detail-heading">
-        <i class="bi bi-pencil-square me-1"></i> Detail View
+        <span class="detail-heading-epic">
+          <i class="bi bi-pencil-square me-1"></i> Epic Details
+        </span>
+        <span class="detail-heading-citadel d-none">
+          <i class="bi bi-pencil-square me-1"></i> Siege Details
+        </span>
       </h5>
       <div id="detail-view">
         <div
-          class="row g-2 sticky-top"
+          id="unit-tabs-nav"
+          class="sticky-top tool-epic-only"
           style="
             background-color: transparent;
             backdrop-filter: blur(8px);
@@ -526,68 +509,206 @@
           </div>
         </div>
 
+        <div
+          class="accordion mb-3 global-modifiers-accordion"
+          id="globalModifiersAccordion"
+        >
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button collapsed py-2 small"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#globalModifiersCollapse"
+                aria-expanded="false"
+                aria-controls="globalModifiersCollapse"
+              >
+                Global Modifiers
+                <span class="text-muted fw-normal ms-2 d-none d-sm-inline">
+                  Epic bonus · Dragon march adjustment
+                </span>
+              </button>
+            </h2>
+            <div
+              id="globalModifiersCollapse"
+              class="accordion-collapse collapse"
+              data-bs-parent="#globalModifiersAccordion"
+            >
+              <div class="accordion-body py-2 px-2">
+                <p class="small text-muted mb-2">
+                  Shared modifiers that affect calculations across tabs. Unit
+                  cards already include active city bonuses; uncheck dragon when
+                  the target does not allow it in the march.
+                </p>
+                <div class="global-modifier-grid">
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <label
+                        class="form-label bonus-mini-label"
+                        for="bonus-vs-epic-global"
+                      >
+                        Strength against Epic %
+                      </label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm bonus-pct-input"
+                        id="bonus-vs-epic-global"
+                        data-bonus-key="vs-epic"
+                        min="0"
+                        step="0.01"
+                        placeholder="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input bonus-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="bonus-dragon-included"
+                          data-bonus-key="dragon-included"
+                          checked
+                        />
+                        <label
+                          class="form-check-label small fw-semibold"
+                          for="bonus-dragon-included"
+                        >
+                          Dragon included in march
+                        </label>
+                      </div>
+                      <div class="form-text">
+                        Uncheck for targets where dragon cannot join.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card bonus-special-card">
+                    <div class="card-body p-2">
+                      <label
+                        class="form-label bonus-mini-label"
+                        for="bonus-dragon-strength"
+                      >
+                        Dragon Strength to Army %
+                      </label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm bonus-pct-input"
+                        id="bonus-dragon-strength"
+                        data-bonus-key="dragon-strength"
+                        min="0"
+                        step="0.01"
+                        placeholder="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="tab-content" id="unitTabsContent">
           <div
             class="tab-pane fade show active"
             id="guards-content"
+            data-unit-category="guardsmen"
             role="tabpanel"
             aria-labelledby="guards-tab"
           >
-            <div id="guardsmen-container" class="row g-2"></div>
+            <div id="guardsmen-container"></div>
           </div>
 
           <div
             class="tab-pane fade"
             id="specs-content"
+            data-unit-category="specialists"
             role="tabpanel"
             aria-labelledby="specs-tab"
           >
-            <div id="specialists-container" class="row g-2"></div>
+            <div id="specialists-container"></div>
           </div>
 
           <div
             class="tab-pane fade"
             id="catapults-content"
+            data-unit-category="catapults"
             role="tabpanel"
             aria-labelledby="catapults-tab"
           >
-            <div id="catapults-container" class="row g-2"></div>
+            <p
+              class="small text-muted mb-2 tool-citadel-only citadel-tier-hint"
+            >
+              <strong>Recommended:</strong> select <strong>your highest</strong>
+              catapult tier — you get the exact number needed to break all walls
+              (total wall HP ÷ strike per catapult, rounded up).
+              <span class="d-block mt-1"
+                ><strong>Multiple tiers:</strong> uses the same
+                <strong>damage per tier</strong> as epic march stacking (shared
+                volley goal). That coordinated mix can use more catapults than a
+                single tier alone.</span
+              >
+            </p>
+            <div id="catapults-container"></div>
           </div>
 
           <div
             class="tab-pane fade"
             id="monsters-content"
+            data-unit-category="monsters"
             role="tabpanel"
             aria-labelledby="monsters-tab"
           >
-            <div id="monsters-container" class="row g-2"></div>
+            <div id="monsters-container"></div>
           </div>
 
           <div
             class="tab-pane fade"
             id="mercenaries-content"
+            data-unit-category="mercenaries"
             role="tabpanel"
             aria-labelledby="mercenaries-tab"
           >
-            <div id="mercenaries-container" class="row g-2"></div>
+            <div id="mercenaries-container"></div>
           </div>
         </div>
       </div>
 
-      <h5 class="mb-3 d-none text-center" id="summary-heading">
-        <i class="bi bi-list-check me-1"></i> Summary View
-      </h5>
-      <div id="summary-container" class="d-none mb-3">
-        <p class="text-muted text-center" id="summary-empty">
-          Select units from the detail view to see your stack summary.
-        </p>
-        <div id="summary-content"></div>
+      <div id="epic-march-workspace" class="tool-epic-only">
+        <h5 class="mb-3 d-none text-center" id="summary-heading">
+          <i class="bi bi-list-check me-1"></i> Epic Summary
+        </h5>
+        <div id="summary-container" class="d-none mb-3">
+          <p class="text-muted text-center" id="summary-empty">
+            Select units from the detail view to see your stack summary.
+          </p>
+          <div id="summary-content"></div>
+        </div>
+      </div>
+
+      <div class="tool-citadel-only" id="citadel-summary-workspace">
+        <h5 class="mb-3 d-none text-center" id="citadel-summary-heading">
+          <i class="bi bi-list-check me-1"></i> Siege Summary
+        </h5>
+        <div id="citadel-summary-container" class="d-none mb-3">
+          <p class="text-muted text-center" id="citadel-summary-empty">
+            Select catapult tiers and enter a wall count.
+          </p>
+          <div id="citadel-summary-content"></div>
+        </div>
       </div>
 
       <button
         type="button"
         class="btn btn-primary rounded-circle shadow-lg fab"
         id="view-toggle"
+        aria-label="Switch between detail and summary view"
         style="
           position: fixed;
           bottom: 80px;
@@ -597,7 +718,7 @@
           z-index: 1050;
         "
       >
-        <i class="bi bi-list-check"></i>
+        <i class="bi bi-list-check" aria-hidden="true"></i>
       </button>
 
       <button
@@ -791,212 +912,352 @@
         aria-labelledby="helpModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="helpModalLabel">
-                Guide: Troop Stacking
+                A2R Toolbox — Help
               </h5>
               <button
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-              >
-                <span aria-hidden="true"></span>
-              </button>
+              ></button>
             </div>
             <div class="modal-body">
-              <h6 class="fw-bold">What is Stacking?</h6>
-              <p>
-                Troop stacking is a technique in Total Battle where you send
-                multiple tiers of troops together to maximize damage while
-                minimizing losses. By using lower-tier troops to fill your
-                capacity, retraining becomes significantly cheaper.
+              <h6 class="fw-bold">Quick Start</h6>
+              <p class="small mb-2">
+                A2R Toolbox helps plan two jobs: Epic marches with balanced
+                troop stacks, and Citadel siege volleys with catapults. Enter
+                your capacity, bonuses, and target, then pick units in Detail
+                view. Use the floating button to switch between Detail and
+                Summary.
+              </p>
+              <p class="small text-muted mb-3">
+                The screenshots below follow the same order a player would use
+                the app.
               </p>
 
-              <p>
-                <strong>
-                  The goal is to outnumber the layers of the Epic monster to
-                  secure more guaranteed hits. Use stacking for repeated Epic
-                  attacks to ensure consistent results and stable rewards.
-                </strong>
+              <h6 class="fw-bold mt-3">Troop Stacking</h6>
+              <p class="small mb-2">
+                Troop stacking means sending several unit tiers together instead
+                of only your strongest tier. The app balances selected units so
+                each stack aims for similar effective damage. This helps spread
+                losses, reduce retraining cost, and make repeated epic attacks
+                more consistent.
               </p>
 
-              <p>
-                If you go "all-in" with only your strongest tier, you might
-                occasionally see higher rewards, but it isn't guaranteed because
-                of how the
-                <a
-                  href="https://www.youtube.com/watch?v=8rdVjHNRXn0"
-                  target="_blank"
-                  class="text-info text-decoration-none fw-bold"
-                >
-                  <i class="bi bi-youtube"></i> combat system
-                </a>
-                works. You will also lose more units, and retraining best-tier
-                units requires more silver.
-                <strong>
-                  Stacking is a sustainable approach that saves resources and
-                  ensures you get consistent rewards.
-                </strong>
-              </p>
+              <h6 class="fw-bold mt-3">Epic March Steps</h6>
+              <ol class="border-start border-2 small">
+                <li>
+                  Prepare your Hero and ensure you remove any equipment that
+                  might alter unit statistics.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/prepare-hero.png"
+                      alt="Hero preparation screen before planning an epic march"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      As shown above, economy armor doesn't affect unit stats,
+                      so it doesn't need to be removed.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Remove any Captains you aren't using for the attack. Their
+                  passive presence in the city can alter unit stats and cause
+                  calculation errors.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/remove-captains.png"
+                      alt="Removing unused captains before testing epic march values"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Remove Captains that are not joining the march.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Enter your <strong>Leadership</strong>. Include
+                  <strong>Dominance</strong> and/or <strong>Authority</strong>
+                  thresholds if you plan to deploy Monsters or Mercenaries.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/enter-leadership.png"
+                      alt="Leadership value entered in the app"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Leadership sets the main capacity for Guardsmen,
+                      Specialists, and Catapults.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Select the <strong>Epic type</strong> you want to fight from
+                  the dropdown menu. If your specific target isn't listed (such
+                  as seasonal kingdom or special event targets), you can enter
+                  its stats manually.
+                  <span class="d-block text-muted mt-1">
+                    Tip: some non-standard epic monsters reuse the same stats as
+                    standard epics, so check the dropdown first before typing
+                    custom values.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/select-epic-target.png"
+                      alt="Selecting an epic target and reviewing editable layer stats"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Selecting a preset fills the editable layer stats.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Configure your Global Modifiers for shared stat increases.
+                  This includes your account's total Strength vs Epics % (from
+                  artifacts like the Ghostflame Lantern) and your Dragon
+                  Strength to Army %.
+                  <span class="d-block text-muted mt-1">
+                    <strong>
+                      Enter your full Dragon Strength here even if the dragon
+                      cannot join the march;
+                    </strong>
+                    The engine will automatically remove it from the final
+                    calculation if you uncheck the Dragon included box.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/epic-global-bonuses.png"
+                      alt="Global modifiers used for an epic march"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Global Modifiers apply across unit tabs.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Select the units you want to include in your stack, then open
+                  the <strong>Army Bonuses</strong> accordion for that tab.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/select-units-and-bonuses.png"
+                      alt="Selecting units and entering Army Bonuses"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Input the total Strength % value found on your in-game
+                      unit's statistics screen.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  Save your configuration as a preset using a descriptive name.
+                  This allows you to instantly reload your exact troop
+                  selections and modifiers before repeated attacks.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/save-preset.png"
+                      alt="Saving a preset for repeated epic attacks"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Presets keep your selected units, stats, bonuses, and epic
+                      target.
+                    </figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <strong>Verified Accuracy:</strong> You don't need to manually
+                  calculate anything — the engine handles it all. Below is a
+                  real-world comparison proving how closely the app's optimized
+                  distribution matches actual results.
+                  <div class="help-figure-pair">
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/epic-app-estimates.png"
+                        alt="Epic march estimates shown in the app"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>App estimate.</figcaption>
+                    </figure>
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/epic-in-game-results.jpg"
+                        alt="Epic march results shown in game"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>Actual In-game result.</figcaption>
+                    </figure>
+                  </div>
+                </li>
+              </ol>
 
-              <h6 class="fw-bold">How the calculator works</h6>
-              <ul class="border-start border-2">
+              <h6 class="fw-bold mt-3">Citadel Siege Steps</h6>
+              <ol class="border-start border-2 small">
                 <li>
-                  <strong>Leadership:</strong> March capacity for
-                  <strong>Guardsmen</strong>, <strong>Specialists</strong>, and
-                  <strong>Catapults</strong>. This sets the "damage goal" those
-                  units balance toward.
+                  Set up your Hero using the same guidelines as Epic marches
+                  (remove combat gear that modifies troop stats).
+                  <span class="d-block text-muted mt-1">
+                    Tip: Global Strength vs Epics % modifiers are automatically
+                    ignored by the engine in Citadel Mode.
+                  </span>
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/prepare-hero.png"
+                      alt="Hero preparation before planning a citadel siege"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Only remove gear that modifies troop stats.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Authority:</strong> How many
-                  <strong>Mercenaries</strong> you can bring. With
-                  <strong>Leadership</strong> set, mercenaries scale to match
-                  your stack's damage (like monsters). With
-                  <strong>no Leadership</strong> but
-                  <strong>Authority</strong> filled in, capacity is split
-                  across selected mercenaries only.
+                  Select <strong>Citadel siege</strong> from the top toggle,
+                  then enter the total number of defense walls you need to
+                  break.
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/citadel-walls.png"
+                      alt="Citadel wall count entered in the app"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Specify the exact number of walls you need to break.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Selection:</strong> Pick the units to include. The
-                  calculator balances the stack so every selected tier deals the
-                  same <strong>effective damage</strong> per soldier.
-                </li>
-                <li>
-                  <strong>Monsters &amp; Dominance:</strong>
-                  <ul>
-                    <li>
-                      <strong>Mirror mode:</strong> With
-                      <strong>Leadership</strong> entered, monsters scale to
-                      match your guards' damage.
-                    </li>
-                    <li>
-                      <strong>Pure monster mode:</strong> With
-                      <strong>no Leadership</strong> but
-                      <strong>Dominance</strong> entered, capacity is split
-                      across selected monsters only.
-                    </li>
-                  </ul>
-                  <small class="text-muted">
-                    <em>
-                      The
-                      <i
-                        class="bi bi-exclamation-triangle-fill text-warning"
-                        aria-hidden="true"
-                      ></i>
-                      icon appears when you enter
-                      <strong>Dominance</strong> or
-                      <strong>Authority</strong> and the balanced stack needs
-                      more capacity than you have—it shows the maximum that
-                      still keeps the mix in balance.
-                    </em>
-                  </small>
-                </li>
-                <li>
-                  <strong>Damage formula:</strong> For
-                  <strong>Guardsmen, Specialists, Monsters, and Catapults</strong>,
-                  Army Bonuses and unit-card features are included:
+                  Configure your Global Modifiers.
                   <strong
-                    >base × (1 + Strength bonuses + feature bonus)</strong
-                  >. Strength percents <strong>add</strong> (they are not
-                  multiplied). The feature line uses the
-                  <strong
-                    >highest Melee / Ranged / Mounted / Flying % on the unit
-                    card</strong
-                  >
-                  that applies—when an <strong>Epic target</strong> is set, only
-                  types present on that epic count. Fortification, beast, siege,
-                  and similar lines are ignored.
-                  <strong>Mercenaries</strong> use base damage only for now—we
-                  do not have enough in-game data to apply mercenary bonuses
-                  reliably (mercenary bonus inputs are planned for a future
-                  update).
+                    >Enter your full Dragon Strength % here even if it is
+                    <u>not</u> joining the current march</strong
+                  >. The engine will automatically ignore Epic multipliers and
+                  calculate your raw Citadel siege stats
+                  <figure class="help-figure">
+                    <img
+                      src="assets/images/global-bonuses-and-units.png"
+                      alt="Global bonuses, selected catapults, and catapult bonuses"
+                      class="img-fluid rounded border shadow-sm"
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      Global modifiers apply across tabs. Strength vs Epics is
+                      automatically omitted.
+                    </figcaption>
+                  </figure>
                 </li>
                 <li>
-                  <strong>Epic target (optional):</strong> Pick
-                  <strong>Standard</strong> (preset encounters) or
-                  <strong>Custom</strong> (event epics: one layer per combat
-                  type). This steers feature % and unlocks epic kill estimates.
-                  Expand <strong>Epic squad details</strong> for enemy strength,
-                  HP, and features (reference only). Standard and Custom epic
-                  targets are saved with presets and share codes (v3+).
+                  Compare the app estimates with the actual in-game results.
+                  <div class="help-figure-pair">
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/citadel-app-estimates.png"
+                        alt="Citadel siege estimates shown in the app"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>App estimate.</figcaption>
+                    </figure>
+                    <figure class="help-figure">
+                      <img
+                        src="assets/images/citadel-in-game-results.jpg"
+                        alt="Citadel siege results shown in game"
+                        class="img-fluid rounded border shadow-sm"
+                        loading="lazy"
+                      />
+                      <figcaption>Actual In-game result.</figcaption>
+                    </figure>
+                  </div>
+                </li>
+              </ol>
+
+              <h6 class="fw-bold mt-3">Bonuses</h6>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Global Modifiers</strong> Shared across all unit tabs.
+                  This includes your Strength against Epic %, the Dragon
+                  included in march toggle, and your Dragon Strength to Army %.
                 </li>
                 <li>
-                  <strong>Army Bonuses (optional):</strong> Expand the accordion
-                  below epic target. Enter in-game
-                  <strong>Strength %</strong> (e.g.
-                  <strong>52</strong> for 52%)—start with
-                  <strong>Strength against Epic %</strong>, then the
-                  Guardsman / Specialist / Monster grid and
-                  <strong>Catapult</strong> Strength % (these categories get
-                  the bonus math above). Those numbers already include
-                  <strong>hero talents, research, equipment</strong>, etc.; do
-                  not enter them twice. The accordion closes when you switch
-                  views or load a preset. <strong>Mercenary</strong> bonus rows
-                  are planned once their in-game rules are clear.
+                  <strong>Strength against Epic %:</strong> Use this to input
+                  bonuses from sources like the Ghostflame Lantern artifact. You
+                  can find this total value on any unit's in-game statistics
+                  screen.
+                </li>
+                <li>
+                  <strong>Army Bonuses</strong> The raw Strength % values
+                  specific to the active troop tab. This number should reflect
+                  your total in-game stats, which already bundle your talents,
+                  research, equipment, and permanent account bonuses together.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Citadel siege</h6>
-              <p class="small mb-2">
-                Use this mode to plan an opening catapult volley against citadel
-                walls—not Epic marches.
-              </p>
+              <h6 class="fw-bold mt-3">What The App Does Not Do Yet</h6>
               <ul class="border-start border-2 small">
                 <li>
-                  <strong>Battle target:</strong> Switch to
-                  <strong>Citadel siege</strong>. The Epic target panel is hidden;
-                  vs Epic bonuses do not apply to catapult strike math here.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Full Battle Simulation:
+                  </strong>
+                  The engine estimates per-stack damage and kill thresholds, but
+                  it does not yet simulate the full battle sequence. Real reports
+                  can differ slightly because enemy retaliation, wiped stacks,
+                  repeated attack rounds, and leftover enemy counts are handled
+                  by the game.
                 </li>
                 <li>
-                  <strong>Walls:</strong> Enter how many walls you need to break.
-                  Total HP is wall count × fixed HP per wall (shown under the
-                  input).
+                  <strong class="text-primary d-block d-sm-inline">
+                    Mercenary Bonus Rules:
+                  </strong>
+                  Special mercenary multipliers are not fully modeled yet.
+                  Mercenaries currently calculate using their base damage values
+                  until more reliable in-game data becomes available.
                 </li>
                 <li>
-                  <strong>Catapults:</strong> Select one or more tiers in the
-                  Catapults tab. The <strong>Citadel siege</strong> report lists
-                  recommended counts per tier and a combined volley total.
-                  <strong>Leadership</strong> is optional—enter it to compare
-                  what you can actually field vs the recommended mix.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Defensive Stats &amp; Survivability:
+                  </strong>
+                  Health mechanics, defense ratings, and
+                  <strong>Dragon Health to Army %</strong> are not yet factored
+                  into the current distribution algorithms.
                 </li>
                 <li>
-                  <strong>Damage:</strong> Per-catapult strike uses
-                  <strong>×20 vs fortification</strong>, the
-                  <strong>Fortification</strong> % on the unit card, and
-                  <strong>Catapult Strength %</strong> from Army Bonuses.
-                </li>
-                <li>
-                  <strong>Views:</strong> In citadel mode,
-                  <strong>Detail</strong> shows counts and volley damage per
-                  tier; <strong>Summary</strong> shows counts only—the full
-                  siege breakdown stays in the citadel report.
-                </li>
-                <li>
-                  <strong>Presets:</strong> Saved presets keep selected
-                  catapults, stats, bonuses, and epic target, but
-                  <strong>not</strong> citadel mode or wall count—you still
-                  switch mode and re-enter walls after loading.
+                  <strong class="text-primary d-block d-sm-inline">
+                    Double-Damage Chances:
+                  </strong>
+                  Unit double-damage chances are not currently simulated.
+                  Because of this, "lucky hits" in-game can result in slightly
+                  better performance than the app's conservative estimates.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Detail &amp; Summary views</h6>
-              <p class="small mb-2">
-                Use the floating button (bottom-right) to switch views.
-                Calculations update whenever stats, units, bonuses, or epic
-                target change.
-              </p>
+              <h6 class="fw-bold mt-3">Summary View</h6>
               <ul class="border-start border-2 small">
                 <li>
-                  <strong>Detail:</strong> Select units by category and tier;
-                  see troop counts and total stack damage on each card.
+                  <strong>Detail:</strong> select units by category and tier;
+                  each card shows the current count and stack damage.
                 </li>
                 <li>
-                  <strong>Summary:</strong> All selected units grouped by tier
-                  (highest tier first). Within each tier, rows are sorted by
-                  stack damage (highest first).
+                  <strong>Summary:</strong> selected units are grouped by tier
+                  and sorted by stack damage so the most important stacks are
+                  easy to review.
                 </li>
                 <li>
                   <strong
@@ -1006,44 +1267,42 @@
                     ></i>
                     Dice icon:</strong
                   >
-                  Marks stacks tied for the
-                  <strong>highest total damage</strong> in your army (~50%
-                  chance that stack is eliminated first in battle). This is a
-                  rule-of-thumb, not a combat simulation.
+                  marks stacks tied for the highest total damage in your army.
+                  Those stacks have the highest chance to be eliminated first.
                 </li>
                 <li>
-                  <strong>Epic selected:</strong> Summary shows estimated
-                  <strong>kills</strong> per stack (best layer by stack damage).
+                  When an epic target is selected, Summary can show estimated
+                  kills and a
                   <i
                     class="bi bi-exclamation-triangle-fill text-warning"
                     aria-hidden="true"
                   ></i>
-                  warns if a stack may not reach one enemy HP on any layer.
-                  Check your battle journal if numbers look off.
+                  warning if a stack's damage is too low to defeat a single enemy
+                  unit.
                 </li>
               </ul>
 
               <h6 class="fw-bold mt-3">Presets</h6>
               <p class="small mb-2">
-                Presets store stat inputs, selected units,
-                <strong>Army Bonuses</strong>, and the active
-                <strong>epic target</strong> in this browser only (<strong
-                  >local storage</strong
+                Presets store the active mode, stat inputs, selected units,
+                <strong>Global Modifiers</strong>,
+                <strong>Army Bonuses</strong>, epic target, and citadel wall
+                count in this browser only (<strong>local storage</strong
                 >)—nothing is uploaded.
               </p>
+              <p class="small mb-2">
+                Use the preset dropdown to load a saved setup. The action
+                buttons are ordered the same way as the toolbar:
+              </p>
               <ul class="border-start border-2 small mb-0">
-                <li>
-                  <strong>Load:</strong> Pick a name in the dropdown to apply it
-                  and open <strong>Summary</strong> view.
-                </li>
                 <li>
                   <strong>Reset:</strong> Clears stats and unit selections,
                   returns the dropdown to <em>-- Load Preset --</em>, and opens
                   <strong>Detail</strong> view. Saved presets are unchanged.
                 </li>
                 <li>
-                  <strong>Save:</strong> Enabled once at least one of
-                  Leadership, Authority, or Dominance has a value. Use
+                  <strong>Save:</strong> Enabled once the form has values worth
+                  saving (stats, walls, selected units, or modifiers). Use
                   <em>Update</em> to overwrite the selected preset or save under
                   a new name.
                 </li>
@@ -1052,63 +1311,54 @@
                   confirmation.
                 </li>
                 <li>
-                  <strong>Export / Import:</strong>
-                  <strong>Export</strong> needs a preset selected; copies an
-                  <code>a2r-preset:</code> share code (v3 includes bonuses and
-                  epic target). <strong>Import</strong> adds
-                  <em>Imported: …</em> and loads it. Older v1/v2 codes import
-                  without bonuses and/or epic.
+                  <strong>Export:</strong> Needs a preset selected; copies an
+                  <code>a2r-preset:</code> share code (v4 includes mode, wall
+                  count, modifiers, bonuses, and epic target).
+                </li>
+                <li>
+                  <strong>Import:</strong> Adds <em>Imported: ...</em> and loads
+                  it. Older codes still import with sensible defaults.
                 </li>
               </ul>
 
-              <h6 class="fw-bold mt-3">Pro-Tips</h6>
-              <div class="p-3 rounded border shadow-sm">
-                <ul class="ps-3 mb-0">
-                  <li>
-                    <strong>Below G3?</strong> Just send your best troops and
-                    mercenaries; don't worry about stacking yet.
-                  </li>
-                  <li>
-                    <strong>Optimal Stack:</strong> Select your 2–3 best
-                    Guardsman tiers. Adding monsters from the same tiers is a
-                    great way to increase damage without increasing Leadership
-                    costs.
-                  </li>
-                  <li>
-                    <div class="alert alert-warning py-2 shadow-sm my-2">
-                      <small>
-                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                        <strong>Note on Damage:</strong> Adding more types of
-                        troops lowers the total damage of each individual slot.
-                        The goal is for <strong>every type of unit</strong> to
-                        secure kills. Check your in-game journal; if a tier
-                        shows 0 kills, try selecting fewer types or tiers.
-                      </small>
-                    </div>
-                  </li>
-                  <li>
-                    <strong
-                      ><i
-                        class="bi bi-exclamation-triangle-fill text-warning me-1"
-                        aria-hidden="true"
-                      ></i
-                      >Epic kill warning:</strong
-                    >
-                    When an epic target
-                    is set and a unit shows this warning, that stack may not
-                    deal enough damage to kill at least one enemy on any layer.
-                    Try removing your <strong>lowest-damage</strong> units (or
-                    tiers) until every remaining stack can secure kills—or swap
-                    in <strong>stronger units</strong>, or use a
-                    <strong>captain with higher Leadership</strong> so your
-                    main tiers can carry more troops.
-                  </li>
-                  <li>
-                    <strong>Mercenaries:</strong> You can add more than the
-                    recommended amount. If you're lucky, they can secure extra
-                    kills, but it is not guaranteed.
-                  </li>
-                </ul>
+              <h6 class="fw-bold mt-3">Pro Tips</h6>
+              <ul class="border-start border-2 small">
+                <li>
+                  <strong>Below G3?</strong> Just send your best troops and
+                  mercenaries; stacking matters more as your account grows.
+                </li>
+                <li>
+                  <strong>Start simple:</strong> pick your 2-3 best Guardsman
+                  tiers first. Add monsters from matching tiers when you want
+                  more damage without spending Leadership.
+                </li>
+                <li>
+                  Adding too many unit types lowers the damage of each stack. If
+                  a stack shows no epic kills, try fewer tiers or stronger
+                  units.
+                </li>
+                <li>
+                  You can add more than the recommended amount of troops. If
+                  you're lucky, they can secure extra kills, but it is not
+                  guaranteed.
+                </li>
+              </ul>
+
+              <div class="alert alert-info small mt-3 mb-0">
+                <p class="mb-2">
+                  <strong>Disclaimer:</strong> All calculations provided are
+                  high-accuracy estimates. Actual in-game outcomes may vary
+                  slightly because <em>Total Battle</em> utilizes hidden,
+                  precise internal variables and random combat mechanics.
+                </p>
+                <hr class="my-2 opacity-25" />
+                <p class="mb-0 text-dark">
+                  I have poured my personal game knowledge and development
+                  effort into building an app that is intuitive, reliable, and
+                  genuinely helpful. My goal is to help fellow players optimize
+                  their troop distribution, save valuable resources, and achieve
+                  the best possible results on the battlefield.
+                </p>
               </div>
             </div>
           </div>
@@ -1156,7 +1406,7 @@
 
     <!-- The Blueprint -->
     <template id="tier-row-template">
-      <div class="card mb-2 border-danger shadow-sm tier-card">
+      <div class="card mb-2 shadow-sm tier-card app-card">
         <div class="card-body p-2">
           <div class="d-flex flex-wrap align-items-center">
             <!-- Tier Label -->
@@ -1210,7 +1460,7 @@
     </template>
 
     <template id="summary-tier-template">
-      <div class="card mb-2 shadow-sm summary-tier-card">
+      <div class="card mb-2 shadow-sm summary-tier-card app-card">
         <div class="card-body p-2">
           <div class="fw-bold mb-1 summary-tier-label"></div>
           <div class="summary-unit-container"></div>
@@ -1250,7 +1500,7 @@
     </template>
 
     <template id="epic-custom-type-template">
-      <div class="epic-custom-type card">
+      <div class="epic-custom-type card app-card">
         <div class="card-body p-2">
           <div class="small fw-bold mb-2 epic-custom-type-title"></div>
           <label class="form-label epic-mini-label epic-custom-strength-label"
@@ -1263,7 +1513,9 @@
             step="1"
             placeholder="0"
           />
-          <label class="form-label epic-mini-label epic-custom-hp-label">HP</label>
+          <label class="form-label epic-mini-label epic-custom-hp-label"
+            >HP</label
+          >
           <input
             type="number"
             class="form-control form-control-sm epic-custom-input epic-custom-hp-input mb-1"
@@ -1285,44 +1537,119 @@
       </div>
     </template>
 
-    <template id="epic-info-content-template">
+    <template id="summary-stat-row-template">
+      <div
+        class="d-flex justify-content-between align-items-center summary-row"
+      >
+        <span class="summary-stat-label text-truncate me-2"></span>
+        <span class="summary-stat-value text-nowrap fw-semibold"></span>
+      </div>
+    </template>
+
+    <template id="citadel-siege-report-template">
       <div>
-        <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
-          <span class="fw-semibold epic-info-name"></span>
-          <span
-            class="badge text-bg-secondary ms-1 epic-info-layer-badge d-none"
-          ></span>
+        <div class="fw-semibold mb-1">
+          <i class="bi bi-bricks me-1" aria-hidden="true"></i> Citadel siege
         </div>
-        <p class="small text-muted mb-2 mb-md-1 epic-info-hint">
-          Your stack uses each unit's feature % vs the combat types on this epic
-          (Flying → Melee → Mounted → Ranged → Flying).
-        </p>
-        <div class="table-responsive">
-          <table class="table table-sm table-striped mb-0 epic-squad-table">
-            <thead>
-              <tr>
-                <th>Unit</th>
-                <th>Type</th>
-                <th class="text-end">Strength</th>
-                <th class="text-end">HP</th>
-                <th>Feature</th>
-              </tr>
-            </thead>
-            <tbody class="epic-squad-tbody"></tbody>
-          </table>
+        <div class="small citadel-report-goal"></div>
+        <div class="small mt-1 citadel-report-volley d-none"></div>
+        <div class="small mt-1 citadel-report-shortfall d-none"></div>
+      </div>
+    </template>
+
+    <template id="citadel-siege-report-hint-template">
+      <div>
+        <div class="fw-semibold mb-1">
+          <i class="bi bi-bricks me-1" aria-hidden="true"></i> Citadel siege
+        </div>
+        <div class="small citadel-report-hint"></div>
+      </div>
+    </template>
+
+    <template id="bonus-catapult-strength-template">
+      <div class="card bonus-type-card">
+        <div class="card-body p-2">
+          <label
+            class="form-label bonus-mini-label"
+            for="bonus-catapults-strength"
+            >Catapult Strength %</label
+          >
+          <input
+            type="number"
+            class="form-control form-control-sm bonus-pct-input"
+            id="bonus-catapults-strength"
+            data-bonus-key="catapults-strength"
+            min="0"
+            step="0.01"
+            placeholder="0"
+            inputmode="decimal"
+          />
         </div>
       </div>
     </template>
 
-    <template id="epic-squad-row-template">
-      <tr>
-        <td class="text-nowrap epic-squad-unit"></td>
-        <td class="epic-squad-type"></td>
-        <td class="text-end epic-squad-strength"></td>
-        <td class="text-end epic-squad-hp"></td>
-        <td class="small epic-squad-feature"></td>
-      </tr>
+    <template id="mercenary-bonus-wip-template">
+      <div class="alert alert-warning py-2 px-3 mb-0 small" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
+        <strong>Mercenary database — work in progress.</strong>
+        In this version, army bonus inputs do not apply to mercenary units. Use
+        base stats from the unit cards until mercenary bonuses are supported.
+      </div>
     </template>
+
+    <div
+      class="position-fixed bottom-0 start-0 end-0 px-3 pb-3 d-none"
+      id="pwa-install-banner"
+      style="z-index: 1070"
+    >
+      <div
+        class="pwa-install-card card shadow-lg border-0 mx-auto"
+        role="region"
+        aria-label="Install A2R Toolbox"
+      >
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start gap-3">
+            <img
+              src="assets/pwa/favicon-32x32.png"
+              width="32"
+              height="32"
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+              class="flex-shrink-0 rounded"
+            />
+            <div class="flex-grow-1 min-w-0">
+              <div class="fw-semibold">Install A2R Toolbox</div>
+              <div class="small text-muted" id="pwa-install-copy">
+                Add it to your device for a faster app-like experience.
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn-close flex-shrink-0"
+              id="pwa-install-dismiss"
+              aria-label="Dismiss install prompt"
+            ></button>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              id="pwa-install-later"
+            >
+              Not now
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-primary"
+              id="pwa-install-button"
+            >
+              Install app
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div
       class="toast-container position-fixed top-0 start-0 w-100 px-3 pt-3"
@@ -1356,4 +1683,3 @@
     </div>
   </body>
 </html>
-
