@@ -197,15 +197,15 @@ export function sanitizeBonusInputs(raw) {
 
 /** Catapult Strength % only (citadel siege — no vs Epic). */
 export function getCatapultSiegeStrengthPercent(bonusState) {
-  return bonusState.catapults ?? 0;
+  return getDragonAdjustedStrengthPercent(bonusState.catapults ?? 0, bonusState);
 }
 
-export function getDragonAdjustedBaseDmg(baseDmg, bonusState) {
+export function getDragonAdjustedStrengthPercent(strengthPct, bonusState) {
   const dragonStrength = bonusState?.dragonStrength ?? 0;
   if (!bonusState || bonusState.dragonIncluded || dragonStrength <= 0) {
-    return baseDmg;
+    return strengthPct;
   }
-  return baseDmg / (1 + dragonStrength);
+  return Math.max(0, strengthPct - dragonStrength);
 }
 
 /** Fortification line on the unit card (decimal, e.g. 0.65 = 65%). */
@@ -221,7 +221,7 @@ export function getStrengthBonusPercent(unit, bonusState) {
 
   if (unit.category === "catapults") {
     pct += bonusState.catapults ?? 0;
-    return pct;
+    return getDragonAdjustedStrengthPercent(pct, bonusState);
   }
 
   const combat = getCombatType(unit.tags ?? []);
@@ -229,7 +229,7 @@ export function getStrengthBonusPercent(unit, bonusState) {
     pct += bonusState.grid[unit.category]?.[combat] ?? 0;
   }
 
-  return pct;
+  return getDragonAdjustedStrengthPercent(pct, bonusState);
 }
 
 /**
@@ -246,10 +246,9 @@ export function getEffectiveDmg(
   epicCombatTypes = null,
 ) {
   if (!bonusState) return baseDmg;
-  const adjustedBaseDmg = getDragonAdjustedBaseDmg(baseDmg, bonusState);
   const strPct = getStrengthBonusPercent(unit, bonusState);
   const featPct = combatFeatureBonus(unit.features ?? {}, epicCombatTypes);
-  return adjustedBaseDmg * (1 + strPct + featPct);
+  return baseDmg * (1 + strPct + featPct);
 }
 
 function syncLinkedBonusInputs(source) {

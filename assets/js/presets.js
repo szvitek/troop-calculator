@@ -452,6 +452,7 @@ async function resetFormToEmpty() {
     "input-leadership",
     "input-authority",
     "input-dominance",
+    "citadel-wall-count",
   ]) {
     const el = document.getElementById(id);
     if (el) el.value = "";

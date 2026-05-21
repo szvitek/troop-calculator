@@ -906,13 +906,13 @@
       </div>
 
       <div
-        class="modal modal-xl fade"
+        class="modal fade"
         id="helpModal"
         tabindex="-1"
         aria-labelledby="helpModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="helpModalLabel">
@@ -1218,8 +1218,11 @@
                   <strong class="text-primary d-block d-sm-inline">
                     Full Battle Simulation:
                   </strong>
-                  The engine estimates damage and kill thresholds, but it is not
-                  a 100% complete simulator.
+                  The engine estimates per-stack damage and kill thresholds, but
+                  it does not yet simulate the full battle sequence. Real reports
+                  can differ slightly because enemy retaliation, wiped stacks,
+                  repeated attack rounds, and leftover enemy counts are handled
+                  by the game.
                 </li>
                 <li>
                   <strong class="text-primary d-block d-sm-inline">
@@ -1276,8 +1279,8 @@
                     class="bi bi-exclamation-triangle-fill text-warning"
                     aria-hidden="true"
                   ></i>
-                  warning if a stack may not reach one enemy HP. warning if a
-                  stack's damage is too low to defeat a single enemy unit.
+                  warning if a stack's damage is too low to defeat a single enemy
+                  unit.
                 </li>
               </ul>
 

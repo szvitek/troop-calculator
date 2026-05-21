@@ -8,12 +8,15 @@ v1.4.0 - 2026-05-21
 [UX] **Army Bonuses** live inside each unit tab (Guardsmen, Specialists, Catapults, Monsters, Mercenaries) with category-specific inputs only.
 [NEW] **Global Modifiers** section added for shared strength values: **Strength against Epic %**, **Dragon included in march**, and **Dragon Strength to Army %**.
 [FIX] Dragon Strength to Army can be removed from card strength when dragon is not allowed or not included in the march; this affects both Epic march and Citadel siege calculations.
+[FIX] Damage estimates now subtract Dragon Strength from the strength bonus pool and floor per-unit battle damage before multiplying by troop count, matching in-game reports more closely.
+[FIX] Tiny floating-point drift no longer turns exact troop counts like `1` leadership into `0` recommended units.
 [UX] Category **Army Bonuses** accordions now share open/closed preference across unit tabs, so switching categories keeps the bonuses panel behavior consistent.
 [UX] Epic target presets now fill the editable layer fields; those fields are the calculation source of truth for both standard and event epics.
 [UX] Removed the optional Epic squad details accordion now that the editable layer fields show the needed enemy stats directly.
 [UX] Moved Global Modifiers above the per-tab Army Bonuses accordion so shared strength inputs sit with the related bonus controls.
 [UX] Help modal shortened into workflow steps for Epic march, Citadel siege, bonuses, presets, and known calculation gaps.
 [UX] Help modal now explains troop stacking, Ghostflame Lantern epic strength, Summary view, pro tips, and estimate disclaimers.
+[UX] Help modal now clarifies that the app estimates per-stack damage and kill thresholds, not the full retaliation battle sequence.
 [UX] Help modal walkthrough now includes screenshots for Epic march and Citadel siege setup plus app-vs-game result comparisons.
 [UX] Card borders standardized (`app-card`); tier colors on labels and accents only, not red/white tier outlines.
 [UX] Layout alignment tightened: removed unnecessary Bootstrap row gutters from non-grid sections so cards, accordions, and unit rows stay inside the main container.
@@ -22,6 +25,7 @@ v1.4.0 - 2026-05-21
 [UX] Epic/Citadel mode icons refreshed with Game Icons; Detail/Summary headings now use consistent view icons across both tools.
 [UX] Mercenaries tab: WIP alert — army bonus inputs are hidden; mercenary damage ignores bonus % until data is ready.
 [NEW] Presets and share codes (**v4**) save **Epic march vs Citadel siege** mode and **citadel wall count**; v1–v3 codes still import (defaults: epic mode, no wall goal).
+[FIX] Reset now clears the Citadel wall count along with stats, units, bonuses, and epic target fields.
 [UX] Loading a preset always opens **Summary** view for epic and citadel setups.
 [FIX] Mode switching keeps the selected Detail/Summary view, switches Citadel to Catapults, and returns Epic mode to Guards.
 [CHANGE] Citadel siege panel and help copy trimmed (removed wall reference line, redundant helper text, and stale preset wording).
